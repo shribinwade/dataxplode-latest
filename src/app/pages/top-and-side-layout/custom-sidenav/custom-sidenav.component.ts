@@ -91,7 +91,7 @@ export class CustomSidenavComponent implements OnInit, OnChanges{
     return [
       { label: 'Dashboard', route: 'admin/home', icon: 'dashboard' },
       { label: 'Analysis Tool', 
-        route: 'admin/Analysis Tool',
+        route: 'admin/analysis-tool',
         icon: 'construction',
         subItems: [
           {

@@ -20,8 +20,6 @@ const routes: Routes = [
     pathMatch: 'full' 
   },
 
-
-
   {
     path: 'dashboard',
     component: LayoutComponent,
@@ -30,7 +28,7 @@ const routes: Routes = [
       {
         path: 'admin',
         loadChildren: () => import('./modules/admin/admin.module').then(m => m.AdminModule),
-        canActivate:[AdminGuard]
+        // canActivate:[AdminGuard]
       },
       {
         path: 'user',
@@ -42,6 +40,7 @@ const routes: Routes = [
       // }
     ]
   },
+
   {
     path: 'home',
     component: HomeComponent
@@ -51,10 +50,12 @@ const routes: Routes = [
       path: 'pricing',
       component: PricingComponent
   },
+
   {
     path: 'auth',
     loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule)
   },
+
   {
     path: 'about-us',
     component: AboutUsComponent
