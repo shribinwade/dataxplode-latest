@@ -1,0 +1,151 @@
+<div class="container-fluid">
+
+  <div class="row d-flex" *ngIf="productSearchData; ">
+
+    <div class="col-lg-12" style="display: block;">
+      <!-- <div *ngIf="loadingService.isLoading | async" class="loader-container">
+          <mat-spinner style="top: 50%; left: 50%"></mat-spinner>
+        </div> -->
+      <!-- [hidden]="getdata()" -->
+      <div>
+
+        <div class="card mb-4" style="position: relative; background-color: white;">
+
+          <div class="row card-body text-start">
+
+            <div class="col-md-5">
+              <swiper-container class="mySwiper" style="--swiper-navigation-color: gray" navigation="true"
+                pagination="true" loop="false" thumbs-swiper=".mySwiper2">
+                <swiper-slide *ngFor="let images of productSearchData.extra_images">
+                  <img [src]="images" class="d-block w-100" alt="..." />
+                </swiper-slide>
+               
+              </swiper-container>
+
+              <swiper-container class="mySwiper2" space-between="10" slides-per-view="4" free-mode="true">
+                <swiper-slide *ngFor="let images of productSearchData.extra_images">
+                  <img [src]="images" class="d-block w-100" alt="..." />
+                </swiper-slide>
+              </swiper-container>
+
+            </div>
+
+            <div class="col-md-7">
+              <h6>
+                {{ productSearchData.Product_name }}
+              </h6>
+
+              <p><strong>Product SKU Code: </strong> {{ productSearchData.Product_features.ASIN }}</p>
+              <div class="row">
+                <div class="d-flex">
+                  <p>
+                    <strong>Rating: </strong>{{productSearchData.Rating_value }}
+                  </p>
+                  <app-star-rating style="display: inline-block" [stars]="productSearchData.Rating_value"
+                    [size]="1"></app-star-rating>
+                  <p>|</p>
+                  <p><strong>RatingCount: </strong>{{productSearchData.Rating_count }}</p>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="d-flex">
+                  <div class="pricing-info">
+                    <p class="mrp text-decoration-line-through"><strong>M.R.P: </strong>{{ productSearchData.MRP | currency : currency }}</p>
+                  </div>
+                  <div class="pricing-info">
+                    <p class="sp">
+                      <strong>Selling price:</strong> {{ productSearchData.Selling_Price | currency : currency }}
+                    </p>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="row">
+                <div class="d-flex">
+                  <div class="product-url">
+                    <a style="text-decoration: none; color: white;" href={{productSearchData.Product_url}}
+                      target="_blank" class="amazon-link">View on Amazon</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div style="justify-content: center">
+                  <button style="margin: 5px" class="btn btn-primary" type="submit"
+                    (click)="handleSpecificationAction()">
+                    Specification
+                  </button>
+                  <button style="margin: 5px" class="btn btn-primary" type="submit"
+                    (click)="handleBulletPointsAction()">
+                    Bullet Points
+                  </button>
+
+                  <button style="margin: 5px" class="btn btn-primary" type="submit"
+                    (click)="handleImpInfoAction()">
+                    Important Information
+                  </button>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="d-flex flex-wrap ">
+                  <P style="font-size: 1.2rem;"><b>Brand: </b> {{productSearchData.Product_features.Brand }}</P>
+                  <p style="font-size: 1.2rem;"><b>Availability: </b> <span [ngStyle]="{ 'color': productSearchData.Availablity === 'Instock' ? 'green' : 'red' }">{{productSearchData.Availablity }}</span>  </p>
+                  <!-- <P><b>Condition: </b><span>{{productSearchData.}}</span></P> -->
+                  <P><b>Review Count: </b> {{productSearchData.Review_count }}</P>
+                  <P><b>Bought: </b> {{productSearchData.bought }}</P>
+                  <P><b>Seller: </b> {{productSearchData.reseller_name }}</P>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-12">
+             
+              <p><b>Description: </b>{{productSearchData.Description }}</p>
+              <div class="row">
+                <div style="justify-content: center">
+                  <button class="btn btn-primary dropdown-toggle"  style="color: white;" type="button"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    Reviews
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" (click)="handleReviewListAction()">View Reviews</a></li>
+                    <li><a class="dropdown-item">Reviews analysis</a></li>
+                  </ul>
+                </div>
+              </div>
+
+            </div>
+              
+            
+          </div>
+        </div>
+
+
+      </div>
+
+    </div>
+    <ng-template #noReviews>
+      <div @fadeInOut *ngIf="" class="loader-container">
+        <div>
+          <!-- <mat-progress-bar mode="determinate"></mat-progress-bar> -->
+          <!-- <mat-spinner ></mat-spinner> -->
+        </div>
+        <div>
+          <p style=" margin: 2px; color: azure;">Loading... Please wait!</p>
+        </div>
+
+      </div>
+
+      <div>
+        <p class="text-center">No Product Found</p>
+      </div>
+
+    </ng-template>
+
+  </div>
+
+</div>

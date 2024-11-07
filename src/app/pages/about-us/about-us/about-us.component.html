@@ -1,0 +1,197 @@
+<div class="container-fluid p-0 ">
+    <!-- Spinner Start -->
+    <div id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+    <!-- Navbar & Hero Start -->
+    <div class="container-xxl position-relative p-0 bg-white">
+        <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
+            <a href="" class="navbar-brand p-0">
+                <!-- <h1 class="m-0"><i class="fa fa-search me-2"></i>SEO<span class="fs-5">Master</span></h1> -->
+                <img src="assets/dataxplode-logo-1.png" alt="Logo">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <span class="fa fa-bars"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav ms-auto py-0">
+                    <a href="index.html" class="nav-item nav-link ">Home</a>
+
+                    <!-- <a class="nav-item dropdown">Service</a> -->
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Service</a>
+                        <div class="dropdown-menu m-0">
+
+                            <a href="/" class="dropdown-item">Product Search</a>
+                            <a href="/" class="dropdown-item">Keyword Search</a>
+                            <a href="/" class="dropdown-item">AI Development</a>
+                            <a href="/" class="dropdown-item">Competitor Analysis</a>
+                            <a href="/" class="dropdown-item">Automation</a>
+                            <a href="/" class="dropdown-item">Data Acquisition</a>
+
+                        </div>
+                    </div>
+                    <!-- <a href="project.html" class="nav-item nav-link">Project</a> -->
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Products</a>
+                        <div class="dropdown-menu m-0">
+                            <a routerLink="services" class="dropdown-item">MarketscopePro</a>
+                            <a href="/" class="dropdown-item">AnnotaLab</a>
+
+                        </div>
+                    </div>
+                    <a (click)="PricingPage()" class="nav-item nav-link">Pricing</a>
+                    <a href="contact.html" class="nav-item nav-link">Contact</a>
+                </div>
+
+            </div>
+        </nav>
+    </div>
+
+    <div class="header d-flex justify-content-center align-items-center center m-3 text-primary">
+        <h3 class="fw-bold">About Us</h3>
+    </div>
+
+    <div class="content container">
+
+        <div class="row d-flex justify-content-center align-items-start">
+
+            <div class="col-lg-6 col-sm-12 mt-4">
+                <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+                    
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <div class="card carousel-card">
+                                <div class="card-body carousel-body">
+                                    <h5 class="text-primary">Market Intelligence</h5>
+                                    <p>Market intelligence is the key to understanding the dynamics of your industry and staying ahead of your competitors.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="card carousel-card">
+                                <div class="card-body carousel-body">
+                                    <h5 class="text-primary">Competitive Landscape</h5>
+                                    <p>In the business world, the rearview mirror is always clearer than the windshield." — Warren Buffett</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="card carousel-card">
+                                <div class="card-body carousel-body">
+                                    <h5>Second slide label</h5>
+                                    <p>Some representative placeholder content for the second slide.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+                
+            </div>
+
+            <div class="col-lg-6 col-sm-12 mt-4 mb-5">
+
+                <div class="card shadow">
+
+                    <div class="card-body">
+                        <div class="info-head-first">
+                            <div class="head mb-4">
+                                <h6 class="fw-bold text-primary">Who We Are</h6>
+                            </div>
+                            <div class="info">
+                                <p>At DataXplode, we deliver cutting-edge market intelligence solutions tailored for
+                                    startups and manufacturers.
+                                    Our mission is to empower businesses with the insights and tools needed to excel
+                                    in today’s competitive landscape.</p>
+                            </div>
+                        </div>
+
+                        <div class="info-head-second">
+                            <div class="head mb-4">
+                                <h6 class="fw-bold text-primary">Our Vision</h6>
+                            </div>
+                            <div class="info">
+                                <p>To redefine market intelligence through a groundbreaking software ecosystem that transforms how businesses access and leverage data, 
+                                   fostering innovation and growth.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="info-head-third ">
+                            <div class="head mb-4">
+                                <h6 class="fw-bold text-primary">Core Values</h6>
+                            </div>
+                            <div class="info">
+                                <ul class="core-values">
+                                    <li>
+                                        <p><Strong>Innovation:</Strong>  We develop advanced tools to keep our clients ahead of the curve</p>
+                                    </li>
+                                    <li>
+                                        <p><strong>Integrity:</strong>  We uphold the highest standards of transparency and trust.</p>
+                                    </li>
+                                    <li>
+                                        <p> <strong>Customer-Centricity:</strong>  We are dedicated to delivering exceptional value and exceeding client expectations.</p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="info-head-fourth">
+                            <div class="head mb-4">
+                                <h6 class="fw-bold text-primary">Our Products</h6>
+                            </div>
+                            <div class="info">
+                                     <div class="our-product d-flex">
+                                       
+                                        <div class="our-product-box m-1">
+                                            <div class="head mb-2 mt-4 ">
+                                                <p class="fw-bold">MarketScopePro</p>
+                                            </div>
+                                            <div class="info">
+                                                <p>MarketScopePro excels in market analysis, 
+                                                   providing deep insights into industry trends and competitor performance to help businesses make informed decisions.
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <div class="our-product-box m-1">
+                                            <div class="head mb-2 mt-4 ">
+                                                <p class="fw-bold">AnnotaLab</p>
+                                            </div>
+                                            <div class="info">
+                                                <p>
+                                                   AnnotaLab simplifies and reduces the effort required for data gathering, 
+                                                   offering powerful tools for research and analysis to streamline your workflow.
+                                                </p>
+                                            </div>
+
+                                        </div>
+                                     
+                                     </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer bg-primary">
+        <p>© 2024 DataXplode. All rights reserved. | <a>Privacy Policy</a> | <a>Terms of Service</a></p>
+    </footer>
+</div>

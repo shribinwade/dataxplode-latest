@@ -1,0 +1,108 @@
+<section>
+
+    <div class="header">
+        <!-- <span>{{Title}}</span> -->
+        <mat-icon class="mat-icon" aria-hidden="false" (click)="closeModal('cancel')" aria-label=""
+            fontIcon="close"></mat-icon>
+    </div>
+    <div class="content">
+
+   
+        <div class="box-container">
+
+            <div id="box1">
+                <div class="namelabel" id="y">Market Growth Rate</div>
+            </div>
+
+            <div class="innerbox" id="box3">
+                <div class="chart">
+                    <div class="y-axis">
+                        <div class="tick" style="top: 25%">
+                            <h6>High</h6>
+                        </div>
+
+                        <div class="tick" style="top: 68%">
+                            <h6>Low</h6>
+                        </div>
+                    </div>
+
+                    <div class="x-axis">
+                        <div class="tick" style="left: 28%">
+                            <h6>High</h6>
+                        </div>
+
+                        <div class="tick" style="left: 74%">
+                            <h6>Low</h6>
+                        </div>
+                    </div>
+                    <div class="arrow y-arrow"></div>
+                    <div class="arrow x-arrow"></div>
+
+                    <div class="bcg-matrix-container" >
+
+                        <div class="bcg-matrix">
+                            <div class="bcg-cell star">
+                                <div class="title">Star</div>
+                                <div class="icon"><i class="icon fas fa-star"></i></div>
+                                <div class="description">
+                                    <!-- Example Angular code, ensure your Angular app is properly set up -->
+                                    <div *ngFor="let data of brands.Brand_list">
+                                        <p *ngIf="data.bcg_value === 'Star'">
+                                            {{ data.Brand }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bcg-cell question-mark">
+                                <div class="title">Question mark</div>
+                                <div class="icon">
+                                    <i class="icon fas fa-question-circle"></i>
+                                </div>
+                                <div class="description">
+                                    <div *ngFor="let data of brands.Brand_list">
+                                        <p *ngIf="data.bcg_value === 'Question Mark'">
+                                            {{ data.Brand }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bcg-cell cash-cow">
+                                <div class="title">Cash cow</div>
+                                <div class="icon"><i class="icon fas fa-dollar-sign"></i></div>
+                                <div class="description">
+                                    <div *ngFor="let data of brands.Brand_list">
+                                        <p *ngIf="data.bcg_value === 'Cash Cow'">
+                                            {{ data.Brand }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bcg-cell dog">
+                                <div class="title">Dog</div>
+                                <div class="icon"><i class="icon fas fa-dog"></i></div>
+                                <div class="description">
+                                    <div *ngFor="let data of brands.Brand_list">
+                                        <p *ngIf="data.bcg_value === 'Dog'">
+                                            {{ data.Brand }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="innerbox" id="box2">
+                <div class="namelabel" id="x">Market Share</div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="footer">
+        <button class="btn btn-outline-dark" (click)="closeModal('no')">cancel</button>
+    </div>
+</section>

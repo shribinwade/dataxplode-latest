@@ -1,0 +1,115 @@
+
+
+
+<div class="flex-container m-0">
+  
+    <div class="card shadow header mt-2">
+     
+        <h3>Market Leader</h3>
+     
+    </div>
+  
+
+    <div class="card shadow filters mt-3">
+      <div class="card-body d-flex justify-content-end ">
+        <div class="m-1">
+           <a  (click)="handleBCGMatrixAction()" class="btn viewBCGTag" >View BCG Matrix</a>
+        </div>
+        <div class="m-1">
+          <button [disabled]="data!=null? false: true" class="btn btn-success" (click)="exportToExcel()">Export Excel</button>
+        </div>
+      </div>
+    </div>
+  
+    <div class="card shadow example-container ">
+      <section class="card-body example-table-container " >
+        <!-- (matSortChange)="announceSortChange($event)" -->
+        <table  mat-table [dataSource]="dataSource" matSort>
+          <!-- data Title Column -->
+          <ng-container matColumnDef="index">
+            <th mat-header-cell *matHeaderCellDef>#</th>
+            <td mat-cell *matCellDef="let data; let i = index">
+              {{ i + 1 }}
+            </td>
+          </ng-container>
+  
+          <!-- data Detail Column -->
+          <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Brand</th>
+              <td mat-cell *matCellDef="let element">{{ element.brand }}</td>
+            </ng-container>
+  
+            <ng-container matColumnDef="company">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Company Name</th>
+              <td mat-cell *matCellDef="let element">{{ element.company }}</td>
+            </ng-container>
+            <ng-container matColumnDef="segment">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Segment</th>
+              <td mat-cell *matCellDef="let element">{{ element.segment }}</td>
+            </ng-container>
+            <ng-container matColumnDef="marketShare">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Market Share</th>
+              <td mat-cell *matCellDef="let element" [ngClass]="{'high': element.marketShare === 'High', 'low': element.marketShare === 'Low'}">{{ element.marketShare }}</td>
+            </ng-container>
+             <ng-container matColumnDef="MarketGrouthRate">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Market Growth Rate</th>
+              <td mat-cell *matCellDef="let element" [ngClass]="{'high': element.MarketGrouthRate === 'High', 'low': element.MarketGrouthRate === 'Low'}">{{ element.MarketGrouthRate }}</td>
+            </ng-container> 
+            <ng-container matColumnDef="bcgValue">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>BCG Value</th>
+              <td mat-cell *matCellDef="let element" [ngClass]="{'star': element.bcgValue === 'Star',
+                                                                 'question-mark': element.bcgValue === 'Question Mark',
+                                                                 'dog': element.bcgValue === 'Dog',
+                                                                 'cash_cow':element.bcgValue==='Cash Cow'}">{{ element.bcgValue }}</td>
+            </ng-container> 
+            <!-- <ng-container matColumnDef="financial">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Financial</th>
+              <td mat-cell *matCellDef="let element">
+                
+                <a style="border: none; text-decoration: underline;" (click)="handleBulletPointsAction()" class="btn btn-outline-primary">view</a></td>
+            </ng-container>  -->
+            <!-- <ng-container matColumnDef="type">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Company Type</th>
+              <td mat-cell *matCellDef="let element"><select>
+                <option value="public">
+                      public 
+                  </option>
+                <option value="private">
+                     private
+                  </option>
+               
+            </select></td>
+            </ng-container>  -->
+  
+  
+          <!-- <ng-container matColumnDef="">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Financials</th>
+            <td mat-cell *matCellDef="let data">
+              <img
+                width="35px"
+                height="35px"
+                [src]=""
+                alt=""
+              />
+            </td>
+          </ng-container> -->
+  
+         
+  
+          <!-- Header and Row Definitions -->
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns" ></tr>
+        </table>
+      </section>
+    
+  
+    </div>
+    
+  
+  </div>
+
+
+
+
+  
+  

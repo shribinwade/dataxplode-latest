@@ -1,0 +1,47 @@
+<a 
+  class="menu-item" 
+  mat-list-item (click)="toggleMenu()" 
+  [routerLink]="item.route"
+  routerLinkActive="selected-menu-item" 
+  #rla="routerLinkActive" 
+  [activated]="rla.isActive">
+    
+  <mat-icon [fontSet]="rla.isActive ? 'material-icons':'material-icons-outlined'" matListItemIcon
+        color="primary">{{item.icon}}</mat-icon>
+    <span matListItemTitle *ngIf="profilePicSize===32? 'false':'true'">{{item.label}}</span>
+
+    <span *ngIf="item.subItems" matListItemMeta>
+
+        <span *ngIf="nestedMenuOpen; else less">
+            <mat-icon>expand_less</mat-icon>
+        </span>
+
+        <ng-template #less>
+            <span>
+                <mat-icon>expand_more</mat-icon>
+            </span>
+        </ng-template>
+    </span>
+</a>
+
+<div @expandContractMenu *ngIf="item.subItems && nestedMenuOpen">
+
+    <a 
+      *ngFor="let subItem of item.subItems"
+      class="menu-item "
+      [ngClass]="{'indented': !collaped}"
+      mat-list-item 
+      
+      [routerLink]="item.route+'/'+subItem.route"
+      routerLinkActive 
+      #rla="routerLinkActive" 
+      [activated]="rla.isActive">
+        
+        <mat-icon 
+              [fontSet]="rla.isActive ? 'material-icons':'material-icons-outlined'" 
+              matListItemIcon
+              color="primary">{{subItem.icon}}</mat-icon>
+        <span matListItemTitle *ngIf="profilePicSize===32? 'false':'true'">{{subItem.label}}</span>
+ 
+    </a>
+</div>

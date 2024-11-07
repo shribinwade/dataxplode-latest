@@ -1,0 +1,129 @@
+.main-container {
+    // border: 2px solid #504e4e;
+    background-color: #f4f4f4;
+    height: 100vh;
+}
+
+.header {
+    background-color: white;
+    color: #3f3d3d;
+    padding: 1rem;
+}
+
+.loader-container {
+    position: absolute;
+    top: 0;
+    left: 10px;
+    right: 10px;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(35, 33, 33);
+    opacity: 0.9;
+    color: white;
+    z-index: 10000px;
+}
+
+.market-search-card{
+    position: relative;
+}
+.market-search-card .toggle{
+    position: absolute;
+    top: 1px;
+    right: 1px;
+    transform: translateY(0%);
+    height: 15px;
+    width: 15px;
+    background-color: blue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    color: white;
+    font-size: 11px;
+    
+}
+
+.toggle:hover{
+    cursor: pointer;
+}
+
+.btn{
+    position: relative;
+ }
+
+ //button loading
+ 
+ .button--loading .button--text {
+     visibility: hidden ;
+     opacity: 0;
+ }
+ 
+ .input-field {
+     position: relative;
+ }
+ 
+
+.button--loading::after{
+ content: "";
+ position: absolute;
+ width: 16px;
+ height: 16px;
+
+ top: 0;
+ left: 0;
+ right: 0;
+ bottom: 0;
+ margin: auto;
+ border: 3px solid transparent;
+ border-top-color: #ffffff;
+ border-radius: 50%;
+ animation: button-loading-spinner 1s ease-out infinite;
+}
+
+.border-light{
+    border: 2px solid #ddd !important;
+}
+
+
+
+
+.container--loading .container--text {
+    position: absolute;
+    visibility: hidden;
+    opacity: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+}
+
+.container--loading::after {
+    content: "";
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    border: 3px solid transparent;
+    border-top-color: #ffffff;
+    border-radius: 50%;
+    animation: button-loading-spinner 1s ease-out infinite;
+}
+
+@keyframes button-loading-spinner {
+    from {
+        transform: rotate(0turn);
+    }
+    to {
+        transform: rotate(1turn);
+    }
+}

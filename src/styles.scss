@@ -1,0 +1,143 @@
+
+
+.mat-primary {
+  color: #3f51b5;
+ }
+
+
+:root {
+  --primary: #2124B1;
+  --secondary: #4777F5;
+  --light: #F7FAFF;
+  --dark: #1D1D27;
+  --body-font-size: 0.875rem;
+}
+
+
+
+html,
+body {
+
+  height: 100%;
+  margin: 0;
+  padding: 0;
+
+  font-size: clamp(0.6rem, 1vw, 2.5rem);
+}
+
+
+body {
+  font-family: Roboto, Arial, sans-serif;
+  margin: 0;
+}
+
+.basic-container {
+  padding: 5px;
+}
+
+.version-info {
+  font-size: 8pt;
+  float: right;
+}
+
+// snackbar error css
+.red-snackbar{
+  // background-color: rgb(236, 8, 8) !important;
+  // color: white !important;
+  --mdc-snackbar-container-color: red;
+  --mat-mdc-snack-bar-button-color: white;
+}
+
+.green-snackbar {
+  // background-color: rgb(9, 174, 9) !important;
+  // color: black;
+  --mdc-snackbar-container-color: green;
+  --mat-mdc-snack-bar-button-color: white;
+}
+
+.read-more-animation {
+  transition: all 0.3s ease;
+}
+
+// $mat-primary:(
+//   main: #cc0000,
+//   lighter: #f0b3b3,
+//   darker: #b90000,
+//   200: #cc0000,
+//   //For slide toggle
+//   contrast:
+//   (
+//     main: #ffffff,
+//     lighter: #000000,
+//     darker: #ffffff,
+
+//   ),
+// );
+
+// $theme-primary:  mat-palette( $mat-primary,main,lighter,darker);
+// $theme-accent: mat-palette(mat.$indigo-palette, A200, A100, A400);
+
+// $my-theme: mat.define-light-theme(
+//    (
+//     color: (
+//       primary: $theme-primary,
+//       accent: $theme-accent,
+//     ),
+//     typography: mat.define-typography-config(),
+//     density: 0,
+//    )
+
+// );
+
+// @include mat.all-component-themes($my-theme);
+
+//tooltip css
+
+.ng-tooltip {
+  position: absolute;
+  max-width: 150px;
+  font-size: 14px;
+  text-align: center;
+  color: #f8f8f2;
+  padding: 3px 8px;
+  background: #282a36;
+  border-radius: 4px;
+  z-index: 1000;
+  opacity: 0;
+}
+.ng-tooltip:after {
+  content: "";
+  position: absolute;
+  border-style: solid;
+}
+.ng-tooltip-top:after {
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-color: black transparent transparent transparent;
+}
+.ng-tooltip-bottom:after {
+  bottom: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-color: transparent transparent black transparent;
+}
+.ng-tooltip-left:after {
+  top: 50%;
+  left: 100%;
+  margin-top: -5px;
+  border-width: 5px;
+  border-color: transparent transparent transparent black;
+}
+.ng-tooltip-right:after {
+  top: 50%;
+  right: 100%;
+  margin-top: -5px;
+  border-width: 5px;
+  border-color: transparent black transparent transparent;
+}
+.ng-tooltip-show {
+  opacity: 1;
+}

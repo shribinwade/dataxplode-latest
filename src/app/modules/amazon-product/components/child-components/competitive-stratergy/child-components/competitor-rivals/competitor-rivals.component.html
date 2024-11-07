@@ -1,0 +1,32 @@
+
+
+<div class="card" [hidden]="pageHidden" >
+    <div>
+       
+     <div class="IndustryGrowth">
+        <p style="font-weight: bold;">Industry Growth <i appToolTip  tooltip={{IndustryGrowth.definition}} placement="bottom" [delay]="500"  class="fa fa-info-circle" style="font-size:1rem;color:rgb(0, 119, 255)"></i> : </p>
+        <select class="form-select"  aria-label="Default select example">
+         <option selected [value]="">{{IndustryGrowth.Industry_Growth}}</option>
+        </select>
+     </div>
+
+     <div class="FixedCost">
+         <p  style="font-weight: bold; margin: 0;" >Fixed Cost <i appToolTip tooltip={{FixedCost.definition}} placement="bottom" [delay]="500" class="fa fa-info-circle" style="font-size:1rem;color:rgb(0, 119, 255)"></i> : </p> 
+         
+         <select class="form-select" [(ngModel)]="FixedCostValue" aria-label="Default select example">
+             <option selected [value]="">{{FixedCost.Fixed_Cost}}</option>
+         </select>
+     </div>
+
+     <div class="ExitBarriers">
+         <p style="font-weight: bold;">Exit Barriers <i appToolTip  tooltip="{{ExitBarriers?.definition}}" placement="bottom" [delay]="500"  class="fa fa-info-circle" style="font-size:1rem;color:rgb(0, 119, 255)"></i> : </p>
+         <textarea class="form-control" style="width: 78%; min-height: 30rem; margin-bottom: 10px;" [ngModel]="formattedExitBarriers" >
+          
+         </textarea>
+     </div>
+         
+    </div>
+ </div>
+
+
+

@@ -1,0 +1,7 @@
+<div class="m-2 p-2 d-flex  justify-content-end align-items-center" >
+    <label for="year-select" >Select Year: </label>
+    <select class="form-select" style="width: 10%;" id="year-select" [(ngModel)]="selectedYear" (change)="onYearChange()">
+      <option *ngFor="let year of availableYears" [value]="year">{{ year }}</option>
+    </select>
+</div>
+  <canvas #barChart ></canvas>

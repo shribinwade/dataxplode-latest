@@ -1,0 +1,38 @@
+<div class="sidenav-content">
+  <div >
+    <div class="sidenav-header">
+        <img [width]="profilePicSize" [height]="profilePicSize" src="profile.jpg" alt="">
+        <div class="header-text"  [ngClass]="profilePicSize === 32 ? 'text-hidden' : 'text-visible'">
+          <h2>{{role}}</h2>
+          <p>{{userName}}</p>
+        </div>
+    </div>
+    <mat-nav-list >
+    
+        <div *ngFor="let item of menuItems">
+          <app-menu-item [item]="item" [customStyles]=customStyles ></app-menu-item>
+        </div> 
+  
+    </mat-nav-list>
+  </div>
+   
+  
+  <div class="sidenav-footer">
+       
+       <div  class="p-4 text-center "  [ngClass]="profilePicSize === 32 ? 'text--footer-hidden' : 'text-visible'">
+        <mat-divider></mat-divider>
+        <a class="bottom-a" href="/"> © 2024 MarketScopePro </a>
+        <br>
+        <a class="bottom-a" href="/"> Powered by DataXplode </a>
+       </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+

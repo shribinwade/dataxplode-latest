@@ -1,0 +1,13 @@
+<h4 mat-dialog-title>Important Information: </h4>
+<!-- *ngIf="bulletPoint.length > 0"> -->
+<mat-dialog-content >
+  <div>
+    <ul>
+      <li *ngFor="let point of impinfo">{{ point }}</li>
+    </ul>
+  </div>
+</mat-dialog-content>
+               
+<mat-dialog-actions>
+  <button class="btn btn-danger" (click)=closepopup()>Close</button>
+</mat-dialog-actions>

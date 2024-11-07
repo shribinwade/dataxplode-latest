@@ -1,0 +1,119 @@
+.content{
+   
+    background:  #ebe9e9;
+    width: 100%;
+    padding: 5px;
+    margin-top: 0;
+ }
+ .form-control{
+    width: 14rem;
+  }
+
+
+.col-md-3{
+   padding: 0 0;
+}
+.active{
+   background-color: #00575b;
+   text-align: center;
+   color: rgb(255, 255, 255);
+   padding: 8px;
+}
+a{
+   text-align: center;
+   display: inline-block;
+   width: 100%;
+   text-decoration: none;
+   padding: 8px;
+   font-weight: bold;
+}
+a:hover{
+    background-color: rgba(0,0,0,0.1);
+    cursor: pointer;
+}
+
+main{
+   // border: 1px solid #ddd;
+}
+
+main>*{
+   height: 100%;
+}
+
+
+
+
+
+
+
+
+
+
+
+ .loader-container{
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(35, 33, 33);
+  padding: 20px;
+  text-align: center;
+  z-index: 101;
+  opacity: 0.9;
+}
+ 
+.mat-mdc-header-row{
+  text-align: center;     
+  background-color: #00575b;
+  color: white;
+  font-weight: bold;
+  word-spacing: 2px;
+  z-index: 0 !important;
+  
+ }
+ .mat-mdc-row:nth-child(even) {
+  background-color: #f1f1f1; /* Set the background color for even rows */
+}
+
+.mat-mdc-row:nth-child(odd) {
+  background-color: #ffffff; /* Set the background color for odd rows */
+} 
+.mat-mdc-row:hover .mat-mdc-cell {
+  background-color: #f1f1f1;
+} 
+
+.titles{
+   border: 1px solid #ddd; padding: 8px;   text-align: center;     
+   background-color: #00575b;
+   color: white;
+   font-weight: bold;
+   word-spacing: 2px;
+}
+.example-container {
+  height: 100%;
+  overflow: auto;
+}
+
+table {
+  width: 100%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

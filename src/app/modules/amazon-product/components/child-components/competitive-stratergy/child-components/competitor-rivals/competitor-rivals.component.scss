@@ -1,0 +1,37 @@
+.content{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+}
+
+.IndustryGrowth{
+   display: flex;
+   padding: 5px;
+ 
+   justify-content: start;
+   align-items: start;
+
+}
+
+.FixedCost{
+    display: flex;
+    padding: 5px;
+   
+    justify-content: start;
+    align-items: center;
+}
+.ExitBarriers{
+    display: flex;
+    padding: 5px;
+   
+    justify-content: start;
+    align-items: start;
+  
+}
+.form-select{
+    width: 30% !important;
+}
+p{
+    padding: 5px;
+}

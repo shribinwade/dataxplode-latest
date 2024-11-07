@@ -1,0 +1,145 @@
+<h4 mat-dialog-title>Reviews</h4> 
+<!-- <div *ngIf="loadingService.isLoading | async" class="loader-container" >
+  <mat-progress-bar  mode="indeterminate"></mat-progress-bar>
+  <mat-spinner  style="top: 25%; left: 46%;"></mat-spinner>
+</div> -->
+<mat-dialog-content style="height: 100vh;">
+
+
+
+ <!-- <label for="platform" class="card-text">Rating</label> -->
+    
+
+  <div class="tagbtn">
+          <button [disabled]="data==null || isLoading" *ngIf="!showChart" class="btn btn-primary" [ngClass]="{'button--loading ': isLoading}" 
+                   (click)="OpenReviewAnalysisChart()"
+                  style="width: 20%;"
+          >
+            <span *ngIf="isLoading" style="display:inline-block; text-align: center; width: 100%;">Analysing please wait..</span>
+            <span *ngIf="!isLoading">Show Review Analysis</span>
+          </button>
+
+          <button *ngIf="showChart" (click)="closechart()" class="btn btn-danger">
+              Close Review Analysis
+          </button>    
+  </div>
+
+  <div class="">
+       
+  </div>
+
+  <div *ngIf="showChart">
+    <div class="card mt-2">
+      <app-review-analysis-chart [data]="chartData" ></app-review-analysis-chart>
+    </div> 
+  </div>
+
+  <div *ngIf="data">
+    <div class="card mt-2">
+         <app-review-bar-chart [data]="data.Amazon_review_info"></app-review-bar-chart>
+    </div>
+  </div>
+
+
+  <div class="pt-3">
+    <p style="font-size: large;"> Filters</p> 
+  </div>
+
+  <div class="row mb-3">
+    <div class="form-group col-md-2">
+        <label for="ratingSelect">Rating</label>
+        <select class=" form-select form-select-sm" id="ratingSelect" (change)="applyFilter($event)">
+          <option>Rating</option>
+          <option *ngFor="let rating of ratings" [value]="rating">
+            {{ rating == 4 ? (rating + ' & Up') : rating }}
+          </option>
+        </select>
+    </div>
+
+    <div class="form-group col-md-3">
+        <label for="sortOrderSelect">Sort Order</label>
+        <select class="form-select form-select-sm" id="sortOrderSelect" (change)="changeSortOrder($event)">
+          <option value="ratingLowToHigh">Rating Low to High</option>
+          <option value="ratingHighToLow">Rating High to Low</option>
+          <option value="date">Date</option>
+        </select>
+    </div>
+
+    <div class="col-md-7">
+
+    </div>
+  </div>  
+
+
+  
+  <div class="mt-2">
+    <div class="card p-3" style="position: relative; min-height: 250px; overflow: auto;">
+      <div @fadeInOut *ngIf="isLoadingReviews"  class="loader-container" >
+        <mat-progress-bar  mode="indeterminate"></mat-progress-bar>
+        <mat-spinner  style="top: 25%; left: 46%;"></mat-spinner>
+      </div>
+     
+      <!-- (matSortChange)="announceSortChange($event)" -->
+        <table mat-table [dataSource]="dataSource" matSort  class="mat-elevation-z1 p-3">
+    
+          <ng-container matColumnDef="index">
+            <th mat-header-cell *matHeaderCellDef > No. </th>
+            <td mat-cell *matCellDef="let review; let i = index"> {{i + 1}} </td>
+          </ng-container>
+          
+          <!-- Review Title Column -->
+          <ng-container matColumnDef="reviewTitle">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Title </th>
+            <td mat-cell *matCellDef="let review"> {{review.reviewTitle}} </td>
+          </ng-container>
+      
+          <!-- Review Detail Column -->
+          <ng-container matColumnDef="reviewDetail">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Detail </th>
+            <td mat-cell *matCellDef="let review"> {{review.reviewDetail}} </td>
+          </ng-container>
+  
+    
+      
+          <!-- Rating Column -->
+          <ng-container matColumnDef="rating">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Rating </th>
+     
+            <td mat-cell *matCellDef="let review">
+              <div class="ratingColValue">
+               <p style="margin: 0.3rem !important">{{review.rating}}</p> 
+                <app-star-rating [stars]="review.rating" [size]="1"></app-star-rating>
+              </div>
+              
+            </td>
+          </ng-container>
+      
+          <!-- Reviewed By Column -->
+          <ng-container matColumnDef="reviewed_by_name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Reviewed By </th>
+            <td mat-cell *matCellDef="let review"> {{review.reviewed_by_name}} </td>
+          </ng-container>
+      
+          <!-- Reviewed Date Column -->
+          <ng-container matColumnDef="reviewed_date">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Reviewed Date </th>
+            <td mat-cell *matCellDef="let review"> {{review.reviewed_date}} </td>
+          </ng-container>
+      
+          <!-- Verified Purchase Column -->
+          <ng-container matColumnDef="verfied_purchase">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Verified Purchase </th>
+            <td mat-cell *matCellDef="let review"> {{review.verfied_purchase}} </td>
+          </ng-container>
+      
+          <!-- Header and Row Definitions -->
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+     
+    </div>
+  </div>  
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button class="btn btn-danger" mat-dialog-close>Close</button>
+</mat-dialog-actions>

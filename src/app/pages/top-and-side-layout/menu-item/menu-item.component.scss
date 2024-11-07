@@ -1,0 +1,22 @@
+:host * {
+    transition: all 500ms ease-in-out;
+}
+
+
+.mat-mdc-list-item{
+   
+    border-radius: 0 !important;
+}
+
+.selected-menu-item{
+    border-left-color: blue !important;
+}
+
+.menu-item{
+    border-left: 5px solid;
+    border-left-color: rgba(0,0,0,0);
+}
+
+.indented {
+    --mat-list-list-item-leading-icon-start-space: 48px;
+}

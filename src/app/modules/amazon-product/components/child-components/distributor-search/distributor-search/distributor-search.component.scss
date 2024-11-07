@@ -1,0 +1,89 @@
+.loader-container{
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-width: 100%;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(35, 33, 33);
+    padding: 20px;
+    z-index: 100;
+    opacity: 0.9;
+}
+
+.TableContent{
+position: relative;
+text-align: center;
+overflow: auto;
+}
+
+.mat-mdc-header-row{
+    text-align: center;     
+    background-color: #009688;
+    color: white;
+    font-weight: bold;
+    word-spacing: 2px;
+  } 
+  
+  .mat-mdc-row:nth-child(even) {
+    background-color: #f1f1f1; /* Set the background color for even rows */
+  }
+  
+  .mat-mdc-row:nth-child(odd) {
+    background-color: #ffffff; /* Set the background color for odd rows */
+  } 
+  .mat-mdc-row:hover .mat-mdc-cell {
+    background-color: #f1f1f1;
+  } 
+
+  
+.supplierBox{
+    margin: 16px;
+    text-align: center;
+}
+
+.searchTab{
+    display: flex;
+    gap: 3px;
+    justify-content: start;
+    align-items: start;
+    overflow: auto;  
+    padding: 5px;
+}
+
+
+@media (max-width: 992px) {
+    .searchTab {
+      flex-direction: column;
+      justify-content: end;
+
+    }
+}
+
+
+
+.header{
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  background-color: #00575b;
+  color: white;
+  padding: 10px;
+  border-radius: 8px; 
+  margin: 10px;  
+}
+
+.filerLocation{
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  align-items: center;
+}
+
+.card-footer{
+
+}

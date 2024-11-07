@@ -1,0 +1,84 @@
+<!-- Top nav bar -->
+<mat-toolbar class="mat-elevation-z3">
+     <!-- <button mat-icon-button (click)="toggleSideNav()" *ngIf="!isMobile; else mobileNav">   -->
+      <button mat-icon-button (click)="toggleSideNav()" >  
+      <mat-icon >menu</mat-icon>
+      <!-- <mat-icon *ngIf="!isExpanded ">menu</mat-icon> -->
+     </button>
+
+    <!-- <ng-template #mobileNav>
+      <button mat-icon-button (click)="toggleSideNav()">
+        <mat-icon *ngIf="!sideNavDefaultOpened && isMobile">menu</mat-icon>
+        <mat-icon *ngIf="sideNavDefaultOpened && isMobile">close</mat-icon>
+      </button>
+    </ng-template> -->
+    <span class="nav-spacer"></span>
+
+    <button class="hidden-sm" mat-icon-button [mat-menu-trigger-for]="profile">
+      <mat-icon>
+        account_circle
+      </mat-icon>
+    </button>
+
+    <mat-menu #profile="matMenu" [overlapTrigger]="false">
+     <ng-template matMenuContent>
+      <button mat-menu-item>
+        <mat-icon>person</mat-icon>
+        <span>Profile</span>
+       </button>
+
+       <button mat-menu-item>
+        <mat-icon>inbox</mat-icon>
+        <span>Inbox</span>
+       </button>
+
+       <button mat-menu-item>
+        <mat-icon>settings</mat-icon>
+        <span>Setting</span>
+       </button>
+
+       <button (click)="logout()" mat-menu-item>
+        <mat-icon>logout</mat-icon>
+        <span>Log out</span>
+       </button>
+     </ng-template>
+       
+    </mat-menu>
+
+</mat-toolbar>
+
+
+<!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+
+<mat-sidenav-container>
+  <mat-sidenav #sidenav   style="border-right: 1px solid #ddd; border-radius: 0%;"   [(opened)]="sideNavDefaultOpened" [mode]="sideNavMode" [ngStyle]="{ 'width.px': isExpanded ? openWidth : closeWidth }">
+    <app-custom-sidenav [customStyles]="{ 'width.px': isExpanded ? openWidth : closeWidth }"></app-custom-sidenav>
+  
+ </mat-sidenav>
+ <mat-sidenav-content [ngStyle]="{ 'margin-left.px': isExpanded ? openWidth : closeWidth }">
+     <router-outlet></router-outlet>
+ </mat-sidenav-content>
+           
+</mat-sidenav-container>
+
+
+
+<!-- //SideNav -->
+
+  
+<!-- 
+     sidebar -->
+    <!-- <mat-sidenav   [(opened)]="sideNavDefaultOpened"  [style.width]="'240px'">
+       <app-custom-sidenav></app-custom-sidenav>
+    </mat-sidenav>
+    sideContent -->
+    <!-- <mat-sidenav-content class="content">
+
+      <!<router-outlet></router-outlet> -->
+    <!-- </mat-sidenav-content> -->
+     <!-- --> 
+
+  
+  
+  

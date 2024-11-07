@@ -1,0 +1,48 @@
+<div class="card" [hidden]="pageHidden">
+    <div>
+
+     <div class="FixedCost">
+           
+        <p for="rangeSelect" style="font-weight: bold;">Number of Buyers  : </p>
+            <select  class="form-select" id="rangeSelect">
+              <option value="0-100">0-100</option>
+              <option value="100-1k">100-1k</option>
+              <option value="1k-10k">1k-10k</option>
+              <option value="10k-100k">10k-100k</option>
+              <option value="100k-1m">100k-1 million</option>
+              <option value="1m-10m">1-10 million</option>
+              <option value="10m-100m">10-100 million</option>
+              <option value="100m-1b">100 million - 1 billion</option>
+              <option value="1b-over">1 billion over</option>
+            </select>
+      </div>
+       
+     <div class="IndustryGrowth">
+        <p style="font-weight: bold;">Switching Cost <i appToolTip  tooltip={{switchCost.definition}} placement="bottom" [delay]="500"  class="fa fa-info-circle" style="font-size:1rem;color:rgb(0, 119, 255)"></i> : </p>
+        <select class="form-select"  aria-label="Default select example">
+         <option selected [value]="">{{switchCost.switch_Cost}}</option>
+        </select>
+     </div>
+
+     <div class="FixedCost">
+         <p  style="font-weight: bold; margin: 0;" >Price Sensitivity <i appToolTip tooltip={{priceSensitivity.definition}} placement="bottom" [delay]="500" class="fa fa-info-circle" style="font-size:1rem;color:rgb(0, 119, 255)"></i> : </p> 
+         
+         <select class="form-select"  aria-label="Default select example">
+             <option selected [value]="">{{priceSensitivity.price_sensitivity}}</option>
+         </select>
+     </div>
+
+     <div class="ExitBarriers">
+         <p style="font-weight: bold;">Purchase Size <i appToolTip  tooltip="{{purchaseSize?.definition}}" placement="bottom" [delay]="500"  class="fa fa-info-circle" style="font-size:1rem;color:rgb(0, 119, 255)"></i> : </p>
+         <textarea class="form-control" style="width: 78%; min-height: 20rem; margin-bottom: 10px;" [ngModel]="formattedpurchaseSizeData" >
+          
+         </textarea>
+     </div>
+
+
+         
+    </div>
+ </div>
+
+
+

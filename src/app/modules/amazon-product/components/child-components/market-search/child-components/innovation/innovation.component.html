@@ -1,0 +1,139 @@
+<div class="card shadow" style="background-color: #00575b; color: white;">
+    <div class="card-body row" style="padding: 1%; ">
+      
+      <div class=" col-md-8">
+        <h6 style="padding: none; text-align: start">Find Innovation</h6>
+  
+        <p style="padding: none; margin: 0; color: #c4c4c4; text-align: start">
+          Discover technology with Matching AI
+        </p>
+      </div>
+
+      <div class="col-md-4 d-flex justify-content-end align-items-center">
+  
+      </div>
+    </div>
+  </div>
+  
+
+    <div class="mt-2 row m-0">
+      <div class="card shadow col-lg-6">
+        <div class="card-body ">
+          <form [formGroup]="patentSearchForm" (ngSubmit)="handleSubmit()">
+            <div class="mb-3">
+              <label
+                for="exampleInputtitle"
+                class="form-label"
+                style="text-align: start"
+                >Title</label
+              >
+              <input
+                type="text"
+                formControlName="title"
+                required
+                class="form-control"
+                placeholder="Enter Title"
+                id="exampleInputtitle"
+                aria-describedby="emailHelp"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputpatentnumber" class="form-label"
+                >Summary</label
+              >
+              <input
+                type="text"
+                formControlName="patentNumber"
+                required
+                class="form-control"
+                id="exampleInputpatentnumber"
+              />
+            </div>
+  
+            <div class="mb-3">
+              <label for="exampleInputkeyword" class="form-label">Keyword</label>
+              <input
+                type="text"
+                formControlName="keyword"
+                required
+                class="form-control"
+                id="exampleInputkeyword"
+              />
+            </div>
+  
+            <div class="mt-2">
+
+              <button type="submit"  [ngClass]="{'button--loading': isLoading}" [disabled]="isLoading" class="btn btn-primary button--loading w-100 mt-2">
+                 <span class="button--text"><i class="fa fa-cloud-download p-1"></i>Fetch</span>
+              </button>
+
+              <!-- <button type="submit" class="btn form-control" style="width: 100px; background-color: #00575b; color: white;">
+                <i class="fa fa-cloud-download p-1"></i>Fetch
+              </button> -->
+            </div>
+          </form>
+        </div>
+      </div>
+  
+      <div class="card shadow col-lg-6"  >
+
+        <div class="card-header">
+          <div class="d-flex justify-content-end " >
+            <button [disabled]="this.patentData!=null?false:true" class="btn btn-success" (click)="exportToExcel()">Export Excel</button>
+          </div>
+        </div>
+        
+      <div class="card-body" style="position: relative;">
+  
+       
+        <div  *ngIf="patentData ; else noReviews">
+         
+            <div class="card shadow col-md-12" >
+              <section class="card-body example-table-container" style="padding: 8px; overflow: auto;" >
+                <!-- (matSortChange)="announceSortChange($event)" -->
+                <table mat-table [dataSource]="dataSource" matSort>
+                  <!-- data Title Column -->
+                  <ng-container matColumnDef="index">
+                    <th mat-header-cell *matHeaderCellDef>#</th>
+                    <td mat-cell *matCellDef="let element; let i = index">
+                      {{ i + 1 }}
+                    </td>
+                  </ng-container>
+  
+                  <!-- data Detail Column -->
+                  <ng-container matColumnDef="patentnumber">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                      Patent Number
+                    </th>
+                    <td mat-cell *matCellDef="let element">
+                      {{ element.patent_number }}
+                    </td>
+                  </ng-container>
+  
+                  <ng-container matColumnDef="applicant">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                      Company name
+                    </th>
+                    <td mat-cell *matCellDef="let element">
+                      <p>{{ element.applicant }}</p>
+                    </td>
+                  </ng-container>
+  
+                  <!-- Header and Row Definitions -->
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns"
+                  ></tr>
+                </table>
+              </section>
+            </div> 
+         </div>
+         <ng-template   #noReviews>
+   
+       </ng-template>
+      </div>
+      </div>
+    </div>
+
+  
+  <!-- ///////////////////////////////////////////////////////////////////////////////////////// -->
+  

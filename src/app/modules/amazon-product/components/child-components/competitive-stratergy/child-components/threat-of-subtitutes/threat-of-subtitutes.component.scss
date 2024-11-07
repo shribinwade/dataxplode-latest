@@ -1,0 +1,92 @@
+
+$secondary: #4777F5;
+$primary: #2124B1;
+
+.card-img {
+  /* The image used */
+ 
+  
+  /* Add the blur effect */
+  filter: blur(8px);
+  -webkit-filter: blur(3px);
+  
+  /* Full height */
+  //  height: 10vh;
+  
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+ 
+}
+
+.card-img-overlay{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: auto;
+}
+
+/* Position text in the middle of the page/image */
+.bg-text {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+    color: white;
+    font-weight: bold;
+    border: 3px solid #f1f1f1;
+    z-index: 2;
+    width: 90%;
+    padding: 20px;
+    margin: 0;
+    height: 80%;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    overflow: scroll;
+}
+/* Hide scrollbar for Chrome, Safari and Opera */
+.bg-text::-webkit-scrollbar {
+    display: none;
+  }
+.contextMessage{
+  font-size: 3rem;  
+  font-weight: bold;
+  margin: 1px;
+}
+
+
+ul.breadcrumb {
+  padding: 10px 16px;
+  list-style: none;
+ 
+  
+}
+
+/* Display list items side by side */
+ul.breadcrumb li {
+  display: inline;
+  
+  font-size: 1rem;
+}
+
+/* Add a slash symbol (>) before/behind each list item */
+ul.breadcrumb li+li:before {
+  padding: 1rem;
+  color: #eee;
+  content: ">\00a0";
+}
+
+/* Add a color to all links inside the list */
+ul.breadcrumb li {
+  color: #eee;
+  text-decoration: none;
+}
+
+/* Add a color on mouse-over */
+ul.breadcrumb li:hover {
+  color:$primary ;
+  text-decoration: underline;
+}

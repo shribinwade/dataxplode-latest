@@ -1,0 +1,19 @@
+
+<div class="card shadow">
+     <div class="card-body">
+      <div class="porterTabs">
+         <ul class="nav nav-tabs">
+            <li class="nav-item"> <app-tab-item-header class="nav-link" *ngFor="let item of tabs" [Header]="item.header" [UniqueCode]="item.uniqueCode" [IsActive]="item.content.instance.IsActive" (Selected)="selectTab($event)" (Close)="CloseTab($event)"></app-tab-item-header></li> 
+         </ul>
+      </div>
+     </div>
+</div>
+
+<div>
+   <section class="mt-2">
+      <ng-container #containerRef></ng-container>
+   </section>
+</div>
+
+
+

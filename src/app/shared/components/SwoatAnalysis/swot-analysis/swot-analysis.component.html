@@ -1,0 +1,61 @@
+
+<mat-dialog-content>
+  
+<mat-table [dataSource]="dataSource" [hidden]="isHidden" *ngIf="!isLoading; else loadingtemplate">
+
+  <!-- Product Column -->
+  <ng-container matColumnDef="Product">
+    <mat-header-cell *matHeaderCellDef> Product </mat-header-cell>
+    <mat-cell  *matCellDef="let element"> {{ element.Product }} </mat-cell>
+  </ng-container>
+
+  <!-- Strength Column -->
+  <ng-container matColumnDef="Strength">
+    <mat-header-cell *matHeaderCellDef> Strength </mat-header-cell>
+    <mat-cell appReadMore *matCellDef="let element"> {{ element.Strength }} </mat-cell>
+  </ng-container>
+
+  <!-- Weakness Column -->
+  <ng-container matColumnDef="Weakness">
+    <mat-header-cell *matHeaderCellDef> Weakness </mat-header-cell>
+    <mat-cell appReadMore *matCellDef="let element"> {{ element.Weakness }} </mat-cell>
+  </ng-container>
+
+  <!-- Opportunity Column -->
+  <ng-container matColumnDef="Opportunity">
+    <mat-header-cell *matHeaderCellDef> Opportunity </mat-header-cell>
+    <mat-cell appReadMore *matCellDef="let element"> {{ element.Opportunity }} </mat-cell>
+  </ng-container>
+
+  <!-- Threat Column -->
+  <ng-container matColumnDef="Threat">
+    <mat-header-cell *matHeaderCellDef> Threat </mat-header-cell>
+    <mat-cell appReadMore *matCellDef="let element"> {{ element.Threat }} </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns sticky: true"></mat-header-row>
+  <mat-row  *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  
+</mat-table>
+
+ <ng-template #loadingtemplate>
+  <div class="main">
+        <div class="loading">
+          <p class="loading_msg">Loading..Please wait!</p> 
+        </div>
+  </div>
+   
+ </ng-template>
+
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Close</button>
+</mat-dialog-actions> 
+
+
+
+
+
+ 
+    
+

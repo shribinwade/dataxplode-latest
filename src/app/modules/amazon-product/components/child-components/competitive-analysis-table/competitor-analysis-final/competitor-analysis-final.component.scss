@@ -1,0 +1,155 @@
+
+.ResultBox{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   
+  }
+  
+  .example-container {
+    height: 500vh;
+    width: 1400px;
+    max-width: 100%;
+    overflow: auto;
+  }
+  
+  .mat-mdc-header-row {
+    text-align: center;
+    background-color: #ff6f61 !important;
+    color: white;
+    font-weight: bold;
+    word-spacing: 2px;
+  }
+  
+  .headers {
+    text-align: center;
+    background-color: #ff6f61 ;
+    color: white;
+    font-weight: bold;
+    word-spacing: 2px;
+  }
+  
+  .table {
+    width: inherit;
+  }
+  
+  td:first-child,
+  th:first-child {
+    background-color: #ff6f61;
+    color: white;
+    font-weight: bold;
+  }
+  .feature-header{
+    background-color: #009688;
+    color: white;
+  }
+  
+  .table-primary {
+    // background-color: #ff6f61 !important;
+    // color: white;
+    // font-weight: bold;
+    // word-spacing: 2px;
+  }
+  .header-box {
+    background-color: #009688; /* Teal background */
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 12px; /* Adjust font size */
+    margin: 10px;
+  }
+  h3{
+    margin: 5px;
+  }
+  .table-responsive{
+      margin: 10px;
+  }
+  
+  
+  
+  .mat-column-Features {
+    border-right: 1px solid #ddd;
+    background-color: #ff6f61 !important;
+    width: 200px;
+  }
+  .mat-column-productA {
+    border-right: 1px solid #ddd;
+  
+    width: 200px;
+  }
+  .mat-column-productB {
+    border-right: 1px solid #ddd;
+    width: 200px;
+  }
+  .mat-column-productC {
+    border-right: 1px solid #ddd;
+  }
+  .mat-column-productD {
+    border-right: 1px solid #ddd;
+  }
+  
+  .mat-column-productD {
+    border-right: 1px solid #ddd;
+  
+    width: 200px;
+  }
+  .mat-column-productE {
+    border-right: 1px solid #ddd;
+  
+    width: 200px;
+  }
+  .mat-column-productF {
+    border-right: 1px solid #ddd;
+  
+    width: 200px;
+  }
+  .mat-column-productG {
+    border-right: 1px solid #ddd;
+  
+    width: 200px;
+  }
+  .mat-column-productH {
+    border-right: 1px solid #ddd;
+  
+    width: 200px;
+  }
+  .mat-column-productI {
+    border-right: 1px solid #ddd;
+  
+    width: 200px;
+  }
+  .mat-column-productJ {
+    border-right: 1px solid #ddd;
+  
+    width: 200px;
+  }
+  
+  .table-primary {
+    width: 200px;
+  }
+  
+  .table-fixed tbody {
+    height: 300px;
+    overflow-y: auto;
+    width: 100%;
+  }
+  
+  /* Default hover effect for table rows */
+  .table-hover tbody tr:hover td {
+    background-color: #f5f5f5; /* Replace with your hover color */
+  }
+  
+  /* Remove hover effect for the no-hover column */
+  .table-hover tbody tr:hover td.no-hover {
+    background-color: #ff6f61;
+  }
+  
+  .SwotButton{
+    display: flex;
+    justify-content: end;
+    margin: 5px;
+    padding: 5px;
+  }
+  
+  

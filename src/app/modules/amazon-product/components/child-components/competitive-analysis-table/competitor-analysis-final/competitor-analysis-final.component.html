@@ -1,0 +1,140 @@
+<div class="card shadow">
+   <div class="card-header">
+    <div class="header-box">
+      <h3>Feature Snapshot</h3>
+    </div>
+   </div>
+</div>
+
+  <div class="ResultBox shadow mt-3">
+    <div class="card shadow mb-3 ">
+      <div class="card-header">
+        <div class="d-flex justify-content-end " >
+          <button [disabled]="this.data!=null?false:true" class="btn btn-success" (click)="exportToExcel()">Export Excel</button>
+        </div>
+      </div>
+      <div class="card-body table-responsive">
+        <table
+          class="table table-fixed  table-striped table-bordered table-hover"
+          [hidden]="!productvalues"
+        >
+          <thead>
+            <tr class="">
+              <th
+                class="text-center headers"
+                *ngFor="let header of headers"
+                [ngStyle]="header === 'Features' ? {'background-color': '#009688', 'color': 'white'} : {}"
+                scope="col"
+              >
+                {{ header }}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let feature of featureKeys">
+              <td class="no-hover" scope="row">{{ feature }}</td>
+              <td *ngFor="let values of data; let i = index">
+                <ng-container [ngSwitch]="feature">
+                  <!-- <ng-container *ngSwitchCase="'Product_url'">
+                    <a [href]="values[feature]" target="_blank">Product URL</a>
+                  </ng-container> -->
+                  <ng-container *ngSwitchCase="'Image_url'">
+                    <img
+                      [src]="values[feature]"
+                      alt="Product Image"
+                      style="max-width: 100px; max-height: 100px"
+                    />
+                  </ng-container>
+                  
+                  <ng-container *ngSwitchCase="'product_name'">
+                    <p appReadMore [toggle]="true" [limit]="20">
+                      {{ values[feature] }}
+                    </p>
+                  </ng-container>
+  
+                  <ng-container *ngSwitchCase="'Bullet_point'">
+                    <p appReadMore [toggle]="true" [limit]="50">
+                      {{ values[feature] }}
+                    </p>
+                  </ng-container>
+                  <ng-container *ngSwitchCase="'Manufacturer'">
+                    <p appReadMore [toggle]="true" [limit]="20">
+                      {{ values[feature] }}
+                    </p>
+                  </ng-container>
+  
+                  <ng-container *ngSwitchCase="'Packer'">
+                    <p appReadMore [toggle]="true" [limit]="20">
+                      {{ values[feature] }}
+                    </p>
+                  </ng-container>
+  
+                  <ng-container *ngSwitchCase="'Best Sellers Rank'">
+                    <p appReadMore [toggle]="true" [limit]="20">
+                      {{ values[feature] }}
+                    </p>
+                  </ng-container>
+  
+                  <ng-container *ngSwitchCase="'Description'">
+                    <p appReadMore [toggle]="true" [limit]="20">
+                      {{ values[feature] }}
+                    </p>
+                  </ng-container>
+  
+                  <ng-container *ngSwitchCase="'Importer'">
+                    <p appReadMore [toggle]="true" [limit]="20">
+                      {{ values[feature] }}
+                    </p>
+                  </ng-container>
+    
+                  <ng-container *ngSwitchCase="'More Info'">
+                    <button
+                      class="btn btn-info dropdown-toggle"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      More info
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li>
+                         <a
+                          class="dropdown-item"
+                          (click)="openReviewDialog(values.ASIN)"
+                          >View Reviews
+                          </a 
+                        > 
+                      </li>
+                      <li>
+                        <!-- <a
+                          class="dropdown-item"
+                          (click)="openReviewAnalysisDialog()"
+                          >Reviews analysis</a
+                        > -->
+                      </li>
+                      <li>
+                        <a class="dropdown-item" (click)="openSwotAnalysis(responseData.Search_result[i])"
+                          >Swot analysis</a
+                        >
+                      </li>
+                    </ul>
+                  </ng-container>
+    
+                  <ng-container *ngSwitchDefault>
+                    {{ values[feature] }}
+                  </ng-container>
+                </ng-container>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    
+      <ng-template #loading>
+        <p>Loading data...</p>
+      </ng-template>
+    </div>
+  </div>
+    <!-- </div> -->
+  
+  

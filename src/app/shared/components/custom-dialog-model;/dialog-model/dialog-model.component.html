@@ -1,0 +1,25 @@
+<section>
+
+    <div class="header">
+         <!-- <span>{{Title}}</span> -->
+         <mat-icon class="mat-icon"  aria-hidden="false" (click)="closeModal('cancel')"  aria-label="" fontIcon="close" ></mat-icon>
+    </div>
+    <div class="content">
+       <div style="  background-color: #FFCCCB;  border-radius: 100%;">
+        <mat-icon class="mat-icon" color="warn" aria-hidden="false" fontIcon="warning"></mat-icon>
+       </div>
+        <div>
+            {{message}}
+        </div>
+       
+      <div style="font-weight: 500;color: gray; font-size: 7px;  line-height: 1; text-align: center;">
+        <p >This action will delete all information.<br></p>
+        <p>You won't be able to revert this!</p> 
+      </div>
+    
+    </div>
+    <div class="footer">
+          <button class="btn btn-danger" (click)="closeModal('yes')">Yes</button>
+          <button class="btn btn-outline-dark" (click)="closeModal('no')">No</button>
+    </div>
+</section>

@@ -1,0 +1,34 @@
+<div [hidden]="pageHidden" class="text-center">
+
+
+    <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th style="font-size: large; background-color: #ff6f61 !important; color: white;">Challenges</th>
+            <th style="font-size: large; background-color: #009688; color: white;" >Opportunities</th>
+          </tr>
+        </thead>
+        <tbody class="table-group-divider">
+          <tr *ngFor="let challenge of Challenges; let i = index">
+            <td>
+              <strong>{{ challenge.point }}</strong>
+              <ul>
+                <li *ngFor="let detail of challenge.details">{{ detail }}</li>
+              </ul>
+            </td>
+            <td>
+              <ng-container *ngIf="Opportunity[i]">
+                <strong>{{ Opportunity[i].point }}</strong>
+                <ul>
+                  <li *ngFor="let detail of Opportunity[i].details">{{ detail }}</li>
+                </ul>
+              </ng-container>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+
+
+
+</div>

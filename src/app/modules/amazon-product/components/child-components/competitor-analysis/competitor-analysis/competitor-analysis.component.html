@@ -1,0 +1,103 @@
+<section>
+    <div class="header">
+         <span class="centered">
+            <h6 class="text-center">Product Input Form</h6>
+         </span>
+         
+         <mat-icon class="mat-icon"  aria-hidden="false" (click)="closeModal('cancel')"  aria-label="" fontIcon="close" ></mat-icon>
+    </div>
+    <div class="content">
+            <div class="formbox p-1 ">
+               
+                <hr style="color: blue; margin: 1px;">
+                <p class="text-center">Please fill out the form below to submit a new product.</p>
+                
+                <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()" >
+    
+                    <label for="keyword">Keyword
+                      <span *ngIf="isRequired('Keyword')" class="required">*</span>
+                    </label>
+                    <input required formControlName="Keyword" class="form-control mb-1" type="text" id="keyword" placeholder="Enter keyword">
+        
+                    <label for="productName">Product Name
+                      <span >(Optional)</span>
+                    </label>
+                    <input formControlName="ProductName" class="form-control mb-1" type="text" id="productName" placeholder="Enter product name">
+    
+                    <div class="row g-2">
+                        <div class="col-md">
+                          <div class="form-floating">
+                            <div>
+                                <label for="Mrp">MRP <span >(Optional)</span></label>
+                                <input formControlName="Mrp" class="form-control mb-1" type="text" id="mrp" placeholder="Enter MRP">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md">
+                          <div class="form-floating">
+                            <div>
+                                <label for="Sp">Selling Price  <span >(Optional)</span></label>
+                                <input formControlName="Sp" class="form-control mb-1" type="text" id="sp" placeholder="Enter Selling Price">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+        
+              
+        
+                    <label for="ProductDescription">Product Description  <span >(Optional)</span></label>
+                    <textarea formControlName="ProductDescription" class="form-control mb-1" id="productDescription" placeholder="Enter product description" rows="4"></textarea>
+        
+                    <label for="Brand">Brand
+                      <span *ngIf="isRequired('Brand')" class="required">*</span>
+                    </label>
+                    <input required formControlName="Brand" class="form-control mb-1" type="text" id="brand" placeholder="Enter brand name">
+        
+                    <label for="Features">Features
+                      <span *ngIf="isRequired('features')" class="required">*</span>
+                    </label>
+                    
+                        <div  class="form-control" appearance="fill"> 
+              
+                            <mat-chip-grid #chipGrid aria-label="Enter fruits">
+                              <mat-chip-row style="background-color: rgb(39, 86, 255); "  *ngFor="let fruit of features"
+                                            (removed)="remove(fruit)"
+                                            [editable]="true"
+                                            (edited)="edit(fruit, $event)"
+                                            [aria-description]="'press enter to edit ' + fruit.feature">
+                               <p style="color: white; text-align: center; margin-top: 8px;">{{fruit.feature}}</p> 
+                                <button matChipRemove [attr.aria-label]="'remove ' + fruit.feature">
+                                  <mat-icon>cancel</mat-icon>
+                                </button>
+                              </mat-chip-row>
+                              <input required class="form-control" style="border: none;" placeholder="Enter features, press Enter to add"
+                                     [matChipInputFor]="chipGrid"
+                                     [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                     [matChipInputAddOnBlur]="addOnBlur"
+                                     (matChipInputTokenEnd)="add($event)"/>
+                            </mat-chip-grid>
+                        </div> 
+                    
+                    <label for="imageUpload">Upload Image  <span >(Optional)</span></label>
+    
+                    <input formControlName="Image" class="form-control mb-1" type="file" id="imageUpload" accept="image/*" onchange="previewImage()">
+    
+                    <div class="image-preview" style="display: none;">
+                        <img src="" alt="Image preview">
+                    </div>
+    
+                    <!-- <button class="btn btn-primary w-100 mb-1" type="submit">Submit</button> -->
+                    <button type="submit" [ngClass]="{'button--loading': isLoading}" [disabled]="isLoading" class="btn btn-primary w-100 mb-1">
+                        <span *ngIf="isLoading" style="display:inline-block; text-align: center; width: 100%;">Loading please wait..</span>
+                        <span *ngIf="!isLoading" class="button--text">Submit</span>
+                    </button>
+    
+                </form>
+            </div>
+        </div>
+  
+    <div class="footer">
+  
+      
+    </div>
+</section>

@@ -1,0 +1,180 @@
+.example-table-container {
+  position: relative;
+  min-height: inherit;
+  max-height: inherit;
+  width: 100%;
+  overflow: auto;
+  border: 1px solid #ddd;
+  font-size: 0.1em;
+}
+
+.example-container {
+  // height: 600px;
+  width: 100%;
+  max-width: 100%;
+  overflow: auto;
+  font-size: 0.1em;
+
+}
+
+.mat-column-index {
+  width: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.mat-column-name {
+
+  border-right: 1px solid #ddd;
+
+}
+
+.mat-column-company {
+
+  border-right: 1px solid #ddd;
+
+}
+
+.mat-column-segment {
+
+  border-right: 1px solid #ddd;
+
+}
+
+.mat-column-marketShare {
+
+  border-right: 1px solid #ddd;
+
+}
+
+.mat-column-MarketGrouthRate {
+
+  border-right: 1px solid #ddd;
+
+}
+
+.mat-column-bcgValue {
+
+  border-right: 1px solid #ddd;
+
+}
+
+.mat-column-type {
+
+  border-right: 1px solid #ddd;
+
+}
+
+//   .mat-header-cell {
+
+//   }
+//   .mat-sort-header{
+
+
+//   }
+//   .mat-mdc-header-cell {
+
+//   }
+.mat-mdc-row:nth-child(even) {
+  background-color: #f1f1f1;
+  /* Set the background color for even rows */
+}
+
+.mat-mdc-row:nth-child(odd) {
+  background-color: #ffffff;
+  /* Set the background color for odd rows */
+}
+
+.mat-mdc-row:hover .mat-mdc-cell {
+  background-color: #f1f1f1;
+}
+
+.mat-mdc-header-row {
+  text-align: center;
+  background-color: #00575b;
+  color: white;
+  font-weight: bold;
+  word-spacing: 2px;
+  font-size: 100em;
+}
+
+
+
+.header {
+  background-color: #00575b;
+  color: white;
+  
+  text-align: center;
+ 
+  
+}
+
+h3 {
+  display: block;
+  font-size: 2em;
+  margin-block-start: 0.67em;
+  margin-block-end: 0.67em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
+  unicode-bidi: isolate;
+}
+
+.high {
+  background-color: #a5d6a7 !important;
+  color: black;
+  // background-color: #86e49d;
+  // color: white;
+}
+
+.low {
+  background-color: #ff9696 !important;
+  color: black;
+  // background-color: #d893a3;
+  // color: white;
+}
+
+.star {
+
+  background-color: #3f51b5 !important;
+  /* White */
+  color: white;
+  // background-color: #6fcaea; /* White */
+  // color: white;
+}
+
+.question-mark {
+  background-color: #9c27b0 !important;
+  color: white;
+  // background-color: #ebc474;
+  // color: white;
+}
+
+.dog {
+  background-color: #E34234 !important;
+  color: white;
+  // background-color: #d893a3;
+  // color: white;
+}
+
+.cash_cow {
+  background-color: #ff5722 !important;
+  color: white;
+  // background-color: #86e49d;
+  // color: white;
+
+}
+
+.filters {
+  margin: 0;
+  margin-bottom: 10px;
+}
+
+.viewBCGTag {
+  background-color: #00575b;
+  color: white;
+  // padding: 5px;
+  border-radius: 2px;
+  text-decoration: none;
+  cursor: pointer;
+  // margin: 0;
+}

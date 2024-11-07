@@ -1,0 +1,140 @@
+<div class="card shadow">
+  <div class="card-header">
+    <div class="header">
+      <h3 class="m-3">Distributors</h3>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="card shadow mt-3">
+  <div class="card-body">
+    <div class="d-flex justify-content-end " >
+      <button [disabled]="data!=null?false:true" class="btn btn-success" (click)="exportToExcel()">Export Excel</button>
+    </div>
+  </div>
+</div> -->
+
+<div class="card shadow mt-2">
+    <div class="card-body d-flex justify-content-between overflow">
+
+      <div class="d-flex justify-content-start" >
+        <button [disabled]="data!=null?false:true" class="btn btn-success" (click)="exportToExcel()">Export Excel</button>
+      </div>
+
+
+      <form [formGroup]="searchLocationFormControl" (ngSubmit)="locationSearch()" >
+         <div class="filerLocation">
+         <input class="form-control me-2" formControlName="searchLocation" type="text" style="width: 15rem; font-size: small" placeholder="Search Location" aria-label="Search"/>
+         <button class="btn btn-primary" style=" width: 92px; " type="submit">
+          Search Location
+         </button>
+         <button class="btn btn-secondary"style=" width: 4rem; margin-left: 5px " (click)="clearSearchLocation()">Clear</button>
+         </div>
+      </form>
+
+    </div>
+</div>
+
+
+<div class="card mt-2 shadow">
+
+
+  <div class="card-body"> 
+    <div class="TableContent" >
+      <div *ngIf="suppliers && suppliers.length>0">
+  
+        <div>
+
+         <table matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+           <ng-container matColumnDef="index">
+             <th mat-sort-header mat-header-cell *matHeaderCellDef>#</th>
+             <td mat-cell *matCellDef="let element; let i = index">
+               {{ (getPageIndex() * getPageSize()) + i + 1 }}
+             </td>
+           </ng-container>
+
+           <!-- Company Name Column -->
+           <ng-container matColumnDef="co_name">
+             <th mat-sort-header  mat-header-cell *matHeaderCellDef> Company Name </th>
+             <td mat-cell *matCellDef="let element"> {{ element.co_name }} </td>
+           </ng-container>
+       
+           <!-- Address Column -->
+           <ng-container matColumnDef="Address">
+             <th mat-sort-header mat-header-cell *matHeaderCellDef> Address </th>
+             <td mat-cell *matCellDef="let element"> {{ element.Address }} </td>
+           </ng-container>
+       
+           <!-- Member Since Column -->
+           <!-- <ng-container matColumnDef="MemberSince">
+             <th mat-header-cell *matHeaderCellDef> Member Since </th>
+             <td mat-cell *matCellDef="let element"> {{ element['Member Since'] }} years </td>
+           </ng-container> -->
+       
+           <!-- Mobile Column -->
+           <ng-container matColumnDef="default_mobile">
+             <th mat-sort-header mat-header-cell *matHeaderCellDef> Mobile </th>
+             <td mat-cell *matCellDef="let element"> {{ element.default_mobile }} </td>
+           </ng-container>
+
+                <!-- Mobile Column -->
+           <ng-container matColumnDef="default_email">
+              <th mat-sort-header mat-header-cell *matHeaderCellDef> Email </th>
+              <td mat-cell *matCellDef="let element"> {{ element.default_email }} </td>
+           </ng-container>
+       
+           <!-- Business Type Column -->
+           <ng-container matColumnDef="business_type">
+             <th mat-sort-header mat-header-cell *matHeaderCellDef> Business Type </th>
+             <td mat-cell *matCellDef="let element"> {{ element.business_type }} </td>
+           </ng-container>
+       
+           <!-- Catalog URL Column -->
+           <ng-container matColumnDef="catalog_url">
+             <th mat-sort-header mat-header-cell *matHeaderCellDef> Company Website </th>
+             <td mat-cell *matCellDef="let element"> 
+               <a *ngIf="element.catalog_url !== 'URL not available'" href="{{ element.catalog_url }}" target="_blank">View</a>
+               <span *ngIf="element.catalog_url === 'URL not available'">Not Available</span>
+             </td>
+           </ng-container>
+       
+           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+         </table>
+          
+       <mat-paginator
+         class="card-footer"
+         [length]="suppliers.length"
+     
+         [pageSizeOptions]="[10 ,50, 100, suppliers.length]"
+         (page)="onPageChange($event)"
+         aria-label="Select page of users"
+       >
+       </mat-paginator>
+  
+        </div>
+     </div>
+ </div>
+  </div>
+</div>
+
+
+
+
+
+
+<div class="supplierBox" >
+
+     
+  
+      
+       
+</div>
+
+     
+     
+     
+     
+  
+   

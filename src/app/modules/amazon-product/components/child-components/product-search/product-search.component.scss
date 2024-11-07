@@ -1,0 +1,122 @@
+h4{
+    padding: 0 !important;
+    margin: 5px !important;
+}
+
+p{
+    margin: 5px;
+}
+
+.thumb{
+    display: flex;
+    flex-wrap: nowrap;
+    margin-top: 5px;
+    list-style: none;
+    overflow: hidden;  
+}
+
+.item{
+    margin: 0 5px;
+    width: 90px;
+    height: 90px;
+    cursor: pointer;
+    flex-shrink: 0;
+     
+   }
+   app-zoom-image-viewer{
+    position: fixed;
+    right: 0px;
+    top: 100px;
+    left:600px;
+    bottom: 300px;
+   }
+   .carousel-control-prev-icon,
+   .carousel-control-next-icon {
+     background-color: black;
+     background-size: 100%, 100%;
+   }
+   .carousel-small {
+    max-width: 300px;
+    margin: auto;
+  }
+  .mySwiper2{
+    padding: 10px 0;
+  }
+  .mySwiper2 swiper-slide{
+    opacity: 0.4;
+  }
+  .mySwiper2 .swiper-slide-thumb-active {
+    opacity: 1;
+  }
+
+.loader-container{
+    
+    // position: absolute;
+    // height: 100%;
+    // width: 100%;
+    // background: black;
+    // opacity: 0.8;
+    // z-index: 100;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-width: 100%;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(35, 33, 33);
+    padding: 20px;
+    text-align: center;
+    z-index: 100;
+    opacity: 0.9;
+
+}
+.price{
+
+}
+
+.pricing-info .mrp,
+.pricing-info .sp {
+    
+    max-width: 200px; /* Ensure they don’t exceed this width */
+    padding: 0.75rem 1rem; /* Padding for spacing */
+    border-radius: 8px; /* Rounded corners */
+    border: 1px solid #ddd; /* Light border */
+    // box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    // font-size: 14px; /* Font size */
+    color: #333; /* Default text color */
+    appearance: none; /* Remove default styling */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+    margin-right: 8px; /* Space between the items */
+   
+}
+
+.pricing-info .mrp {
+    background-color: #ffffff; /* White background for MRP */
+}
+
+.pricing-info .sp {
+    background-color: #008080; /* Background color for SP */
+    color: white; /* Text color for SP */
+}
+.product-url {
+  display: inline-block;
+  margin-top: 15px; /* Space above the button */
+  margin: 5px;
+  padding: 12px 16px; /* Padding for the button */
+  background-color: #ff9900;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px; /* Rounded corners for the button */
+  text-align: center;
+  width: 100%; /* Full-width button */
+  box-sizing: border-box; /* Includes padding in width calculation */
+  appearance: none; /* Remove default styling */
+  text-decoration: none;
+
+}
+ 

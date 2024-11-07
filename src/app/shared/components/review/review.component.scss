@@ -1,0 +1,155 @@
+
+
+.tagbtn{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    width: 100%;
+}
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+    text-align: left;
+  }
+  
+  tbody tr:hover {
+    background-color: #f1f1f1;
+  }
+
+  .scrollable-container {
+    max-height: 400px; /* Adjust based on your requirement */
+    overflow-y: auto;
+  }
+  .mat-column-rating{
+    width:190px
+  }
+.ratingColValue{
+  display: flex;
+  width: 100%;
+  text-align: center;
+  margin: 2px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+th {
+  background-color: #f2f2f2;
+  text-align: left;
+}
+
+tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+.scrollable-container {
+  max-height: 400px; /* Adjust based on your requirement */
+  overflow-y: auto;
+}
+.mat-column-rating{
+  width:170px
+}
+.loader-container{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  margin: auto;
+  height: 100%;
+  width: 100%;
+  background: black;
+  opacity: 0.8;
+  z-index: 200;
+}
+
+
+.mat-mdc-header-row{
+  text-align: center;     
+  background-color: #00575b;
+  color: white;
+  font-weight: bold;
+  word-spacing: 2px;
+  z-index: 0 !important;
+  
+ }
+ .mat-mdc-row:nth-child(even) {
+  background-color: #f1f1f1; /* Set the background color for even rows */
+}
+
+.mat-mdc-row:nth-child(odd) {
+  background-color: #ffffff; /* Set the background color for odd rows */
+} 
+.mat-mdc-row:hover .mat-mdc-cell {
+  background-color: #f1f1f1;
+} 
+
+.review-analysis{
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.btn{
+  position: relative;
+
+}
+
+//button loading
+
+.button--loading .button--text {
+  visibility: hidden ;
+  opacity: 0;
+  min-width: 100%;
+}
+
+.input-field {
+  position: relative;
+}
+
+
+.button--loading::after{
+content: "";
+position: absolute;
+width: 15px;
+height: 15px;
+top: 0;
+left: 85%;
+right: 0;
+bottom: 0;
+margin: auto;
+border: 3px solid transparent;
+border-top-color: #ffffff;
+border-radius: 50%;
+animation: button-loading-spinner 1s ease-out infinite;
+}
+
+
+@keyframes button-loading-spinner {
+ from {
+     transform: rotate(0turn);
+ }
+ to {
+     transform: rotate(1turn);
+ }
+}

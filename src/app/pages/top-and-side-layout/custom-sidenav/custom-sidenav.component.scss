@@ -1,0 +1,96 @@
+
+:host * {
+  transition: all 500ms ease-in-out;
+}
+
+
+.sidenav-header{
+    padding-top: 24px;
+    text-align: center;
+    
+    > img{
+      
+        border-radius: 100%;
+        object-fit: cover;
+        margin-bottom: 10px;
+    }
+    
+    .header-text{
+
+        height: 3rem;
+       
+       > h2{
+            margin: 0;
+            font-size: 1rem;
+            line-height: 1.5rem;
+        }
+
+       > p{
+            margin: 0;
+            font-size: 0.8rem;
+        }
+    }
+
+}
+.sidenav-content{
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+
+
+.text-hidden {
+    opacity: 0;
+    height: 0px !important;
+    // transition: opacity 0.3s ease-in-out; /* optional: for a smooth transition */
+}
+
+.text--footer-hidden {
+  opacity: 0;
+ 
+  transition: opacity 0.2s ease-in-out; /* optional: for a smooth transition */
+}
+  
+.text-visible {
+    opacity: 1;
+    // transition: opacity 0.3s ease; /* optional: for a smooth transition */
+}
+
+/* Focused state with smooth animation */
+mat-sidenav-content:focus {
+    outline: none; /* Remove the default outline */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Custom focus style */
+    transition: box-shadow 0.3s ease; /* Smooth transition for the focus */
+  }
+  
+  /* Clicked state with a temporary animation */
+  mat-sidenav-content:active {
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.8);
+  }
+
+  .bottom-a {
+    text-decoration: none;
+    font-size: 0.8rem;
+    color: gray;
+  }
+
+
+
+// .mat-mdc-list-item{
+   
+//     border-radius: 0 !important;
+// }
+
+// .selected-menu-item{
+//     border-left-color: blue !important;
+// }
+
+// .menu-item{
+//     border-left: 5px solid;
+//     border-left-color: rgba(0,0,0,0);
+// }
+
+  

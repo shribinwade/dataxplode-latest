@@ -1,0 +1,240 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+// .mat-typography{
+//     position: relative !important;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+    
+//     background-color: #3c2846;
+
+// }
+.container{
+   
+    justify-content: center !important;
+    align-items: center !important;
+}
+.card{
+
+    right: 2%;
+    position: relative;
+    width: 320px !important;
+    height: 480px !important;
+    background: #287bff !important;
+    margin: 30px !important;
+    border-radius: 20px !important;
+    border-bottom-left-radius: 160px !important;
+    border-bottom-right-radius: 160px !important;
+    box-shadow: 0px 10px #fff, inset 0 -15px 0 rgba(255, 255, 255, 0.25), 0 45px 0 rgba(0, 0, 0, 0.15) !important;
+    overflow: hidden !important;
+    display: flex !important;
+    // justify-content: center !important;
+    align-items: flex-start !important;
+
+}
+
+.col.card:nth-child(1)
+{
+    background: linear-gradient(to bottom, #09C6F9,#045DE9) !important ;
+}
+.card:nth-child(2)
+{
+    background: linear-gradient(to bottom, #A4508B,#5F0A87) !important;
+}
+.card:nth-child(3)
+{
+    background: linear-gradient(to bottom, #24ff72,#9a4eff) !important;
+}
+.card:nth-child(4)
+{
+    background: linear-gradient(to bottom, #D98324,#A40606) !important;
+}
+// .icon{
+//     position: absolute !important;
+//     width: 140px !important;
+//     height: 120px !important;
+//     background: #3c2846 !important;
+//     border-bottom-left-radius: 100px !important;
+//     border-bottom-right-radius: 100px !important;
+//     box-shadow: 0px 10px 0 rgba(0,0,0,0.1),
+//     inset 0 -8px 0  #fff !important;
+//     z-index: 1000 !important;
+//     display: flex !important;
+//     justify-content: center !important;
+// }
+
+// .icon::before
+// {
+//     content: '' !important;
+//     position: absolute !important;
+//     top: 0 !important;
+//     left: -50px !important;
+//     width: 50px !important;
+//     height: 50px !important;
+//     background: transparent !important;
+//     border-top-right-radius: 50px !important;
+//     box-shadow: 15px -15px 0 15px #3c2846 !important;
+
+// }
+// .icon::after
+// {
+//     content: '' !important;
+//     position: absolute !important;
+//     top: 0 !important;
+//     right: -50px !important;
+//     width: 50px !important;
+//     height: 50px !important;
+//     background: transparent !important;
+//     border-top-left-radius: 50px !important;
+//     box-shadow: -15px -15px 0 15px #3c2846 !important;
+    
+// }
+// .icon ion-icon{
+//     color: #fff;
+
+//     position: absolute !important;
+//     font-size: 6rem !important;
+//     z-index: 10000 !important;
+//     --ionicon-stroke-width: 24px !important;
+// }
+
+// i
+// {
+//     color: #fff !important;
+
+//     position: relative !important;
+//     font-size: 6rem !important;
+// }
+// .fa{
+//     font-size: 5rem !important;
+// }
+
+.content{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    text-align: center;
+    margin-top: 0;
+}
+
+.content h2 {
+    font-size: 1.75em !important;
+    color: #fff !important;
+    margin-bottom: 10px !important;
+}
+.content ul{
+    margin-left: 10px !important;
+    color: #fff !important;
+    margin-bottom: 10px !important;
+}
+// .swot{
+  
+//     margin: 0;
+//     padding: 0;
+//     box-sizing: border-box;
+//     font-family: 'Ubuntu',sans-serif;
+// }
+
+
+.mat-mdc-dialog-content {
+    display: block;
+    flex-grow: 1;
+    box-sizing: border-box;
+    margin: 0;
+    overflow: auto;
+    max-height: 90vh !important;
+}
+
+.mat-mdc-header-row{
+    text-align: center;     
+    background-color: #00575b;
+    color: white;
+    font-weight: bold;
+    word-spacing: 2px;
+    z-index: 0 !important;
+    font-weight: bold;
+    
+   }
+   .mat-mdc-row:nth-child(even) {
+    background-color: #f1f1f1; /* Set the background color for even rows */
+  }
+  
+  .mat-mdc-row:nth-child(odd) {
+    background-color: #ffffff; /* Set the background color for odd rows */
+  } 
+  .mat-mdc-row:hover .mat-mdc-cell {
+    background-color: #f1f1f1;
+  } 
+  .mat-column-Product {
+    border-right: 1px solid #ddd;
+  } 
+
+  .mat-column-Strength {
+    border-right: 1px solid #ddd;
+  } 
+  .mat-column-Weakness {
+    border-right: 1px solid #ddd;
+  } 
+  .mat-column-Opportunity {
+    border-right: 1px solid #ddd;
+  } 
+  .mat-column-Threat {
+    border-right: 1px solid #ddd;
+  } 
+
+
+  .main{
+    position: relative;
+    background-color: black;
+    opacity: 1;
+    width: 100%;
+    height: 100%;
+  }
+
+
+
+  .loading_msg{
+    color: white;
+    position: absolute;
+    margin: auto;
+    top: 40px;
+    bottom: 0;
+    right: 0;
+    left: 0px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+
+
+  .loading::after{
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    border: 3px solid transparent;
+    border-top-color: #ffffff;
+    border-radius: 50%;
+    animation: loading-spinner 1s ease-out infinite;
+   }
+   
+   @keyframes loading-spinner {
+   
+       from {
+           transform: rotate(0turn);
+       }
+   
+       to {
+           transform: rotate(1turn);
+       }
+   }

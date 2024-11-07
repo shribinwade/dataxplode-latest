@@ -1,0 +1,83 @@
+// .box-area{
+//     width:930px
+// }
+/* Hide the spinner arrows in Chrome, Safari, and Edge */
+
+
+
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Hide the spinner arrows in Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+
+.container-fluid{
+    background: #d3d3d3;
+    // background: -webkit-linear-gradient(to left, #00d2ff, #3a7bd5); /* Chrome 10-25, Safari 5.1-6 */
+    // background: linear-gradient(to left, #00d2ff, #3a7bd5);
+}
+
+.btn{
+   position: relative;
+}
+
+.button--loading .button--text {
+    visibility: hidden ;
+    opacity: 0;
+}
+
+.input-field {
+    position: relative;
+   
+  
+}
+
+.invalid-border{
+    border-color: red;
+}
+
+.error-message {
+    position: absolute;
+    bottom: -22px;
+    left: 1;
+    width: 100%;
+    font-size: 1rem;
+    color: red;
+    
+    padding-top: 4px;
+  }
+
+.button--loading::after{
+ content: "";
+ position: absolute;
+ width: 16px;
+ height: 16px;
+
+ top: 0;
+ left: 0;
+ right: 0;
+ bottom: 0;
+ margin: auto;
+ border: 3px solid transparent;
+ border-top-color: #ffffff;
+ border-radius: 50%;
+ animation: button-loading-spinner 1s ease-out infinite;
+}
+
+@keyframes button-loading-spinner {
+
+    from {
+        transform: rotate(0turn);
+    }
+
+    to {
+        transform: rotate(1turn);
+    }
+}

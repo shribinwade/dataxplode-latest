@@ -1,0 +1,44 @@
+<div class="card m-1 shadow">
+  <div class="card-header">
+    <div class="heading">
+        <h2 style="margin: 0; padding: 10px;">Competitive Strategy</h2>
+    </div>
+  </div>
+</div>
+
+<div class="row m-1 mt-2 card shadow" *ngIf="!pageHidden; else noData">
+
+    <div>
+    
+
+        <div class="porterTabs m-0">
+            <ul class="nav nav-tabs">
+                <li (click)="onTabClick('CompetitorRivals')" class="nav-item"><a class="nav-link"  [ngClass]="activeTab == 'CompetitorRivals'? 'active':'nav-link'">Competitor Rivals</a></li>
+                <li (click)="onTabClick('NewEntrants')" class="nav-item" ><a class="nav-link"  [ngClass]="activeTab == 'NewEntrants'? 'active':'nav-link'">New Entrants</a></li>
+                <li (click)="onTabClick('CustomerPower')" class="nav-item" ><a class="nav-link"  [ngClass]="activeTab == 'CustomerPower'? 'active':'nav-link'">Customer Power</a></li>
+                <li (click)="onTabClick('SupplierPower')" class="nav-item" ><a class="nav-link"  [ngClass]="activeTab == 'SupplierPower'? 'active':'nav-link'">Supplier Power</a></li>
+                <li (click)="onTabClick('ThreatofSubstitutes')" class="nav-item"><a class="nav-link"  [ngClass]="activeTab == 'ThreatofSubstitutes'? 'active':'nav-link'">Threat of Substitutes</a></li>
+            </ul>
+        </div>
+
+        <div class="m-0 mb-3 mt-2" >
+
+            <div [ngSwitch]="activeTab">
+                <div *ngSwitchCase="'CompetitorRivals'"><app-competitor-rivals [data]="CompetitorSearchData"></app-competitor-rivals></div>
+                <div *ngSwitchCase="'NewEntrants'"><app-new-entrants [data]="CompetitorSearchData"></app-new-entrants></div>
+                <div *ngSwitchCase="'CustomerPower'"><app-customer-power [data]="CompetitorSearchData"></app-customer-power></div>
+                <div *ngSwitchCase="'SupplierPower'"><app-supplier-power [data]="CompetitorSearchData"></app-supplier-power></div>
+                <div *ngSwitchCase="'ThreatofSubstitutes'"><app-threat-of-subtitutes [data]="CompetitorSearchData"></app-threat-of-subtitutes></div>
+                <div *ngSwitchDefault>output2</div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+</div>
+<ng-template #noData>
+    <p style="padding: 10%">No Data available.</p>
+</ng-template>
