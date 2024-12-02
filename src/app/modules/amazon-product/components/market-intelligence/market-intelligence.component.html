@@ -79,8 +79,6 @@
                             <input  [hidden]="hiddenCompetitiveStratergySearch" type="text"  class="form-control form-control-sm "
                                 [(ngModel)]="CompetitiveStratergySearchQuery" placeholder="Competitive Stratergy Search" />  
                                 
-                               
-
                             <input  [hidden]="hiddenproductSearch" *ngIf="selectedCities.length <= 0" type="text" id="pincodeInput" class="form-control form-control-sm mt-2 mb-2"
                                 [(ngModel)]="pincodeQuery" placeholder="pincode/zipcode" />
 
@@ -95,15 +93,12 @@
                                     </select>
                             </div>    
                             
-                          
-
                             <button type="submit" (click)="onSearch()" [ngClass]="{'button--loading': isLoading}" [disabled]="isLoading" class="btn btn-primary button--loading w-100 mt-2">
                                 <span class="button--text">Search</span>
                             </button>
                         </div>
                     </div>
                
-                 
                 </div>
 
                 <mat-icon
@@ -117,8 +112,6 @@
                 {{ chevron }}
                </mat-icon>
                 
-                   
-           
             </div>
 
             <div class="col-md-9 col-sm-12"  [@expandCollapseContent]="isExpanded ? 'expanded' : 'collapsed'" >

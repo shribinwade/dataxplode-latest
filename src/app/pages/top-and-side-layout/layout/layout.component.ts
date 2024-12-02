@@ -140,7 +140,6 @@ export class LayoutComponent {
 
   ngOnDestroy(): void {
     this.breakpointSub.unsubscribe();
-  
   }
 
 }

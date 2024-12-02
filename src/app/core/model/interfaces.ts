@@ -173,6 +173,14 @@ export interface newEntrants {
     negative: number;
     neutral: number;
   }
+
+  export interface Plan {
+    planId: number;
+    name: string;
+    description: string;
+    price:number;
+    billingCycle: string;
+  }
   
   
   

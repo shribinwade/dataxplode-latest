@@ -82,6 +82,15 @@
  animation: button-loading-spinner 1s ease-out infinite;
 }
 
+@keyframes button-loading-spinner {
+    from {
+        transform: rotate(0turn);
+    }
+    to {
+        transform: rotate(1turn);
+    }
+}
+
 .border-light{
     border: 2px solid #ddd !important;
 }
@@ -119,11 +128,3 @@
     animation: button-loading-spinner 1s ease-out infinite;
 }
 
-@keyframes button-loading-spinner {
-    from {
-        transform: rotate(0turn);
-    }
-    to {
-        transform: rotate(1turn);
-    }
-}

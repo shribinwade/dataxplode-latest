@@ -3,11 +3,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { GlobalConstants } from '../../../../core/constants/global-constants';
 import { AuthService } from '../../../../core/services/auth-service/auth.service';
 import { CustomSnackbarService } from '../../../../core/services/snackbar-service/custom-snackbar.service';
+import { routeAnimationState } from '../../../../shared/animations/route-animation/route-animation';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
-  styleUrl: './signup.component.scss'
+  styleUrl: './signup.component.scss',
+  animations:[routeAnimationState]
 })
 export class SignupComponent {
 

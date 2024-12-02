@@ -21,9 +21,6 @@ type DynamicComponent = ProductSearchComponent | KeywordSearchComponent | Market
   templateUrl: './market-intelligence.component.html',
   styleUrls: ['./market-intelligence.component.scss'],  // Fixed typo here
   animations: [
-
-    
-
     trigger('rotateIcon', [
       state('collapsed', style({ transform: 'rotate(0deg)' })),
       state('expanded', style({ transform: 'rotate(180deg)' })),
@@ -110,13 +107,6 @@ export class MarketIntelligenceComponent implements AfterViewInit, OnDestroy {
   ) {
     this.ecommarcebrands = ecommarcesites.eCommerceSites;
   }
-
-
-
-
-
-
-
 
   // Ensure ViewChild for dynamic component is available
   ngAfterViewInit(): void {
@@ -273,7 +263,8 @@ export class MarketIntelligenceComponent implements AfterViewInit, OnDestroy {
         marketSearchQuery: this.marketSearchQuery,
         distributorSearchQuery: this.distributorSearchQuery,
         competitiveSearchQuery: this.CompetitiveStratergySearchQuery,
-        pincode: this.pincodeQuery
+        pincode: this.pincodeQuery,
+        platform:this.selectedSites
       };
 
       let apiCall$;
@@ -376,7 +367,6 @@ export class MarketIntelligenceComponent implements AfterViewInit, OnDestroy {
   }
 
   OpenCompetitorAnalysisModel(){
- 
     console.log("Inside method Open");
     this.showModalService.showCompetitorAnalysisModel(this.selectedCountry);
     this.showModalService.componentRef.instance.responseData.subscribe((responseData)=>{
@@ -387,7 +377,6 @@ export class MarketIntelligenceComponent implements AfterViewInit, OnDestroy {
 
   toggleSearchCard(){
     this.isExpanded = !this.isExpanded;
-
   }
 
   ngOnDestroy(): void {

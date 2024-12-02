@@ -1,3 +1,7 @@
 <!-- <app-layout></app-layout> -->
 <ng-container #modal></ng-container>
-<router-outlet></router-outlet>
+
+<div [@routeAnimationTrigger]="prepareRoute(outlet)" style="display: contents;">
+    <router-outlet #outlet="outlet"></router-outlet>
+</div>
+

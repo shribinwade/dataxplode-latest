@@ -6,6 +6,9 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ProductReviewComponent } from '../../../../../shared/components/product-review/product-review.component';
 import { ExportTableAsExcelService } from '../../../../../core/services/excel-utils/export-table-as-excel.service';
+import { AuthService } from '../../../../../core/services/auth-service/auth.service';
+import { SaveServiceDataService } from '../../../../../core/services/SaveServicesData/save-service-data.service';
+import { Subject, takeUntil } from 'rxjs';
 
 
 export interface keywordDetails {
@@ -35,14 +38,18 @@ export interface keywordDetails {
 
 export class KeywordSearchComponent implements OnInit,AfterViewInit, OnChanges  {
 
+
+ 
+
+
   @Input('data') data!:any;
   @Input() formdata!:any;
-
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   searchProductForm: any = FormGroup;
-  
+
+  isLoading:boolean = false;
   productData: keywordDetails[] = [];
   ratings: number[] = [4, 3, 2, 1];
   productSearchName!:string;
@@ -64,27 +71,29 @@ export class KeywordSearchComponent implements OnInit,AfterViewInit, OnChanges  
     'bought',
     'moreInfo'
    ];
+
    public pageSlice = this.productData.slice(0, 50);
    dataSource = new MatTableDataSource<keywordDetails>(this.pageSlice);
-  
 
+
+   private unsubscribe$ = new Subject<void>();
+  
 
   constructor( 
     private cdRef: ChangeDetectorRef,
     private dialog: MatDialog,
     private elementRef: ElementRef,
     private formBuilder: FormBuilder,
-    private  exportToExcelService:ExportTableAsExcelService
-  ){
+    private  exportToExcelService:ExportTableAsExcelService,
+    private authService:AuthService,
+    private UploadKeywordDataService:SaveServiceDataService
+  ){}
 
-  }
   ngOnChanges(changes: SimpleChanges): void {
     console.log("inside Onchanges");
-    
   }
 
   ngOnInit(): void {
-     
    this.searchProductForm = this.formBuilder.group({
       search:['']
    })
@@ -93,11 +102,9 @@ export class KeywordSearchComponent implements OnInit,AfterViewInit, OnChanges  
     this.productData = this.data.Amazon_keyword_data;
     this.updatePageSlice();
    }
-   
   
-   
   }
-
+   
   private updatePageSlice(): void {
     this.pageSlice = this.productData.slice(0, 50);
     this.dataSource.data = this.pageSlice;
@@ -115,7 +122,6 @@ export class KeywordSearchComponent implements OnInit,AfterViewInit, OnChanges  
   }
 
   openReviewDialog(asinData:string){
-  
     const requestData = {
       country: this.formdata.country,
       productSearchQuery: asinData,
@@ -128,10 +134,9 @@ export class KeywordSearchComponent implements OnInit,AfterViewInit, OnChanges  
     dialogConfig.width = '90%';
     dialogConfig.height = '90%';
     dialogConfig.maxWidth = '100%';
-    
     dialogConfig.panelClass = 'full-screen-dialog';
     dialogConfig.data = {formdata:requestData}
-   
+  
     this.dialog.open(ProductReviewComponent  , dialogConfig);
   }
   
@@ -237,5 +242,66 @@ export class KeywordSearchComponent implements OnInit,AfterViewInit, OnChanges  
 
   exportToExcel(){
     this.exportToExcelService.exportTableAsExcel(this.productData,"Products List")
+  }
+
+  saveSearchData(){
+
+    this.isLoading = true; // Start loading
+    //To DO
+    //1.getUser ID
+    const userId = this.authService.getUserInfo()?.id;
+    //2.get Country
+    let country = this.formdata.country;
+    //3.get pincode 
+    let pincode = this.formdata.pincode;
+    //4.get platform
+    let platform = this.formdata.platform;    
+    //5.get searchData
+    let searchData = JSON.stringify(this.productData);
+    //6. get reviewResult
+
+    //7. get Searchquery
+    let searchQuery = this.formdata.keywordSearchQuery;
+    
+    const keywordRequestData = {
+      userId: this.authService.getUserInfo()?.id,
+      countryName: this.formdata.country,
+      pincode: this.formdata.pincode,
+      searchData: JSON.stringify(this.productData),
+      platform: this.formdata.platform,
+    };
+
+    this.UploadKeywordDataService.addKeywordData(keywordRequestData)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe({
+        next: (response) => {
+          this.isLoading = false;
+          console.log('Keyword data added successfully:', response);
+        },
+        error: (error) => {
+          this.isLoading = false;
+          console.error('Error adding keyword data:', error);
+        },
+        complete: () => {
+          this.isLoading = false;
+          console.log('Keyword data upload completed.');
+        }
+      });
+    
+
+    
+    // Simulate an operation and stop loading after 3 seconds (3000 ms)
+
+    // setTimeout(() => {
+    //   this.isLoading = false; // End loading
+    //   console.log('Search data saved.');
+    // }, 3000);
+  }
+
+
+  ngOnDestroy(): void {
+    // Notify all subscriptions to complete
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 }

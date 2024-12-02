@@ -1,12 +1,16 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { AfterViewInit, Component, HostBinding } from '@angular/core';
 import { Router } from '@angular/router';
+import { routeAnimationState } from '../../../shared/animations/route-animation/route-animation';
 
 @Component({
   selector: 'app-about-us',
   templateUrl: './about-us.component.html',
-  styleUrl: './about-us.component.scss'
+  styleUrl: './about-us.component.scss',
+  animations:[routeAnimationState]
 })
 export class AboutUsComponent implements AfterViewInit {
+
+  @HostBinding('@routeAnimationTrigger') routeAnimation = true;
 
   constructor(private router:Router,){
 

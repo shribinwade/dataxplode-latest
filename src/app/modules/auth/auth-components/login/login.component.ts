@@ -5,11 +5,13 @@ import { CustomSnackbarService } from '../../../../core/services/snackbar-servic
 import { GlobalConstants } from '../../../../core/constants/global-constants';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../../core/services/auth-service/auth.service';
+import { routeAnimationState } from '../../../../shared/animations/route-animation/route-animation';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrl: './login.component.scss',
+  animations:[routeAnimationState]
 })
 export class LoginComponent implements OnInit {
 
@@ -55,11 +57,9 @@ export class LoginComponent implements OnInit {
            localStorage.setItem('token',response.token);
            this.authservice.userStatus.next("loggedIn");
           //  console.log(this.authservice.getUserInfo());
-         
            if(response){
             this.router.navigate(['/dashboard']);
-           }
-           
+           }     
       },(error)=>{
         this.hide=false;
         this.isLoading = false;

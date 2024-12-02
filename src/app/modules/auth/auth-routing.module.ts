@@ -9,16 +9,16 @@ const routes: Routes = [
 
 {
     path: '',
-    redirectTo:'signup',
+    redirectTo:'login',
     pathMatch:'full'
 },
 {
   path:'signup',
-  component: SignupComponent
+  component: SignupComponent, data: { animation: 'Signup' } 
 },
 {
   path: 'login',
-  component: LoginComponent
+  component: LoginComponent, data: { animation: 'Login' }
 },
 {
   path: 'forgot-password',
