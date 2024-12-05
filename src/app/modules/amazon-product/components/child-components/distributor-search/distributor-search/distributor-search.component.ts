@@ -5,6 +5,10 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { ExportTableAsExcelService } from '../../../../../../core/services/excel-utils/export-table-as-excel.service';
+import { CustomSnackbarService } from '../../../../../../core/services/snackbar-service/custom-snackbar.service';
+import { SaveServiceDataService } from '../../../../../../core/services/SaveServicesData/save-service-data.service';
+import { AuthService } from '../../../../../../core/services/auth-service/auth.service';
+import { Subject, takeUntil } from 'rxjs';
 @Component({
   selector: 'app-distributor-search',
   templateUrl: './distributor-search.component.html',
@@ -13,6 +17,7 @@ import { ExportTableAsExcelService } from '../../../../../../core/services/excel
 export class DistributorSearchComponent implements OnChanges, OnInit, AfterViewInit, AfterViewInit {
 
   @Input('data') data: any;
+  @Input() formdata!:any;
 
 
   searchFormControl: any = FormGroup;
@@ -36,12 +41,20 @@ export class DistributorSearchComponent implements OnChanges, OnInit, AfterViewI
   showPageSizeOptions = true;
   showFirstLastButtons = false;
   disabled = false;
+  isLoading: boolean = false;
   
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort !: MatSort;
 
-  constructor(private formBuilder: FormBuilder,private  exportToExcelService:ExportTableAsExcelService ) { }
+  private unsubscribe$ = new Subject<void>();
+  
+  constructor(private formBuilder: FormBuilder,
+              private exportToExcelService:ExportTableAsExcelService,
+              private globalSnackbar: CustomSnackbarService,
+              private UploadDistributorDataService:SaveServiceDataService,
+              private authService:AuthService,
+            ) { }
 
 
   ngOnInit(): void {
@@ -118,6 +131,67 @@ export class DistributorSearchComponent implements OnChanges, OnInit, AfterViewI
 
   exportToExcel(){
       this.exportToExcelService.exportTableAsExcel(this.suppliers,"Distributors List")
+  }
+
+  saveSearchData(){
+
+    this.isLoading = true; // Start loading
+    //To DO
+    //1.getUser ID
+    const userId = this.authService.getUserInfo()?.id;
+    //2.get Country
+    let country = this.formdata.country;
+    //3.get pincode 
+    let pincode = this.formdata.pincode;
+    //4.get platform
+    let platform = this.formdata.platform;    
+    //5.get searchData
+    let searchData = JSON.stringify(this.suppliers);
+    //6. get reviewResult
+
+    //7. get Searchquery
+    let searchQuery = this.formdata.distributorSearchQuery;
+    
+    const distributorRequestData = {
+      userId: this.authService.getUserInfo()?.id,
+      countryName: this.formdata.country,
+      searchData: JSON.stringify(this.suppliers),
+      platform: this.formdata.platform,
+      distributorSearchQuery: this.formdata.distributorSearchQuery
+    };
+
+    console.log(distributorRequestData);
+    
+    this.UploadDistributorDataService.addDistributorData(distributorRequestData)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe({
+        next: (response:any) => {
+          this.isLoading = false;
+          const responseMessage = response?.message;
+          this.globalSnackbar.showSuccess(responseMessage,"Close");
+          console.log('Keyword data added successfully:', response);
+        },
+        error: (error) => {
+          this.isLoading = false;
+          const errorMessage = error?.error?.message || 'Error adding keyword data';
+          this.globalSnackbar.showError(errorMessage, "Close");
+          console.error('Error:', error);
+        },
+        complete: () => {
+          this.isLoading = false;
+          console.log('Keyword data upload completed.');
+        }
+      });
+    
+
+    
+
+  }
+
+  ngOnDestroy(): void {
+    // Notify all subscriptions to complete
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
 }

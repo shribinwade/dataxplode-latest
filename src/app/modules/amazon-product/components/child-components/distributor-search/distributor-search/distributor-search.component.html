@@ -21,6 +21,11 @@
         <button [disabled]="data!=null?false:true" class="btn btn-success" (click)="exportToExcel()">Export Excel</button>
       </div>
 
+      <button type="submit" (click)="saveSearchData()"  [ngClass]="{'button--loading': isLoading}" [disabled]="isLoading" class="btn btn-primary button--loading m-2 d-flex justify-content-center align-items-center">
+        <span class="button--text"><mat-icon fontIcon="upload"></mat-icon></span>
+        <span class="button--text">Upload</span>
+      </button>
+
 
       <form [formGroup]="searchLocationFormControl" (ngSubmit)="locationSearch()" >
          <div class="filerLocation">

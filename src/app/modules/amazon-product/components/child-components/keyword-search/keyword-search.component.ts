@@ -9,6 +9,7 @@ import { ExportTableAsExcelService } from '../../../../../core/services/excel-ut
 import { AuthService } from '../../../../../core/services/auth-service/auth.service';
 import { SaveServiceDataService } from '../../../../../core/services/SaveServicesData/save-service-data.service';
 import { Subject, takeUntil } from 'rxjs';
+import { CustomSnackbarService } from '../../../../../core/services/snackbar-service/custom-snackbar.service';
 
 
 export interface keywordDetails {
@@ -86,9 +87,11 @@ export class KeywordSearchComponent implements OnInit,AfterViewInit, OnChanges  
     private formBuilder: FormBuilder,
     private  exportToExcelService:ExportTableAsExcelService,
     private authService:AuthService,
-    private UploadKeywordDataService:SaveServiceDataService
+    private UploadKeywordDataService:SaveServiceDataService,
+    private globalSnackbar: CustomSnackbarService
   ){}
 
+  // this.globalSnackbar.showSuccess(this.responseMessage,"Close");
   ngOnChanges(changes: SimpleChanges): void {
     console.log("inside Onchanges");
   }
@@ -269,18 +272,25 @@ export class KeywordSearchComponent implements OnInit,AfterViewInit, OnChanges  
       pincode: this.formdata.pincode,
       searchData: JSON.stringify(this.productData),
       platform: this.formdata.platform,
+      keywordQuery: this.formdata.keywordSearchQuery
     };
 
+    console.log(keywordRequestData);
+    
     this.UploadKeywordDataService.addKeywordData(keywordRequestData)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
-        next: (response) => {
+        next: (response:any) => {
           this.isLoading = false;
+          const responseMessage = response?.message;
+          this.globalSnackbar.showSuccess(responseMessage,"Close");
           console.log('Keyword data added successfully:', response);
         },
         error: (error) => {
           this.isLoading = false;
-          console.error('Error adding keyword data:', error);
+          const errorMessage = error?.error?.message || 'Error adding keyword data';
+          this.globalSnackbar.showError(errorMessage, "Close");
+          console.error('Error:', error);
         },
         complete: () => {
           this.isLoading = false;

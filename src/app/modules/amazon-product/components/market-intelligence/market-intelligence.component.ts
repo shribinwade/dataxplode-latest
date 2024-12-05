@@ -324,6 +324,7 @@ export class MarketIntelligenceComponent implements AfterViewInit, OnDestroy {
 
             else if (this.selectedService === 'DistributorSearch') {
               (componentRef.instance as DistributorSearchComponent).data = responseData;
+              (componentRef.instance as DistributorSearchComponent).formdata = requestData;
               componentRef.changeDetectorRef.detectChanges(); // Call detectChanges after setting data
             }
             else if (this.selectedService === 'CompetitiveStratergySearch') {
