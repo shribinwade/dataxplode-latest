@@ -184,7 +184,7 @@ export class ProductSearchComponent implements OnInit {
 
   uploadData(){
 
-       //To DO
+    //To DO
     //1.getUser ID
     const userId = this.authService.getUserInfo()?.id;
     //2.get Country
@@ -217,7 +217,7 @@ export class ProductSearchComponent implements OnInit {
           this.isLoading = false;
           const responseMessage = response?.message;
           this.globalSnackbar.showSuccess(responseMessage,"Close");
-          console.log('Keyword data added successfully:', response);
+          console.log('Product data added successfully:', response);
         },
         error: (error) => {
           this.isLoading = false;
@@ -227,7 +227,7 @@ export class ProductSearchComponent implements OnInit {
         },
         complete: () => {
           this.isLoading = false;
-          console.log('Keyword data upload completed.');
+          console.log('Product data upload completed.');
         }
       });
     }else{

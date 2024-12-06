@@ -135,11 +135,12 @@ th {
     flex-direction: row;
   }
 
- .btn{
-    position: relative;
- }
+
 
  //button loading
+ .btn{
+  position: relative;
+}
  
  .button--loading .button--text {
      visibility: hidden ;

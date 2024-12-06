@@ -17,6 +17,9 @@ export const environment = {
   //Distributor APi
   distributorUrl: 'http://localhost:8081/distributorSearch',
 
+  //Competitive Strategy APi
+  competitiveStrategyUrl: 'http://localhost:8081/competitiveSearch',
+
   //Local endpoint 
   apiUrl: 'http://127.0.0.1:8000',
 };

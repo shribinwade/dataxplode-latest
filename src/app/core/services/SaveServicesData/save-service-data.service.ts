@@ -11,6 +11,7 @@ export class SaveServiceDataService {
   distributorUrl = environment.distributorUrl;
   keywordUrl = environment.keywordUrl;
   productUrl = environment.productUrl;
+  competitveStrategyUrl = environment.competitiveStrategyUrl;
   
   constructor(private httpClient:HttpClient) { }
 
@@ -42,6 +43,15 @@ export class SaveServiceDataService {
       headers:new HttpHeaders().set('content-Type','application/json')
     })
   }
+
+  //CompetitiveStrategy Url
+  addCompetitiveStrategyData(data:any){
+    return this.httpClient.post(this.competitveStrategyUrl+"/addCompetitiveSearch",data,{
+      headers:new HttpHeaders().set('content-Type','application/json')
+    })
+  }
+
+  
 
   
 }

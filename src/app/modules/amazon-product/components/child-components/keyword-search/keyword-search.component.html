@@ -15,8 +15,9 @@
           </div>
 
           <div class="col">
-            <div class="d-flex justify-content-end">
-              <select (change)="changeSortOrder($event)" class="form-select m-2" style="width: auto"
+            <div class="d-flex justify-content-end flex-wrap ">
+              <span class="m-2">
+                <select (change)="changeSortOrder($event)" class="form-select" 
                 aria-label="Default select example">
                 <option selected>Sort Order</option>
                 <option value="ratingLowToHigh">Rating: Low to High</option>
@@ -24,11 +25,13 @@
                 <option value="priceLowToHigh">Price: Low to High</option>
                 <option value="priceHighToLow">Price: High to Low</option>
               </select>
+              </span>
+          
 
               <button class="btn btn-success m-2" (click)="exportToExcel()">Export Excel</button>
               <!-- <button class="btn btn-primary m-2 button--loading" (click)="saveSearchData()" > <mat-icon fontIcon="upload"></mat-icon> Save </button> -->
 
-              <button type="submit" (click)="saveSearchData()"  [ngClass]="{'button--loading': isLoading}" [disabled]="isLoading" class="btn btn-primary  button--loading d-flex justify-content-center align-items-center px-2 py-0 m-1">
+              <button type="submit" (click)="saveSearchData()"  [ngClass]="{'button--loading': isLoading}" [disabled]="isLoading" class="btn btn-primary  button--loading d-flex justify-content-center align-items-center px-2 py-0 m-2">
                 <span class="button--text"><mat-icon style="font-size: 15px;" class="d-flex justify-content-center align-items-center" fontIcon="upload"></mat-icon></span>
                 <span class="button--text" style="text-align: center;">Upload</span>
               </button>
@@ -39,15 +42,16 @@
           </div>
         </div>
 
-        <div style="padding: 5px; margin-top: 3px">
+        <div style=" margin-top: 3px" class="mx-0 px-0">
           <form [formGroup]="searchProductForm" (ngSubmit)="productSearch()">
-            <div class="row">
-              <div class="col-lg-9">
-                <input class="form-control me-2" formControlName="search" type="text"
-                  style="width: 100%; font-size: small" placeholder="Search" aria-label="Search" />
+            <div class="row m-0">
+              <div class="col-lg-9 m-0 p-0">
+                <input class="form-control w-100 m-0 px-0" formControlName="search" type="text"
+                   placeholder="Search" aria-label="Search" />
               </div>
+
               <div class="col-lg-3">
-                <button class="btn btn-primary" style="font-size: small; width: 100%" type="submit">
+                <button class="btn btn-primary px-2  " style=" width: 100%" type="submit">
                   Search Product
                 </button>
               </div>

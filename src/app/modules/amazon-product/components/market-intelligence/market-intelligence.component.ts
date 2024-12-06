@@ -253,7 +253,6 @@ export class MarketIntelligenceComponent implements AfterViewInit, OnDestroy {
 
   // Triggered on form search
   onSearch(): void {
-   debugger
     if (this.selectedService) {
 
       const requestData = {
@@ -329,6 +328,7 @@ export class MarketIntelligenceComponent implements AfterViewInit, OnDestroy {
             }
             else if (this.selectedService === 'CompetitiveStratergySearch') {
               (componentRef.instance as CompetitiveStratergyComponent).data = responseData;
+              (componentRef.instance as KeywordSearchComponent).formdata = requestData;
               componentRef.changeDetectorRef.detectChanges(); // Call detectChanges after setting data
             }
           }

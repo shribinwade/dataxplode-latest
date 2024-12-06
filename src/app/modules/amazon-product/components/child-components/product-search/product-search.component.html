@@ -36,7 +36,7 @@
 
               <p><strong>Product SKU Code: </strong> {{ productSearchData.Product_features.ASIN }}</p>
               <div class="row">
-                <div class="d-flex">
+                <div class="d-flex justify-content-start align-items flex-wrap">
                   <p>
                     <strong>Rating: </strong>{{productSearchData.Rating_value }}
                   </p>
@@ -48,7 +48,7 @@
               </div>
 
               <div class="row">
-                <div class="d-flex">
+                <div class="d-flex flex-wrap">
                   <div class="pricing-info">
                     <p class="mrp text-decoration-line-through"><strong>M.R.P: </strong>{{ productSearchData.MRP | currency : currency }}</p>
                   </div>
@@ -71,7 +71,7 @@
               </div>
 
               <div class="row">
-                <div style="justify-content: center">
+                <div class="d-flex justify-content-start align-items flex-wrap">
                   <button style="margin: 5px" class="btn btn-primary" type="submit"
                     (click)="handleSpecificationAction()">
                     Specification
@@ -104,8 +104,8 @@
              
               <p><b>Description: </b>{{productSearchData.Description }}</p>
               <div class="row">
-                <div style="display: flex; align-items: center; justify-content: start">
-                  <button class="btn btn-primary dropdown-toggle"  style="color: white;" type="button"
+                <div class="d-flex justify-content-start align-items flex-wrap">
+                  <button class="btn btn-primary dropdown-toggle px-2 py-0 m-1"  style="color: white;" type="button"
                     data-bs-toggle="dropdown" aria-expanded="false">
                     Reviews
                   </button>
