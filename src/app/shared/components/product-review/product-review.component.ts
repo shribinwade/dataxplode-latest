@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, Inject, OnInit } from '@angular/core';
 
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { finalize, Observable } from 'rxjs';
+import { finalize, Observable, Subject, takeUntil } from 'rxjs';
 import { AmazonProductService } from '../../../core/services/amazon-product/amazon-product.service';
 import { CustomSnackbarService } from '../../../core/services/snackbar-service/custom-snackbar.service';
 
@@ -16,13 +16,13 @@ export class ProductReviewComponent implements OnInit, AfterViewInit {
   receviedData!: any;
   isLoadingReviews:boolean = false;
 
-
-
   constructor(@Inject(MAT_DIALOG_DATA) public data: { formdata: any },
     private amazonProductService: AmazonProductService,
     private globalSnackbar: CustomSnackbarService,
     private ref: MatDialogRef<ProductReviewComponent>, 
   ) { }
+
+  private unsubscribe$ = new Subject<void>();
 
   ngAfterViewInit(): void {
 
@@ -30,7 +30,6 @@ export class ProductReviewComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
   
-    
     const requestData = {
       country: this.data.formdata.country,
       productSearchQuery: this.data.formdata.productSearchQuery,
@@ -42,7 +41,7 @@ export class ProductReviewComponent implements OnInit, AfterViewInit {
     this.reviewCall$ = this.amazonProductService.amazon_product_reviews(requestData);
     // console.log(this.data.formdata);
     this.callapi();
-
+           
   }
 
 
@@ -51,6 +50,7 @@ export class ProductReviewComponent implements OnInit, AfterViewInit {
     console.log("inside callapi loading review");
 
     this.reviewCall$.pipe(
+      takeUntil(this.unsubscribe$),
       finalize(() => {
           //Stoping Loading after complete response
           this.isLoadingReviews=false;
@@ -60,8 +60,17 @@ export class ProductReviewComponent implements OnInit, AfterViewInit {
       this.receviedData = responseData;
       console.log(this.receviedData);
     },(error:any) =>{
+
       this.isLoadingReviews=false;
+      this.globalSnackbar.showError("No reviews Found for Product","Close");
+
     })
+  }
+
+  ngOnDestroy(): void {
+    // Notify all subscriptions to complete
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
 

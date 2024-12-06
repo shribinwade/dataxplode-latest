@@ -28,9 +28,9 @@
               <button class="btn btn-success m-2" (click)="exportToExcel()">Export Excel</button>
               <!-- <button class="btn btn-primary m-2 button--loading" (click)="saveSearchData()" > <mat-icon fontIcon="upload"></mat-icon> Save </button> -->
 
-              <button type="submit" (click)="saveSearchData()"  [ngClass]="{'button--loading': isLoading}" [disabled]="isLoading" class="btn btn-primary button--loading m-2 d-flex justify-content-center align-items-center">
-                <span class="button--text"><mat-icon fontIcon="upload"></mat-icon></span>
-                <span class="button--text">Upload</span>
+              <button type="submit" (click)="saveSearchData()"  [ngClass]="{'button--loading': isLoading}" [disabled]="isLoading" class="btn btn-primary  button--loading d-flex justify-content-center align-items-center px-2 py-0 m-1">
+                <span class="button--text"><mat-icon style="font-size: 15px;" class="d-flex justify-content-center align-items-center" fontIcon="upload"></mat-icon></span>
+                <span class="button--text" style="text-align: center;">Upload</span>
               </button>
             </div>
 

@@ -27,7 +27,6 @@
                   <img [src]="images" class="d-block w-100" alt="..." />
                 </swiper-slide>
               </swiper-container>
-
             </div>
 
             <div class="col-md-7">
@@ -97,7 +96,6 @@
                   <P><b>Review Count: </b> {{productSearchData.Review_count }}</P>
                   <P><b>Bought: </b> {{productSearchData.bought }}</P>
                   <P><b>Seller: </b> {{productSearchData.reseller_name }}</P>
-
                 </div>
               </div>
             </div>
@@ -106,7 +104,7 @@
              
               <p><b>Description: </b>{{productSearchData.Description }}</p>
               <div class="row">
-                <div style="justify-content: center">
+                <div style="display: flex; align-items: center; justify-content: start">
                   <button class="btn btn-primary dropdown-toggle"  style="color: white;" type="button"
                     data-bs-toggle="dropdown" aria-expanded="false">
                     Reviews
@@ -115,6 +113,15 @@
                     <li><a class="dropdown-item" (click)="handleReviewListAction()">View Reviews</a></li>
                     <li><a class="dropdown-item">Reviews analysis</a></li>
                   </ul>
+
+                  <button type="submit" (click)="saveSearchData()"  [ngClass]="{'button--loading': isLoading}" [disabled]="isLoading" class="btn btn-primary  button--loading d-flex justify-content-center align-items-center px-2 py-0 m-1">
+                    <span class="button--text"><mat-icon style="font-size: 15px;" class="d-flex justify-content-center align-items-center" fontIcon="upload"></mat-icon></span>
+                    <span class="button--text" style="text-align: center;">Upload</span>
+                  </button>
+                </div>
+                 
+                <div>
+                
                 </div>
               </div>
 

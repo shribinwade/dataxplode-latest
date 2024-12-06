@@ -10,6 +10,7 @@ export class SaveServiceDataService {
   url = environment.keywordUrl;
   distributorUrl = environment.distributorUrl;
   keywordUrl = environment.keywordUrl;
+  productUrl = environment.productUrl;
   
   constructor(private httpClient:HttpClient) { }
 
@@ -22,7 +23,7 @@ export class SaveServiceDataService {
 
   //Product
   addProductData(data:any){   
-    return this.httpClient.post(this.url+"/addproductSearch",data,{
+    return this.httpClient.post(this.productUrl+"/addProductSearch",data,{
       headers:new HttpHeaders().set('content-Type','application/json')
     })
   }
@@ -34,7 +35,7 @@ export class SaveServiceDataService {
       headers:new HttpHeaders().set('content-Type','application/json')
     })
   }
-
+  
   //Market Url
   addMarketData(data:any){
     return this.httpClient.post(this.url+"/addmarketSearch",data,{
