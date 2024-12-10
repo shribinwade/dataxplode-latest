@@ -16,7 +16,6 @@ export class CompetitorAnalysisComponent implements OnInit {
 
 
   @Input('country') country:any;
-
   @Output() responseData = new EventEmitter<any>();
   @Output() formData = new EventEmitter<any>();
 

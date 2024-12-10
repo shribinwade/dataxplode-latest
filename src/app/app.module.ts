@@ -41,9 +41,7 @@ import { AboutUsComponent } from './pages/about-us/about-us/about-us.component';
         disallowedRoutes: ['localhost:8081/user/forgotPassword', 'localhost:8081/user/resetPassword','localhost:8081/user/login']
       }
     }),
-    BrowserAnimationsModule,
-
-    
+    BrowserAnimationsModule, 
   ],
   providers: [
     provideAnimationsAsync(),

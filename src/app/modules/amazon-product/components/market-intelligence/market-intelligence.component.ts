@@ -78,10 +78,10 @@ export class MarketIntelligenceComponent implements AfterViewInit, OnDestroy {
 
   //Competitive analysis search
   hiddenCompetitiveAnalysisSearch: boolean = false;
-
+  
   //CompetitorAnalysis
   CompetitorAnalysisData:any;
-  formData:any;
+  FormData:any;
 
   //chevron icon
   chevron:string = "chevron_right";
@@ -214,37 +214,30 @@ export class MarketIntelligenceComponent implements AfterViewInit, OnDestroy {
 
 
   // Dynamically load component based on service
-  loadDynamicComponent(service: string): void {
+  loadDynamicComponent(service: string, responseData?: any, formData?: any): void {
     
+    
+    const requestData = {
+      country: this.selectedCountry,
+      pincode: this.pincodeQuery,
+      platform:this.selectedSites
+    };
     this.dynamicComponentContainer.detach();  // Clear existing component
     const componentType = this.getComponentType(service);
 
     if (componentType) {
+
       const componentFactory = this.componentFactoryResolver.resolveComponentFactory(componentType);
       const componentRef = this.dynamicComponentContainer.createComponent(componentFactory);
 
       if(service === 'CompetitorAnalysisSearch'){
         (componentRef.instance as CompetitorAnalysisFinalComponent).responseData = this.CompetitorAnalysisData;
         (componentRef.instance as CompetitorAnalysisFinalComponent).country = this.selectedCountry;
-       
+        (componentRef.instance as CompetitorAnalysisFinalComponent).formdata = formData;
+        (componentRef.instance as CompetitorAnalysisFinalComponent).requestData = requestData;
         componentRef.changeDetectorRef.detectChanges(); // Call detectChanges after setting data
       }
       
-
-      // switch (service) {
-      //   case 'ProductSearch':
-      //     componentFactory = this.componentFactoryResolver.resolveComponentFactory(ProductSearchComponent);
-      //     break;
-      //   case 'KeywordSearch':
-      //     componentFactory = this.componentFactoryResolver.resolveComponentFactory(KeywordSearchComponent);
-      //     break;
-      //   case 'MarketSearch':
-      //     componentFactory = this.componentFactoryResolver.resolveComponentFactory(MarketSearchComponent);
-      //     break;
-      //   default:
-      //     return;
-      // }
-
     }
     // if (componentFactory) {
     //   this.dynamicComponentContainer.createComponent(componentFactory);
@@ -328,7 +321,7 @@ export class MarketIntelligenceComponent implements AfterViewInit, OnDestroy {
             }
             else if (this.selectedService === 'CompetitiveStratergySearch') {
               (componentRef.instance as CompetitiveStratergyComponent).data = responseData;
-              (componentRef.instance as KeywordSearchComponent).formdata = requestData;
+              (componentRef.instance as CompetitiveStratergyComponent).formdata = requestData;
               componentRef.changeDetectorRef.detectChanges(); // Call detectChanges after setting data
             }
           }
@@ -370,10 +363,30 @@ export class MarketIntelligenceComponent implements AfterViewInit, OnDestroy {
   OpenCompetitorAnalysisModel(){
     console.log("Inside method Open");
     this.showModalService.showCompetitorAnalysisModel(this.selectedCountry);
-    this.showModalService.componentRef.instance.responseData.subscribe((responseData)=>{
+
+    // Get component reference
+    const componentRef = this.showModalService.componentRef.instance;
+
+     // Subscribe to responseData
+     componentRef.responseData.subscribe((responseData: any) => {
       this.CompetitorAnalysisData = responseData;
-      this.loadDynamicComponent(this.selectedService);
-     })
+      this.checkAndLoadDynamicComponent();
+    });
+
+    // Subscribe to formData
+    componentRef.formData.subscribe((formData: any) => {
+      this.FormData = formData;
+      this.checkAndLoadDynamicComponent();
+    });
+
+  }
+
+
+  checkAndLoadDynamicComponent() {
+    if (this.CompetitorAnalysisData && this.FormData) {
+      this.loadDynamicComponent(this.selectedService, this.CompetitorAnalysisData, this.FormData);
+  
+    }
   }
 
   toggleSearchCard(){

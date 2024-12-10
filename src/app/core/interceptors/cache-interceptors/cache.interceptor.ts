@@ -1,4 +1,5 @@
 import {
+  HttpClient,
   HttpEvent,
   HttpHandler,
   HttpInterceptor,
@@ -6,8 +7,9 @@ import {
   HttpResponse,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of, tap } from 'rxjs';
+import { catchError, Observable, of, switchMap, tap } from 'rxjs';
 import { environment } from '../../../../environments/environment';
+import { AuthService } from '../../services/auth-service/auth.service';
 
 
 
@@ -20,7 +22,10 @@ export class CacheInterceptor implements HttpInterceptor {
   //store the response object
   cacheMap = new Map<string, HttpResponse<any>>();
 
-  constructor() {
+  constructor(
+    private httpClient:HttpClient,
+    private authService:AuthService       
+  ) {
     // Load cache from localStorage if it exists
     const storedCache = localStorage.getItem('httpCache');
     if (storedCache) {
@@ -32,7 +37,7 @@ export class CacheInterceptor implements HttpInterceptor {
   }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    debugger
+     debugger
     // Check if the request is cacheable
     if (!this.isRequestCachable(request)) {
       return next.handle(request);
@@ -40,35 +45,79 @@ export class CacheInterceptor implements HttpInterceptor {
       //request is cacheable
       const cacheKey = this.getCacheKey(request);
       const url = request.url;
+
       // If the req is cached
       if (this.cacheMap.has(cacheKey)) {
+        console.log('Serving from cache:', cacheKey);
         return of(this.cacheMap.get(cacheKey) as HttpResponse<any>)
       } else {
-        return next.handle(request).pipe(
-          tap(event => {
-            if (event instanceof HttpResponse) {
-              //set the map
-              this.cacheMap.set(cacheKey, event);
-              // Update localStorage cache
-         
-              if(this.isRequestStorable(request)){
-                try{
-                   localStorage.setItem('httpCache', JSON.stringify(Object.fromEntries(this.cacheMap)));
-                }catch (e:any) {
-                  if (e.name === 'QuotaExceededError') {
-                    // Handle quota exceeded error
-                    console.error('LocalStorage quota exceeded');
-                  }
-              }
-            }
-          }
-        })
-          
-        )
-      }
-    }
+          //chcek data base Endpoint
+          // Check database endpoint
+    return this.checkDatabaseEndpoint(request).pipe(
+      switchMap(dbData => {
+        if (dbData) {
+          console.log('Serving from database endpoint:', cacheKey);
+          const dbResponse = new HttpResponse({ body: dbData, status: 200 });
+          this.cacheMap.set(cacheKey, dbResponse);
+          return of(dbResponse);
+        } else {
+          // Proceed with the request
+          return next.handle(request).pipe(
+            tap(event => {
+              if (event instanceof HttpResponse) {
+                this.cacheMap.set(cacheKey, event);
 
-    return next.handle(request);
+                if (this.isRequestStorable(request)) {
+                  try {
+                    localStorage.setItem('httpCache', JSON.stringify(Object.fromEntries(this.cacheMap)));
+                  } catch (e: any) {
+                    if (e.name === 'QuotaExceededError') {
+                      console.error('LocalStorage quota exceeded');
+                    }
+                  }
+                }
+              }
+            })
+          );
+        }
+      }),
+      catchError(err => {
+        console.error('Database check failed:', err);
+        return next.handle(request); // Proceed with the request if the DB check fails
+      })
+    );
+  }
+}
+}
+        
+
+
+  private checkDatabaseEndpoint(request: HttpRequest<any>):Observable<HttpResponse<any> | null> {
+    // Extract parameters dynamically from the original request
+    //extract form data parameter
+    const userId = this.authService.getUserInfo()?.id;
+    const formData: FormData = request.body as FormData;
+    const searchQuery = formData.get('query1') as string;
+    const countryQuery = formData.get('query2') as string;
+
+    const userID =  userId || '';
+    const country = countryQuery || '';
+    const keyword = searchQuery || '';
+
+    // Construct the dynamic URL
+    const dbEndpointUrl = `http://localhost:8081/keywordSearch/getKeywordData?UserID=${userID}&country=${country}&keyword=${keyword}`;
+    
+    return this.authService.getDBData(dbEndpointUrl).pipe(
+      tap(response => {
+        console.log('Final Response from DB:', response); // Debugging step
+      }),
+      catchError(error => {
+        console.error('Error fetching data from DB:', error); // Log errors
+        return of(null); // Return `null` in case of an error
+      })
+    );
+      // Make the GET request to the database endpoint
+    
   }
 
   isRequestStorable(req: HttpRequest<any>){

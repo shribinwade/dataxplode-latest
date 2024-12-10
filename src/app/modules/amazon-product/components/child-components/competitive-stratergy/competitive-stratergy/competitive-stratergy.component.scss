@@ -74,6 +74,9 @@ a{
     justify-content: center;
     align-items: center;
  }
+ .input-field {
+    position: relative;
+}
 
 //button loading
 
@@ -82,9 +85,7 @@ a{
     opacity: 0;
  }
  
-.input-field {
-    position: relative;
-}
+
 
 .btn{
     position: relative;

@@ -37,6 +37,10 @@ export class ShowModalService {
        this.componentRef.instance.responseData.subscribe((responseData)=>{
         console.log(responseData);
        })
+       this.componentRef.instance.formData.subscribe((formData)=>{
+        console.log(formData);
+       })
+
        return this.selectedOptionObservable;
   }
 }

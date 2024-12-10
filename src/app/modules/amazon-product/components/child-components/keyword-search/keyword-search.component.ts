@@ -270,7 +270,7 @@ export class KeywordSearchComponent implements OnInit,AfterViewInit, OnChanges  
       userId: this.authService.getUserInfo()?.id,
       countryName: this.formdata.country,
       pincode: this.formdata.pincode,
-      searchData: JSON.stringify(this.productData),
+      searchData: JSON.stringify(this.data),
       platform: this.formdata.platform,
       keywordQuery: this.formdata.keywordSearchQuery
     };

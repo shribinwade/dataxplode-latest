@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from '../../../../environments/environment.development';
-import { Subject } from 'rxjs';
+import { catchError, Observable, of, Subject, tap } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { User } from '../../model/user';
 
@@ -96,6 +96,18 @@ export class AuthService {
         }
         return user;
       }
+  }
+
+  public getDBData(dbEndpointUrl:string): Observable<any| null>{
+     return this.httpClient.get(dbEndpointUrl).pipe(
+      tap(response => {
+         response;
+      }),
+      catchError(error => {
+        console.error('Error fetching data from DB:', error);
+        return of(null); // Return null in case of an error
+      })
+    );
   }
 
 
