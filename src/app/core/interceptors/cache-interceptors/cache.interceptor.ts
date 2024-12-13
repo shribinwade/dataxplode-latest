@@ -10,6 +10,7 @@ import { Injectable } from '@angular/core';
 import { catchError, Observable, of, switchMap, tap } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { AuthService } from '../../services/auth-service/auth.service';
+import { RetriveDBDataURLService } from '../../services/RetriveDataFromDBService/retrive-dbdata-url.service';
 
 
 
@@ -24,7 +25,8 @@ export class CacheInterceptor implements HttpInterceptor {
 
   constructor(
     private httpClient:HttpClient,
-    private authService:AuthService       
+    private authService:AuthService,
+    private retriveDbData:RetriveDBDataURLService       
   ) {
     // Load cache from localStorage if it exists
     const storedCache = localStorage.getItem('httpCache');
@@ -37,7 +39,6 @@ export class CacheInterceptor implements HttpInterceptor {
   }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-     debugger
     // Check if the request is cacheable
     if (!this.isRequestCachable(request)) {
       return next.handle(request);
@@ -95,6 +96,7 @@ export class CacheInterceptor implements HttpInterceptor {
   private checkDatabaseEndpoint(request: HttpRequest<any>):Observable<HttpResponse<any> | null> {
     // Extract parameters dynamically from the original request
     //extract form data parameter
+    debugger
     const userId = this.authService.getUserInfo()?.id;
     const formData: FormData = request.body as FormData;
     const searchQuery = formData.get('query1') as string;
@@ -105,7 +107,11 @@ export class CacheInterceptor implements HttpInterceptor {
     const keyword = searchQuery || '';
 
     // Construct the dynamic URL
-    const dbEndpointUrl = `http://localhost:8081/keywordSearch/getKeywordData?UserID=${userID}&country=${country}&keyword=${keyword}`;
+    const dbEndpointUrl:string = this.retriveDbData.getDBURL(request);
+    console.log(dbEndpointUrl);
+    
+
+    // const dbEndpointUrl = `http://localhost:8081/keywordSearch/getKeywordData?UserID=${userID}&country=${country}&keyword=${keyword}`;
     
     return this.authService.getDBData(dbEndpointUrl).pipe(
       tap(response => {

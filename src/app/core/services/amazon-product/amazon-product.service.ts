@@ -91,6 +91,7 @@ export class AmazonProductService {
   distributor_search(data:any):Observable<any>{
 
     const requestData = {
+      country: data.country,
       distributorSearchQuery: data.distributorSearchQuery,
     };
   
@@ -99,6 +100,7 @@ export class AmazonProductService {
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++competitve stratergy search +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   competitve_stratergy_search(data:any):Observable<any>{
     const requestData = {
+      country: data.country,
       competitiveSearchQuery: data.competitiveSearchQuery,
     };
       return this.httpService.post(this.contextUrl + API_ENDPOINTS.COMPETITIVE_STRATERGY_SEARCH,requestData)

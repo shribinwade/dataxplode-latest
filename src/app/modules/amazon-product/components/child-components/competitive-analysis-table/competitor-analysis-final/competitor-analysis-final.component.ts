@@ -7,6 +7,7 @@ import { AuthService } from '../../../../../../core/services/auth-service/auth.s
 import { SaveServiceDataService } from '../../../../../../core/services/SaveServicesData/save-service-data.service';
 import { CustomSnackbarService } from '../../../../../../core/services/snackbar-service/custom-snackbar.service';
 import { Subject, takeUntil } from 'rxjs';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-competitor-analysis-final',
@@ -27,7 +28,7 @@ export class CompetitorAnalysisFinalComponent implements OnInit {
 
   @Input('responseData') responseData:any;
   @Input('country') country!:String;
-  @Input() formdata!:any;
+  @Input() formdata!:FormGroup;
   @Input() requestData!: any;
 
   private unsubscribe$ = new Subject<void>();
@@ -36,7 +37,7 @@ export class CompetitorAnalysisFinalComponent implements OnInit {
                private  exportToExcelService:ExportTableAsExcelService,
                private authService:AuthService,
                private globalSnackbar: CustomSnackbarService,
-               private UploadKeywordDataService:SaveServiceDataService){}
+               private UploadCompetitorAnalysisService:SaveServiceDataService){}
 
   ngOnInit(): void {
    
@@ -110,36 +111,33 @@ export class CompetitorAnalysisFinalComponent implements OnInit {
     const userId = this.authService.getUserInfo()?.id;
     //2.get Country
     let country = this.requestData.country;
-    //3.get pincode 
-    let pincode = this.requestData.pincode;
-    //4.get platform
+    //3.get platform
     let platform = this.requestData.platform;    
-    //5.get searchData
-    let CompetitiveStrategysearchData = JSON.stringify(this.responseData);
-    //6.get Searchquery
-    let CompetitiveStrategyQuery = this.formdata;
+    //4.get searchData
+    let CompetitorAnalysissearchData = JSON.stringify(this.responseData);
+    //5.get Searchquery
+    let CompetitorAnalysisQuery = this.formdata.get('Keyword')?.value;
 
-    const CompetitiveStrategyRequestData = {
+    const CompetitorAnalysisRequestData = {
       userId: this.authService.getUserInfo()?.id,
       countryName: country,
-      pincode: pincode,
-      searchData: CompetitiveStrategysearchData,
       platform: platform,
-      competitiveSearchQuery: CompetitiveStrategyQuery,
+      searchData: CompetitorAnalysissearchData,
+      competitorAnalysisQuery: CompetitorAnalysisQuery,
     };
 
-    console.log(CompetitiveStrategyRequestData);
+    console.log(CompetitorAnalysisRequestData);
 
-      this.UploadKeywordDataService.addCompetitiveStrategyData(CompetitiveStrategyRequestData)
+      this.UploadCompetitorAnalysisService.addCompetitorAnalysisData(CompetitorAnalysisRequestData)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: (response:any) => {
           this.isLoading = false;
           const responseMessage = response?.message;
           this.globalSnackbar.showSuccess(responseMessage,"Close");
-          console.log('Competitive Strategy data added successfully:', response);
+          console.log('Competitive Analysis data added successfully:', response);
         },
-        error: (error) => {
+        error: (error:any) => {
           this.isLoading = false;
           const errorMessage = error?.error?.message ;
           this.globalSnackbar.showError(errorMessage, "Close");

@@ -20,6 +20,12 @@ export const environment = {
   //Competitive Strategy APi
   competitiveStrategyUrl: 'http://localhost:8081/competitiveSearch',
 
+  //CompetitorAnalysis Api
+  competitorAnalysisUrl: 'http://localhost:8081/competititorAnalysisSearch',
+
+  //MarketSeachUrl Api
+  marketSearchUrl: 'http://localhost:8081/marketSearch',
+
   //Local endpoint 
   apiUrl: 'http://127.0.0.1:8000',
 };

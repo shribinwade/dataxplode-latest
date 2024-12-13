@@ -155,7 +155,7 @@ export class DistributorSearchComponent implements OnChanges, OnInit, AfterViewI
     const distributorRequestData = {
       userId: this.authService.getUserInfo()?.id,
       countryName: this.formdata.country,
-      searchData: JSON.stringify(this.suppliers),
+      searchData: JSON.stringify(this.data),
       platform: this.formdata.platform,
       distributorSearchQuery: this.formdata.distributorSearchQuery
     };

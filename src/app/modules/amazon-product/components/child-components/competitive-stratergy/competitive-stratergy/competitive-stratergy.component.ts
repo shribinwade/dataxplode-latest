@@ -56,7 +56,7 @@ export class CompetitiveStratergyComponent implements OnInit {
     //4.get platform
     let platform = this.formdata.platform;    
     //5.get searchData
-    let CompetitiveStrategysearchData = JSON.stringify(this.CompetitorSearchData);
+    let CompetitiveStrategysearchData = JSON.stringify(this.data);
     //6.get Searchquery
     let CompetitiveStrategyQuery = this.formdata.competitiveSearchQuery;
 

@@ -222,6 +222,7 @@ export class MarketIntelligenceComponent implements AfterViewInit, OnDestroy {
       pincode: this.pincodeQuery,
       platform:this.selectedSites
     };
+
     this.dynamicComponentContainer.detach();  // Clear existing component
     const componentType = this.getComponentType(service);
 
@@ -311,6 +312,7 @@ export class MarketIntelligenceComponent implements AfterViewInit, OnDestroy {
 
             } else if (this.selectedService === 'MarketSearch') {
               (componentRef.instance as MarketSearchComponent).data = responseData;
+              (componentRef.instance as MarketSearchComponent).formdata = requestData;
               componentRef.changeDetectorRef.detectChanges(); // Call detectChanges after setting data
             }
 

@@ -70,9 +70,8 @@ export class CompetitorAnalysisComponent implements OnInit {
             this.searchData = responseData;
             console.log(this.searchData);
             this.responseData.emit(responseData);
-            this.formData.emit(formdatajson);
+            this.formData.emit(this.checkoutForm);
             this.closeModal('cancel');
-            
           },error =>{
             this.isLoading=false;
           })     

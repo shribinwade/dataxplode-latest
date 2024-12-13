@@ -12,6 +12,8 @@ export class SaveServiceDataService {
   keywordUrl = environment.keywordUrl;
   productUrl = environment.productUrl;
   competitveStrategyUrl = environment.competitiveStrategyUrl;
+  competitorAnalysisUrl = environment.competitorAnalysisUrl
+  marketSearchUrl = environment.marketSearchUrl
   
   constructor(private httpClient:HttpClient) { }
 
@@ -39,7 +41,7 @@ export class SaveServiceDataService {
   
   //Market Url
   addMarketData(data:any){
-    return this.httpClient.post(this.url+"/addmarketSearch",data,{
+    return this.httpClient.post(this.marketSearchUrl+"/addMarketSearch",data,{
       headers:new HttpHeaders().set('content-Type','application/json')
     })
   }
@@ -51,7 +53,14 @@ export class SaveServiceDataService {
     })
   }
 
-  
+  //CompetitorAnalysis Url
+  addCompetitorAnalysisData(data:any){
+    return this.httpClient.post(this.competitorAnalysisUrl+"/addCompetititorAnalysisSearch",data,{
+      headers:new HttpHeaders().set('content-Type','application/json')
+    })
+  }
 
-  
+
+
+
 }
