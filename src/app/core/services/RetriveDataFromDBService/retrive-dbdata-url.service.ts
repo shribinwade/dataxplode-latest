@@ -23,6 +23,7 @@ export class RetriveDBDataURLService {
     `${this.apiurl}/get_brand_details`,//3
     `${this.apiurl}/get_search_brand_details`,//4
     `${this.apiurl}/get_data_IP`,//5
+    //product Search
     `${this.apiurl}/get_amazon_info_details`,//6
     //Distributor
     `${this.apiurl}/get_supplier`,//7
@@ -65,6 +66,14 @@ export class RetriveDBDataURLService {
       //Market Search
       else if(request.url.includes(this.storeUrls[3])){
         return `http://localhost:8081/marketSearch/getMarketData?UserID=${userID}&country=${countryQuery}&market=${searchServiceQuery}`;
+      }
+      //Product Search
+      else if(request.url.includes(this.storeUrls[6])){
+        return `http://localhost:8081/productSearch/getProductData?UserID=${userID}&country=${countryQuery}&product=${searchServiceQuery}`;
+      }
+      //
+      else if(request.url.includes(this.storeUrls[1])){
+        return `http://localhost:8081/productSearch/getProductReview?UserID=${userID}&country=${countryQuery}&product=${searchServiceQuery}`
       }
     };
     return ""

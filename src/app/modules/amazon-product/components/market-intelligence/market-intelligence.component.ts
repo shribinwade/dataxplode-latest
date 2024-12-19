@@ -398,7 +398,7 @@ export class MarketIntelligenceComponent implements AfterViewInit, OnDestroy {
   ngOnDestroy(): void {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
-    throw new Error('Method not implemented.');
+    // throw new Error('Method not implemented.');
   }
 
 }

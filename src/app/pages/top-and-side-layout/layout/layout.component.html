@@ -54,7 +54,6 @@
 <mat-sidenav-container>
   <mat-sidenav #sidenav   style="border-right: 1px solid #ddd; border-radius: 0%;"   [(opened)]="sideNavDefaultOpened" [mode]="sideNavMode" [ngStyle]="{ 'width.px': isExpanded ? openWidth : closeWidth }">
     <app-custom-sidenav [customStyles]="{ 'width.px': isExpanded ? openWidth : closeWidth }"></app-custom-sidenav>
-  
  </mat-sidenav>
  <mat-sidenav-content [ngStyle]="{ 'margin-left.px': isExpanded ? openWidth : closeWidth }">
      <router-outlet></router-outlet>

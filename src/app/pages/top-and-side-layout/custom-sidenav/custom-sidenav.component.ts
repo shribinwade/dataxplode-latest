@@ -62,7 +62,7 @@ export class CustomSidenavComponent implements OnInit, OnChanges{
   isAdmin!: boolean;
   role: string | undefined;
   userName: string | undefined;
-  menuItems: any[] = [];
+  menuItems: MenuItem[] = [];
 
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -97,7 +97,7 @@ export class CustomSidenavComponent implements OnInit, OnChanges{
           {
            icon: 'analytics',
            label: 'Market Intelligence',
-           route: 'market-intelligence'
+           route: 'admin/analysis-toolmarket-intelligence'
           }
          ]
       },
@@ -109,13 +109,18 @@ export class CustomSidenavComponent implements OnInit, OnChanges{
     return [
       { label: 'Dashboard', route: 'user/home', icon: 'dashboard' },
       { label: 'Analysis Tool', 
-        route:'user/analysis-tool',
+        // route: 'user/analysis-tool',
         icon: 'construction',
         subItems: [
          {
           icon: 'analytics',
           label: 'Market Intelligence',
-          route: 'market-intelligence'
+          route: 'user/analysis-tool/market-intelligence'
+         },
+         {
+           icon: 'data_exploration',
+           label: 'automation-management',
+           route: 'user/automation-management'
          }
         ]
       },

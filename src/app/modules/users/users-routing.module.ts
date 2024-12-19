@@ -11,6 +11,10 @@ const routes: Routes = [
   {
     path: 'analysis-tool',
     loadChildren: () => import('../../modules/amazon-product/amazon-product.module').then(m => m.AmazonProductModule),
+  },
+  {
+    path: 'automation-management',
+    loadChildren:() => import('../../modules/automation-management/automation-management.module').then(m=> m.AutomationManagementModule),
   }
 ];
 

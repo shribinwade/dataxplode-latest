@@ -28,17 +28,15 @@
 
     <a 
       *ngFor="let subItem of item.subItems"
-      class="menu-item "
+      class="menu-item"
       [ngClass]="{'indented': !collaped}"
       mat-list-item 
-      
-      [routerLink]="item.route+'/'+subItem.route"
-      routerLinkActive 
+      [routerLink]="subItem.route"
+      routerLinkActive="selected-menu-item"
       #rla="routerLinkActive" 
       [activated]="rla.isActive">
         
-        <mat-icon 
-              [fontSet]="rla.isActive ? 'material-icons':'material-icons-outlined'" 
+        <mat-icon  [fontSet]="rla.isActive ? 'material-icons':'material-icons-outlined'" 
               matListItemIcon
               color="primary">{{subItem.icon}}</mat-icon>
         <span matListItemTitle *ngIf="profilePicSize===32? 'false':'true'">{{subItem.label}}</span>

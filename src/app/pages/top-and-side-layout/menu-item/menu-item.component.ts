@@ -24,6 +24,7 @@ export class MenuItemComponent implements OnChanges{
 
   @Input() item!:MenuItem;
   @Input() customStyles!: { [key: string]: any };
+ 
   private subscription: Subscription;
   
   profilePicSize!: number;
