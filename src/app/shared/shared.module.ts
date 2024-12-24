@@ -19,6 +19,8 @@ import { ReviewAnalysisChartComponent } from './components/chart-components/revi
 import { NgChartsModule } from 'ng2-charts';
 import { ReviewBarChartComponent } from './components/review-analysis-bar-chart/review-bar-chart/review-bar-chart.component';
 import { FormsModule } from '@angular/forms';
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
+
 
 @NgModule({
   declarations: [
@@ -40,7 +42,9 @@ import { FormsModule } from '@angular/forms';
     MaterialModule,
     RouterOutlet,
     NgChartsModule,
-    FormsModule
+    FormsModule,
+    NgxMaterialTimepickerModule
+
   
   ],
 
@@ -52,7 +56,9 @@ import { FormsModule } from '@angular/forms';
     MaterialModule,
     ReviewComponent, 
     ReviewAnalysisChartComponent ,
-    NgChartsModule
+    NgChartsModule,
+    NgxMaterialTimepickerModule
+
   ]
 })
 export class SharedModule { }

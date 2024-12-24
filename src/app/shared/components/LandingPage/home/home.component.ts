@@ -34,7 +34,13 @@ export class HomeComponent implements OnInit  {
         this.authservice.checkToken().subscribe(
           (response: any) => {
            spinnerElement.classList.remove('show');
-           this.router.navigate(['dashboard']);
+           if(response){
+            const role = this.authservice.getUserInfo()?.role;
+            if(role?.includes("User"))
+             this.router.navigate(['/dashboard/user/home']);
+            } else{
+             this.router.navigate(['/dashboard/admin/home']);
+            }    
           },
           (error: any) => {
             spinnerElement.classList.remove('show');

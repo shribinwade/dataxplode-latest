@@ -24,9 +24,9 @@ export class CacheInterceptor implements HttpInterceptor {
   cacheMap = new Map<string, HttpResponse<any>>();
 
   constructor(
-    private httpClient:HttpClient,
-    private authService:AuthService,
-    private retriveDbData:RetriveDBDataURLService       
+    private httpClient: HttpClient,
+    private authService: AuthService,
+    private retriveDbData: RetriveDBDataURLService
   ) {
     // Load cache from localStorage if it exists
     const storedCache = localStorage.getItem('httpCache');
@@ -52,48 +52,48 @@ export class CacheInterceptor implements HttpInterceptor {
         console.log('Serving from cache:', cacheKey);
         return of(this.cacheMap.get(cacheKey) as HttpResponse<any>)
       } else {
-          //chcek data base Endpoint
-          // Check database endpoint
-    return this.checkDatabaseEndpoint(request).pipe(
-      switchMap(dbData => {
-        if (dbData) {
-          console.log('Serving from database endpoint:', cacheKey);
-          const dbResponse = new HttpResponse({ body: dbData, status: 200 });
-          this.cacheMap.set(cacheKey, dbResponse);
-          return of(dbResponse);
-        } else {
-          // Proceed with the request
-          return next.handle(request).pipe(
-            tap(event => {
-              if (event instanceof HttpResponse) {
-                this.cacheMap.set(cacheKey, event);
+        //chcek data base Endpoint
+        // Check database endpoint
+        return this.checkDatabaseEndpoint(request).pipe(
+          switchMap(dbData => {
+            if (dbData) {
+              console.log('Serving from database endpoint:', cacheKey);
+              const dbResponse = new HttpResponse({ body: dbData, status: 200 });
+              this.cacheMap.set(cacheKey, dbResponse);
+              return of(dbResponse);
+            } else {
+              // Proceed with the request
+              return next.handle(request).pipe(
+                tap(event => {
+                  if (event instanceof HttpResponse) {
+                    this.cacheMap.set(cacheKey, event);
 
-                if (this.isRequestStorable(request)) {
-                  try {
-                    localStorage.setItem('httpCache', JSON.stringify(Object.fromEntries(this.cacheMap)));
-                  } catch (e: any) {
-                    if (e.name === 'QuotaExceededError') {
-                      console.error('LocalStorage quota exceeded');
+                    if (this.isRequestStorable(request)) {
+                      try {
+                        localStorage.setItem('httpCache', JSON.stringify(Object.fromEntries(this.cacheMap)));
+                      } catch (e: any) {
+                        if (e.name === 'QuotaExceededError') {
+                          console.error('LocalStorage quota exceeded');
+                        }
+                      }
                     }
                   }
-                }
-              }
-            })
-          );
-        }
-      }),
-      catchError(err => {
-        console.error('Database check failed:', err);
-        return next.handle(request); // Proceed with the request if the DB check fails
-      })
-    );
+                })
+              );
+            }
+          }),
+          catchError(err => {
+            console.error('Database check failed:', err);
+            return next.handle(request); // Proceed with the request if the DB check fails
+          })
+        );
+      }
+    }
   }
-}
-}
-        
 
 
-  private checkDatabaseEndpoint(request: HttpRequest<any>):Observable<HttpResponse<any> | null> {
+
+  private checkDatabaseEndpoint(request: HttpRequest<any>): Observable<HttpResponse<any> | null> {
     // Extract parameters dynamically from the original request
     //extract form data parameter
     debugger
@@ -102,17 +102,17 @@ export class CacheInterceptor implements HttpInterceptor {
     const searchQuery = formData.get('query1') as string;
     const countryQuery = formData.get('query2') as string;
 
-    const userID =  userId || '';
+    const userID = userId || '';
     const country = countryQuery || '';
     const keyword = searchQuery || '';
 
     // Construct the dynamic URL
-    const dbEndpointUrl:string = this.retriveDbData.getDBURL(request);
+    const dbEndpointUrl: string = this.retriveDbData.getDBURL(request);
     console.log(dbEndpointUrl);
-    
+
 
     // const dbEndpointUrl = `http://localhost:8081/keywordSearch/getKeywordData?UserID=${userID}&country=${country}&keyword=${keyword}`;
-    
+
     return this.authService.getDBData(dbEndpointUrl).pipe(
       tap(response => {
         console.log('Final Response from DB:', response); // Debugging step
@@ -122,43 +122,43 @@ export class CacheInterceptor implements HttpInterceptor {
         return of(null); // Return `null` in case of an error
       })
     );
-      // Make the GET request to the database endpoint
-    
+    // Make the GET request to the database endpoint
+       
   }
 
-  isRequestStorable(req: HttpRequest<any>){
-       //the request must be POST method and match the specific URL
-       if (req.method === 'POST') {
-        //define all the cache partial URL
-        const storeUrls = [`${this.apiurl}/get_CompetitorAnalyzer`,
-                           `${this.apiurl}/get_amazon_info_reviews`,
-                           `${this.apiurl}/get_amazon_keyword_details`,
-                           `${this.apiurl}/get_brand_details`,
-                           `${this.apiurl}/get_search_brand_details`,
-                           `${this.apiurl}/get_data_IP`,
-                           `${this.apiurl}/get_amazon_info_details`,
-                           `${this.apiurl}/get_supplier`,
-                           `${this.apiurl}/get_swot_analyzer`,
-                           `${this.apiurl}/get_porterforces`,
-                           `${this.apiurl}/get_reviewAnalyzer`,
-                           //aws urls
-                          //  `${this.awsurl}/get_CompetitorAnalyzer`,
-                          //  `${this.awsurl}/get_amazon_info_reviews`,
-                          //  `${this.awsurl}/get_amazon_keyword_details`,
-                          //  `${this.awsurl}/get_brand_details`,
-                          //  `${this.awsurl}/get_search_brand_details`,
-                          //  `${this.awsurl}/get_data_IP`,
-                          //  `${this.awsurl}/get_amazon_info_details`,
-                         
-                          ];
-        //get the request URL
-        for (let i = 0; i < storeUrls.length; i++) {
-          if (req.url.includes(storeUrls[i])) {
-            return true;
-          }
+  isRequestStorable(req: HttpRequest<any>) {
+    //the request must be POST method and match the specific URL
+    if (req.method === 'POST') {
+      //define all the cache partial URL
+      const storeUrls = [`${this.apiurl}/get_CompetitorAnalyzer`,
+      `${this.apiurl}/get_amazon_info_reviews`,
+      `${this.apiurl}/get_amazon_keyword_details`,
+      `${this.apiurl}/get_brand_details`,
+      `${this.apiurl}/get_search_brand_details`,
+      `${this.apiurl}/get_data_IP`,
+      `${this.apiurl}/get_amazon_info_details`,
+      `${this.apiurl}/get_supplier`,
+      `${this.apiurl}/get_swot_analyzer`,
+      `${this.apiurl}/get_porterforces`,
+      `${this.apiurl}/get_reviewAnalyzer`,
+        //aws urls
+        //  `${this.awsurl}/get_CompetitorAnalyzer`,
+        //  `${this.awsurl}/get_amazon_info_reviews`,
+        //  `${this.awsurl}/get_amazon_keyword_details`,
+        //  `${this.awsurl}/get_brand_details`,
+        //  `${this.awsurl}/get_search_brand_details`,
+        //  `${this.awsurl}/get_data_IP`,
+        //  `${this.awsurl}/get_amazon_info_details`,
+
+      ];
+      //get the request URL
+      for (let i = 0; i < storeUrls.length; i++) {
+        if (req.url.includes(storeUrls[i])) {
+          return true;
         }
       }
-      return false;
+    }
+    return false;
   }
 
   isRequestCachable(req: HttpRequest<any>): boolean {
@@ -166,31 +166,31 @@ export class CacheInterceptor implements HttpInterceptor {
     //the request must be POST method and match the specific URL
     if (req.method === 'POST') {
       //define all the cache partial URL
-      const cacheableUrls = [`${this.apiurl}/get_amazon_keyword_details`, 
-                             `${this.apiurl}/get_amazon_info_reviews`, 
-                             `${this.apiurl}/get_brand_details`, 
-                             `${this.apiurl}/get_CompetitorAnalyzer`,
-                             `${this.apiurl}/get_amazon_keyword_details`,
-                             `${this.apiurl}/get_search_brand_details`,
-                             `${this.apiurl}/get_data_IP`,
-                             `${this.apiurl}/get_amazon_info_details`,
-                             `${this.apiurl}/get_supplier`,
-                             `${this.apiurl}/get_swot_analyzer`,
-                             `${this.apiurl}/get_porterforces`,
-                             `${this.apiurl}/get_reviewAnalyzer`
-                             //aws
-                            //  `${this.awsurl}/get_CompetitorAnalyzer`,
-                            //  `${this.awsurl}/get_amazon_info_reviews`,
-                            //  `${this.awsurl}/get_amazon_keyword_details`,
-                            //  `${this.awsurl}/get_brand_details`,
-                            //  `${this.awsurl}/get_search_brand_details`,
-                            //  `${this.awsurl}/get_data_IP`,
-                            //  `${this.awsurl}/get_amazon_info_details`,
-                            //  `${this.awsurl}/get_amazon_info_details`,
-                            //  `${this.awsurl}/get_supplier`,
-                            //  `${this.awsurl}/get_swot_analyzer`,
-                            //  `${this.awsurl}/get_porterforces`,
-                            ]
+      const cacheableUrls = [`${this.apiurl}/get_amazon_keyword_details`,
+      `${this.apiurl}/get_amazon_info_reviews`,
+      `${this.apiurl}/get_brand_details`,
+      `${this.apiurl}/get_CompetitorAnalyzer`,
+      `${this.apiurl}/get_amazon_keyword_details`,
+      `${this.apiurl}/get_search_brand_details`,
+      `${this.apiurl}/get_data_IP`,
+      `${this.apiurl}/get_amazon_info_details`,
+      `${this.apiurl}/get_supplier`,
+      `${this.apiurl}/get_swot_analyzer`,
+      `${this.apiurl}/get_porterforces`,
+      `${this.apiurl}/get_reviewAnalyzer`
+        //aws
+        //  `${this.awsurl}/get_CompetitorAnalyzer`,
+        //  `${this.awsurl}/get_amazon_info_reviews`,
+        //  `${this.awsurl}/get_amazon_keyword_details`,
+        //  `${this.awsurl}/get_brand_details`,
+        //  `${this.awsurl}/get_search_brand_details`,
+        //  `${this.awsurl}/get_data_IP`,
+        //  `${this.awsurl}/get_amazon_info_details`,
+        //  `${this.awsurl}/get_amazon_info_details`,
+        //  `${this.awsurl}/get_supplier`,
+        //  `${this.awsurl}/get_swot_analyzer`,
+        //  `${this.awsurl}/get_porterforces`,
+      ]
       //get the request URL
       for (let i = 0; i < cacheableUrls.length; i++) {
         if (req.url.includes(cacheableUrls[i])) {

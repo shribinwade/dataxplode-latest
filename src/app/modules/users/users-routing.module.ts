@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { UserReportComponent } from './components/user-report/user-report.component';
 
 const routes: Routes = [
 
   {
     path: 'home',
-    component: DashboardComponent
+    component: UserReportComponent
   },
   {
     path: 'analysis-tool',

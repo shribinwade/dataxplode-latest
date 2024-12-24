@@ -1,1 +1,249 @@
-<p>data-management works!</p>
+<div class="container">
+  <div class="card border-0 mt-4 rounded-4 shadow bg-white p-4">
+    <!-- heading -->
+    <p class="fw-medium mt-4">Data Management Dashboard</p>
+
+    <!-- dropdown form form -->
+
+    <form #dropdownForm="ngForm" (ngSubmit)="onSubmit(dropdownForm)">
+      <!-- dropdowns -->
+      <div class="card border-0 rounded-4 p-4 filter-selection">
+        <!-- card row -->
+        <div
+          class="d-flex align-items-center justify-content-around card-container mx-1 p-2"
+        >
+          <!-- //country card -->
+          <div class="card border-0 rounded-3 dropdown-card">
+            <div class="mx-2 px-2">
+              <label for="country" class="fw-medium mb-0 mt-3"
+                >Select Country</label
+              >
+            </div>
+            <div class="card-body mx-2 p-2">
+              <select
+                name="country"
+                id="country"
+                (change)="onSelected()"
+                [(ngModel)]="selectedCountry"
+                required
+                class="form-select"
+                aria-label="Default select example"
+                #country
+              >
+                <option value="" selected>Select Country</option>
+                <option
+                  *ngFor="let esites of ecommarcebrands"
+                  [value]="esites.country"
+                >
+                  {{ esites.country | uppercase }}
+                </option>
+              </select>
+            </div>
+          </div>
+          <!-- //platform card -->
+          <div class="card border-0 rounded-3 dropdown-card">
+            <div class="mx-2 px-2">
+              <label for="platform" class="fw-medium mb-0 mt-3"
+                >Select Platform</label
+              >
+            </div>
+            <div class="card-body mx-2 p-2">
+              <select
+                name="platform"
+                [(ngModel)]="selectedPlatform"
+                required
+                class="form-select"
+                aria-label="Default select example"
+                #platform
+              >
+                <option value="" selected>Select Platform</option>
+                <option
+                  *ngFor="let platform of filteredSites"
+                  [value]="platform.name"
+                >
+                  {{ platform.name }}
+                </option>
+              </select>
+            </div>
+          </div>
+          <!-- //service card -->
+          <div class="card border-0 rounded-3 dropdown-card">
+            <div class="mx-2 px-2">
+              <label for="service" class="fw-medium mb-0 mt-3"
+                >Select Service</label
+              >
+            </div>
+            <div class="card-body mx-2 p-2">
+              <select
+                name="service"
+                [(ngModel)]="selectedService"
+                required
+                class="form-select"
+                aria-label="Default select example"
+              >
+                <option value="" selected>Select Service</option>
+                <option value="Product Search">Product Search</option>
+                <option value="Keyword Search">Keyword Search</option>
+                <option value="Distributor Search">Distributor Search</option>
+                <option value="Competitor Search">Competitor Search</option>
+              </select>
+            </div>
+          </div>
+          <button
+            class="btn btn-primary"
+            type="submit"
+            [disabled]="!dropdownForm.valid"
+          >
+            Submit
+          </button>
+        </div>
+      </div>
+    </form>
+
+    <div
+      class="card border-0 rounded-3 p-2 mt-3"
+      style="background: linear-gradient(to right, #f9fafb 0.1%, #d4edda 50%)"
+    >
+      <div
+        class="d-flex flex-wrap justify-content-between align-items-center m-1 p-2"
+      >
+        <div>
+          <button type="button" class="btn btn-success">
+            Download Template
+          </button>
+        </div>
+        <div class="d-flex justify-content-center align-items-center">
+          <p class="p-0 m-0" style="color: #6c757d">
+            Click the button to download the template for uploading data.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="mt-4"
+      *ngIf="selectedService.includes('Product Search'); else keywordCheck"
+    >
+      <app-product-search-table
+        [country]="selectedCountry"
+        [platform]="selectedPlatform"
+      ></app-product-search-table>
+      <app-location
+        [country]="selectedCountry"
+        [platform]="selectedPlatform"
+      ></app-location>
+    </div>
+    <ng-template #keywordCheck>
+      <div
+        class="mt-4"
+        *ngIf="
+          selectedService.includes('Keyword Search');
+          else distributorCheck
+        "
+      >
+        <app-keyword-search-table
+          [country]="selectedCountry"
+          [platform]="selectedPlatform"
+        ></app-keyword-search-table>
+        <app-location
+          [country]="selectedCountry"
+          [platform]="selectedPlatform"
+        ></app-location>
+      </div>
+    </ng-template>
+
+    <ng-template #distributorCheck>
+      <div
+        class="mt-4"
+        *ngIf="
+          selectedService.includes('Distributor Search');
+          else competitorCheck
+        "
+      >
+        <app-distributed-search-table></app-distributed-search-table>
+        <app-location></app-location>
+      </div>
+    </ng-template>
+
+    <ng-template #competitorCheck>
+      <div class="mt-4" *ngIf="selectedService.includes('Competitor Search')">
+        <app-competitor-search-table></app-competitor-search-table>
+        <app-location></app-location>
+      </div>
+    </ng-template>
+
+    <div>
+      <div class="input-group mb-3 mt-3">
+        <input type="file" class="form-control" id="inputGroupFile02" />
+        <label class="input-group-text" for="inputGroupFile02">Upload</label>
+      </div>
+    </div>
+
+    <!-- date picker -->
+
+    <div
+      class="d-flex justify-content-around align-items-center mb-1 w-100 date"
+    >
+      <div class="d-flex justify-content-start align-items-center w-100">
+        <label for="startDate" style="min-width: 12%">Start Date:</label>
+        <input id="startDate" class="form-control m-2" type="date" />
+      </div>
+
+      <div class="d-flex justify-content-start align-items-center w-100">
+        <label for="startDate" style="min-width: 11%">End Date:</label>
+        <input id="startDate" class="form-control" type="date" />
+      </div>
+    </div>
+
+    <div class="mt-2">
+      <!-- <div class="d-flex justify-content-start align-items-center">
+        <label style="min-width: 10%" class="px-0 mx-0" for="scheduleTime">Schedule Time:</label>
+        <div class="inputfield border rounded">
+          <mat-icon class="input-icon py-0" (click)="openFromIcon(picker)">schedule</mat-icon>
+          <input  name="scheduleTime"   [(ngModel)]="selectedtime" (change)="onChange()" class="form-control scheduleTime border-0"  [ngxTimepicker]="picker"/>
+          <ngx-material-timepicker #picker   [enableKeyboardInput]="true"></ngx-material-timepicker>
+         
+        </div>
+      </div> -->
+
+      <div class="input-group d-flex align-items-center mb-3" style="width: 30%;">
+        <label style="min-width: 10%" class="pe-2 mx-0" for="scheduleTime">Schedule Time:</label>
+        <span class="input-group-text" id="basic-addon1"> <i class="fa fa-clock-o" (click)="openFromIcon(picker)"  style="font-size:15px;color: #757575; cursor: pointer;" ></i>
+            <!-- <mat-icon class="scheduleIcon" (click)="openFromIcon(picker)">schedule</mat-icon> -->
+        </span>
+        <input  name="scheduleTime"  [formControl]="formControlItem"  (change)="onChange($event)" class="form-control"  [ngxTimepicker]="picker" />
+        <ngx-material-timepicker #picker   [enableKeyboardInput]="true"></ngx-material-timepicker>
+        <span>
+            <button class="btn btn-primary" (click)="onChange($event)">Set</button>
+        </span>
+      </div>
+      <div>
+        <p>Selected Time :{{selectedtime}}</p>
+      </div>
+
+   
+
+    </div>
+
+    <!-- Check box -->
+    <div class="form-check">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        value=""
+        id="flexCheckDefault"
+      />
+      <label class="form-check-label" for="flexCheckDefault">
+        Default checkbox
+      </label>
+    </div>
+
+    <!-- prossess button -->
+    <div class="d-flex flex-wrap justify-content-start align-items-center">
+      <!-- Start Process -->
+      <button class="btn btn-primary m-1">Start Process</button>
+      <!-- End Process -->
+      <button class="btn btn-danger m-1">End Process</button>
+    </div>
+  </div>
+</div>

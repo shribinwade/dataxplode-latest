@@ -26,6 +26,9 @@ export const environment = {
   //MarketSeachUrl Api
   marketSearchUrl: 'http://localhost:8081/marketSearch',
 
+  //userSubscriptionURL endpoint
+  subscriptionUrl: 'http://localhost:8081/subscription',
+
   //Local endpoint 
   apiUrl: 'http://127.0.0.1:8000',
 };

@@ -1,0 +1,52 @@
+<div class="table-container">
+
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+    
+    <!-- data Title Column -->
+    <ng-container matColumnDef="index">
+      <th mat-header-cell *matHeaderCellDef>#</th>
+      <td mat-cell *matCellDef="let data; let i = index">
+        {{ i + 1 }}
+      </td>
+    </ng-container>
+
+    <!-- Platform Column -->
+    <ng-container matColumnDef="platform">
+      <th mat-header-cell *matHeaderCellDef>Platform</th>
+      <td mat-cell *matCellDef="let element">{{ element.platform }}</td>
+    </ng-container>
+
+    <!-- Platform ID Column -->
+    <ng-container matColumnDef="platformId">
+      <th mat-header-cell *matHeaderCellDef>Platform ID</th>
+      <td mat-cell *matCellDef="let element">{{ element.platformId }}</td>
+    </ng-container>
+
+    <!-- WebPID Column -->
+    <ng-container matColumnDef="webpid">
+      <th mat-header-cell *matHeaderCellDef>WebPID</th>
+      <td mat-cell *matCellDef="let element">{{ element.webpid }}</td>
+    </ng-container>
+
+    <!-- Brand Column -->
+    <ng-container matColumnDef="brand">
+      <th mat-header-cell *matHeaderCellDef>Brand</th>
+      <td mat-cell *matCellDef="let element">{{ element.brand }}</td>
+    </ng-container>
+
+    <!-- Product Type Column -->
+    <ng-container matColumnDef="productType">
+      <th mat-header-cell *matHeaderCellDef>Product Type</th>
+      <td mat-cell *matCellDef="let element">{{ element.productType }}</td>
+    </ng-container>
+
+    <!-- Country Column -->
+    <ng-container matColumnDef="country">
+      <th mat-header-cell *matHeaderCellDef>Country</th>
+      <td mat-cell *matCellDef="let element">{{ element.country }}</td>
+    </ng-container>
+
+    <tr mat-header-row class="bg-primary text-light fs-5" *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+    <tr mat-row class="" style="font-size: small;" *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</div>

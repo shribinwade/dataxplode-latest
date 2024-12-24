@@ -7,108 +7,129 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { User } from '../../model/user';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-
   url = environment.authUrl;
-  
+  subscriptionURL = environment.subscriptionUrl;
+
   userStatus: Subject<String> = new Subject();
 
-  constructor(private httpClient:HttpClient,private router:Router, private jwt: JwtHelperService) { }
+  constructor(
+    private httpClient: HttpClient,
+    private router: Router,
+    private jwt: JwtHelperService
+  ) {}
 
+  getUserSearchData(data: any) {
+    debugger;
+    //extract form data parameter
 
-
-  signup(data:any){   
-    return this.httpClient.post(this.url+"/signup",data,{
-      headers:new HttpHeaders().set('content-Type','application/json')
-    })
+    const UserID = data.UserID as number;
+    const country = data.country as string;
+    const platform = data.platform as string;
+    //use the URL and form data parameter as the cache key
+    return this.httpClient.get(
+      `${this.subscriptionURL}/getUserSearchData?UserID=${UserID}&country=${country}&platform=${platform}`
+    );
   }
 
-  forgotPassword(data:any){   
-    return this.httpClient.post(this.url+"/forgotPassword",data,{
-      headers:new HttpHeaders().set('content-Type','application/json')
-    })
+  signup(data: any) {
+    return this.httpClient.post(this.url + '/signup', data, {
+      headers: new HttpHeaders().set('content-Type', 'application/json'),
+    });
   }
 
-  login(data:any){   
-    return this.httpClient.post(this.url+"/login",data,{
-      headers:new HttpHeaders().set('content-Type','application/json')
-    })
-  }
-  
-  update(data:any){
-    return this.httpClient.post(this.url+"/update",data,{
-      headers:new HttpHeaders().set('content-Type','application/json')
-    })
+  forgotPassword(data: any) {
+    return this.httpClient.post(this.url + '/forgotPassword', data, {
+      headers: new HttpHeaders().set('content-Type', 'application/json'),
+    });
   }
 
-  changePassword(data:any){
-    return this.httpClient.post(this.url+"/changePassword",data,{
-      headers:new HttpHeaders().set('content-Type','application/json')
-    })
+  login(data: any) {
+    return this.httpClient.post(this.url + '/login', data, {
+      headers: new HttpHeaders().set('content-Type', 'application/json'),
+    });
   }
 
-  checkToken(){
-    return this.httpClient.get(this.url+"/checkToken");
+  update(data: any) {
+    return this.httpClient.post(this.url + '/update', data, {
+      headers: new HttpHeaders().set('content-Type', 'application/json'),
+    });
   }
 
-  resetPssword(data:any){    
-    return this.httpClient.post(this.url+"/resetPassword",data,{
-      headers:new HttpHeaders().set('content-Type','application/json')
-    })
+  changePassword(data: any) {
+    return this.httpClient.post(this.url + '/changePassword', data, {
+      headers: new HttpHeaders().set('content-Type', 'application/json'),
+    });
   }
 
-  public isAuthenticated():boolean{
-    const token = localStorage.getItem('token')
-    if(!token){
+  checkToken() {
+    return this.httpClient.get(this.url + '/checkToken');
+  }
+
+  resetPssword(data: any) {
+    return this.httpClient.post(this.url + '/resetPassword', data, {
+      headers: new HttpHeaders().set('content-Type', 'application/json'),
+    });
+  }
+
+  public isAuthenticated(): boolean {
+    const token = localStorage.getItem('token');
+    if (!token) {
       this.router.navigate(['home']);
       return false;
-    }
-    else{
+    } else {
       return true;
     }
   }
 
-  public isLoggedIn():boolean{
-    
-    if(localStorage.getItem('token') !=null && !this.jwt.isTokenExpired()){
-        return true
-    }else{
+  public isLoggedIn(): boolean {
+    // Check if the token exists in localStorage or sessionStorage and if it is not expired
+    const token =
+      localStorage.getItem('token') || sessionStorage.getItem('token');
+
+    if (token !== null && !this.jwt.isTokenExpired(token)) {
+      return true;
+    } else {
       return false;
     }
   }
 
-  public getUserInfo(): User |null{
+  public getUserInfo(): User | null {
+    if (!this.isLoggedIn) {
+      return null;
+    } else {
+      // Retrieve the token from localStorage or sessionStorage
+      const token = localStorage.getItem('token') || sessionStorage.getItem('token');
 
-      if(!this.isLoggedIn){
-        return null;
-      }else{
-        let decodedToken = this.jwt.decodeToken();
+      if (token) {
+        let decodedToken = this.jwt.decodeToken(token); // Pass the token to decode
 
-        let user :User  = {
-          id:decodedToken.id,
-          email:decodedToken.email,
-          role:decodedToken.role,
+        let user: User = {
+          id: decodedToken.id,
+          email: decodedToken.email,
+          role: decodedToken.role,
           contactNumber: decodedToken.contactNumber,
-          name:decodedToken.name,
-          status: decodedToken.status
-        }
+          name: decodedToken.name,
+          status: decodedToken.status,
+        };
         return user;
+      } else {
+        return null; // If no token is found
       }
+    }
   }
 
-  public getDBData(dbEndpointUrl:string): Observable<any| null>{
-     return this.httpClient.get(dbEndpointUrl).pipe(
-      tap(response => {
-         response;
+  public getDBData(dbEndpointUrl: string): Observable<any | null> {
+    return this.httpClient.get(dbEndpointUrl).pipe(
+      tap((response) => {
+        response;
       }),
-      catchError(error => {
+      catchError((error) => {
         console.error('Error fetching data from DB:', error);
         return of(null); // Return null in case of an error
       })
     );
   }
-
-
 }

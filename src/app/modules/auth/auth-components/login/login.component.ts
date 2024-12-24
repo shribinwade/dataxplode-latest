@@ -36,6 +36,7 @@ export class LoginComponent implements OnInit {
        this.signinFormGroup=this.formBuilder.group({
         email: [null,[Validators.required,Validators.pattern(GlobalConstants.emailRegex)]],
         password: [null,[Validators.required]],
+        rememberMe: [false] // Default to unchecked
       })
   }
 
@@ -45,6 +46,7 @@ export class LoginComponent implements OnInit {
 
       this.isLoading = true;
       const formdata=this.signinFormGroup.value;
+      const rememberMe = formdata.rememberMe;
       //converting into json
       let data = {
         email: formdata.email,
@@ -52,14 +54,27 @@ export class LoginComponent implements OnInit {
       }
     
       this.authservice.login(data).subscribe((response:any)=>{
+        debugger
            this.isLoading = false;
            this.hide=false;
-           localStorage.setItem('token',response.token);
+
+           if(rememberMe){
+             // Save the token in localStorage for persistent login (long-term)
+             localStorage.setItem('token',response.token);
+           }else{
+             // Save the token in sessionStorage for session-based login
+             sessionStorage.setItem('token', response.token);
+           }
            this.authservice.userStatus.next("loggedIn");
           //  console.log(this.authservice.getUserInfo());
+          
            if(response){
-            this.router.navigate(['/dashboard']);
-           }     
+           const role = this.authservice.getUserInfo()?.role;
+           if(role?.includes("User"))
+            this.router.navigate(['/dashboard/user/home']);
+           } else{
+            this.router.navigate(['/dashboard/admin/home']);
+           }    
       },(error)=>{
         this.hide=false;
         this.isLoading = false;

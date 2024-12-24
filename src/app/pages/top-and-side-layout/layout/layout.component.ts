@@ -134,7 +134,8 @@ export class LayoutComponent {
   }
 
   logout(){
-    localStorage.removeItem('token')
+    localStorage.removeItem('token');
+    sessionStorage.removeItem('token');
     this.route.navigate(['/home']);
   }
 
