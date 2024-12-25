@@ -15,33 +15,28 @@ export class DataManagementComponent {
   selectedCountry="";
   selectedPlatform = "";
   selectedService = "";
+  selectedProductType="";
   submitted = false;
   selectedCountrySites: any;
   ecommarcebrands: any;
   countryPlatforms:any;
   selectedtime:any;
 
-  
-
   constructor( private ecommarcesites: ECommerceSitesService,
                private globalSnackbar: CustomSnackbarService){
     this.ecommarcebrands =ecommarcesites.eCommerceSites;
   }
 
-   // ViewChild elements
-   @ViewChild('country') country!: ElementRef;
-
-   @ViewChild('picker') timePicker!: any;
+  // ViewChild elements
+  @ViewChild('country') country!: ElementRef;
+  @ViewChild('picker') timePicker!: any;
 
  
-
   onSubmit(form:any){
     if (form.valid) {
       this.submitted = true;
     }
-
-    console.log(this.selectedCountry+this.selectedPlatform+this.selectedService);
-    
+    console.log(this.selectedCountry+this.selectedPlatform+this.selectedService); 
   }
 
   onSelected(): void {

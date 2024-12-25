@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container-fluid">
   <div class="card border-0 mt-4 rounded-4 shadow bg-white p-4">
     <!-- heading -->
     <p class="fw-medium mt-4">Data Management Dashboard</p>
@@ -12,6 +12,7 @@
         <div
           class="d-flex align-items-center justify-content-around card-container mx-1 p-2"
         >
+
           <!-- //country card -->
           <div class="card border-0 rounded-3 dropdown-card">
             <div class="mx-2 px-2">
@@ -66,6 +67,30 @@
               </select>
             </div>
           </div>
+
+           <!-- //Product Type -->
+           <div class="card border-0 rounded-3 dropdown-card">
+            <div class="mx-2 px-2">
+              <label for="product" class="fw-medium mb-0 mt-3"
+                >Product Type</label
+              >
+            </div>
+            <div class="card-body mx-2 p-2">
+              <select
+                name="product"
+                [(ngModel)]="selectedProductType"
+                required
+                class="form-select"
+                aria-label="Default select example"
+              >
+                <option value="" selected>Select Product</option>
+                <option value="Owned">Owned</option>
+                <option value="Competitor">Competitor</option>
+              </select>
+            </div>
+          </div>
+
+
           <!-- //service card -->
           <div class="card border-0 rounded-3 dropdown-card">
             <div class="mx-2 px-2">
@@ -84,20 +109,19 @@
                 <option value="" selected>Select Service</option>
                 <option value="Product Search">Product Search</option>
                 <option value="Keyword Search">Keyword Search</option>
-                <option value="Distributor Search">Distributor Search</option>
-                <option value="Competitor Search">Competitor Search</option>
+                <option value="Reviews Search">Reviews Search</option>
               </select>
             </div>
           </div>
-          <button
-            class="btn btn-primary"
-            type="submit"
-            [disabled]="!dropdownForm.valid"
-          >
-            Submit
-          </button>
+
+         
+
         </div>
+        <span class="mx-1 p-2 ">
+          <button class="btn btn-primary" type="submit" [disabled]="!dropdownForm.valid">Submit</button>
+        </span> 
       </div>
+
     </form>
 
     <div
@@ -124,10 +148,13 @@
       class="mt-4"
       *ngIf="selectedService.includes('Product Search'); else keywordCheck"
     >
+      <p class="fw-medium fs-5 mt-4">Product Table</p>
       <app-product-search-table
         [country]="selectedCountry"
         [platform]="selectedPlatform"
       ></app-product-search-table>
+      
+      <p class="fw-medium fs-5 mt-4">Location Table</p>
       <app-location
         [country]="selectedCountry"
         [platform]="selectedPlatform"
@@ -138,13 +165,16 @@
         class="mt-4"
         *ngIf="
           selectedService.includes('Keyword Search');
-          else distributorCheck
+          else ReviewCheck
         "
       >
+        <p class="fw-medium fs-5 mt-4">Keyword Table</p>
         <app-keyword-search-table
           [country]="selectedCountry"
           [platform]="selectedPlatform"
         ></app-keyword-search-table>
+
+        <p class="fw-medium fs-5 mt-4">Location Table</p>  
         <app-location
           [country]="selectedCountry"
           [platform]="selectedPlatform"
@@ -152,23 +182,20 @@
       </div>
     </ng-template>
 
-    <ng-template #distributorCheck>
-      <div
-        class="mt-4"
-        *ngIf="
-          selectedService.includes('Distributor Search');
-          else competitorCheck
-        "
-      >
-        <app-distributed-search-table></app-distributed-search-table>
-        <app-location></app-location>
-      </div>
-    </ng-template>
+    <ng-template #ReviewCheck>
+      <div class="mt-4" *ngIf="selectedService.includes('Reviews Search');">
 
-    <ng-template #competitorCheck>
-      <div class="mt-4" *ngIf="selectedService.includes('Competitor Search')">
-        <app-competitor-search-table></app-competitor-search-table>
-        <app-location></app-location>
+      <p class="fw-medium fs-5 mt-4">Reviews Table</p> 
+       <app-review-search-table
+       [country]="selectedCountry"
+       [platform]="selectedPlatform"
+       ></app-review-search-table>
+        
+      <p class="fw-medium fs-5 mt-4">Location Table</p>  
+       <app-location
+        [country]="selectedCountry"
+        [platform]="selectedPlatform">
+      </app-location>
       </div>
     </ng-template>
 

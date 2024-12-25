@@ -1,0 +1,31 @@
+<div class="table-container">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  
+      <!-- Platform Column -->
+      <ng-container matColumnDef="platform">
+        <th mat-header-cell *matHeaderCellDef> Platform </th>
+        <td mat-cell *matCellDef="let element"> {{ element.platform }} </td>
+      </ng-container>
+  
+      <!-- Platform ID Column -->
+      <ng-container matColumnDef="platformId">
+        <th mat-header-cell *matHeaderCellDef> Platform ID </th>
+        <td mat-cell *matCellDef="let element"> {{ element.platformId }} </td>
+      </ng-container>
+  
+      <!-- Webpid Column -->
+      <ng-container matColumnDef="webpid">
+        <th mat-header-cell *matHeaderCellDef> Webpid </th>
+        <td mat-cell *matCellDef="let element"> {{ element.webpid }} </td>
+      </ng-container>
+  
+      <!-- Country Column -->
+      <ng-container matColumnDef="country">
+        <th mat-header-cell *matHeaderCellDef> Country </th>
+        <td mat-cell *matCellDef="let element"> {{ element.country }} </td>
+      </ng-container>
+  
+      <tr mat-header-row class="bg-primary text-light fs-5" *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row class="" style="font-size: small;" *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
