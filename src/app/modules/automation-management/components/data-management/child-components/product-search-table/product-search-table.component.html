@@ -1,7 +1,38 @@
 <div class="table-container">
 
+
+  <div class="card border-0 rounded-3 p-2 mt-3"
+    style="background: linear-gradient(to right, #f9fafb 0.1%, #d4edda 50%)">
+    <div class="d-flex flex-wrap justify-content-between align-items-center m-1 p-2">
+      <div>
+        <button (click)="downloadExcel('Product Search')" type="button" class="btn btn-success">
+          Download Product Template
+        </button>
+      </div>
+      <div class="d-flex justify-content-center align-items-center">
+        <p class="p-0 m-0" style="color: #6c757d">
+          Click the button to download the template for uploading data.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- //Excel Upload file -->
+  <div class="card border-0 rounded-3 p-2 mt-3"
+    style="background: linear-gradient(to right, #f9fafb 0.1%, #d4edda 50%)">
+    <div class="d-flex flex-wrap justify-content-between align-items-center m-1 p-2">
+      <div>
+        <div class="mb-3">
+          <label for="formFile" class="form-label">Upload Excel file</label>
+          <input class="form-control" type="file" id="formFile" (change)="handleFileChange($event)" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="fw-medium fs-5 mt-4">Product Table</p>
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
-    
+
     <!-- data Title Column -->
     <ng-container matColumnDef="index">
       <th mat-header-cell *matHeaderCellDef>#</th>
@@ -13,37 +44,37 @@
     <!-- Platform Column -->
     <ng-container matColumnDef="platform">
       <th mat-header-cell *matHeaderCellDef>Platform</th>
-      <td mat-cell *matCellDef="let element">{{ element.platform }}</td>
+      <td mat-cell *matCellDef="let element">{{ element.Platform }}</td>
     </ng-container>
 
     <!-- Platform ID Column -->
     <ng-container matColumnDef="platformId">
       <th mat-header-cell *matHeaderCellDef>Platform ID</th>
-      <td mat-cell *matCellDef="let element">{{ element.platformId }}</td>
+      <td mat-cell *matCellDef="let element">{{ element.PlatformId }}</td>
     </ng-container>
 
     <!-- WebPID Column -->
     <ng-container matColumnDef="webpid">
       <th mat-header-cell *matHeaderCellDef>WebPID</th>
-      <td mat-cell *matCellDef="let element">{{ element.webpid }}</td>
+      <td mat-cell *matCellDef="let element">{{ element.WebPID }}</td>
     </ng-container>
 
     <!-- Brand Column -->
     <ng-container matColumnDef="brand">
       <th mat-header-cell *matHeaderCellDef>Brand</th>
-      <td mat-cell *matCellDef="let element">{{ element.brand }}</td>
+      <td mat-cell *matCellDef="let element">{{ element.Brand }}</td>
     </ng-container>
 
     <!-- Product Type Column -->
     <ng-container matColumnDef="productType">
       <th mat-header-cell *matHeaderCellDef>Product Type</th>
-      <td mat-cell *matCellDef="let element">{{ element.productType }}</td>
+      <td mat-cell *matCellDef="let element">{{ element.Type }}</td>
     </ng-container>
 
     <!-- Country Column -->
     <ng-container matColumnDef="country">
       <th mat-header-cell *matHeaderCellDef>Country</th>
-      <td mat-cell *matCellDef="let element">{{ element.country }}</td>
+      <td mat-cell *matCellDef="let element">{{ element.Country }}</td>
     </ng-container>
 
     <tr mat-header-row class="bg-primary text-light fs-5" *matHeaderRowDef="displayedColumns; sticky: true"></tr>

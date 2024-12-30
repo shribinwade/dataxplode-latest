@@ -34,8 +34,8 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
        //SignupFromGroup
        this.signinFormGroup=this.formBuilder.group({
-        email: [null,[Validators.required,Validators.pattern(GlobalConstants.emailRegex)]],
-        password: [null,[Validators.required]],
+        email: ["shribinwade.100@gmail.com",[Validators.required,Validators.pattern(GlobalConstants.emailRegex)]],
+        password: ["9103",[Validators.required]],
         rememberMe: [false] // Default to unchecked
       })
   }
@@ -60,9 +60,12 @@ export class LoginComponent implements OnInit {
 
            if(rememberMe){
              // Save the token in localStorage for persistent login (long-term)
+             sessionStorage.removeItem('token');
              localStorage.setItem('token',response.token);
            }else{
              // Save the token in sessionStorage for session-based login
+            //  check existing localstorage token if present delete it
+             localStorage.removeItem('token');
              sessionStorage.setItem('token', response.token);
            }
            this.authservice.userStatus.next("loggedIn");
@@ -78,8 +81,11 @@ export class LoginComponent implements OnInit {
       },(error)=>{
         this.hide=false;
         this.isLoading = false;
+        console.log(error);
+        
         if(error.error?.message){
           this.responseMessage = error.error?.message;
+          this.globalSnackbar.showError(this.responseMessage,GlobalConstants.error);
         }
         else{
           this.responseMessage = GlobalConstants.genericError;

@@ -16,6 +16,8 @@ import { RetriveDBDataURLService } from '../../services/RetriveDataFromDBService
 
 @Injectable()
 export class CacheInterceptor implements HttpInterceptor {
+  
+
 
   apiurl: string = environment.apiUrl;
   // awsurl: string = environment.awsUrl;
@@ -40,6 +42,7 @@ export class CacheInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     // Check if the request is cacheable
+    debugger
     if (!this.isRequestCachable(request)) {
       return next.handle(request);
     } else {
