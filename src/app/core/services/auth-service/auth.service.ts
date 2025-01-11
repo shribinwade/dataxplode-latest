@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { environment } from '../../../../environments/environment.development';
+import { environment } from '../../../../environments/environment';
 import { catchError, Observable, of, Subject, tap } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { User } from '../../model/user';
@@ -10,7 +10,7 @@ import { User } from '../../model/user';
   providedIn: 'root',
 })
 export class AuthService {
-  url = environment.authUrl;
+  url = environment.authUrl+'/user';
   subscriptionURL = environment.subscriptionUrl;
 
   userStatus: Subject<String> = new Subject();
@@ -122,6 +122,7 @@ export class AuthService {
   }
 
   public getDBData(dbEndpointUrl: string): Observable<any | null> {
+    debugger
     return this.httpClient.get(dbEndpointUrl).pipe(
       tap((response) => {
         response;

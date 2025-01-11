@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container">
     <div class="card border-0 mt-4 rounded-4 shadow bg-white p-4">
         <!-- heading -->
         <div class="card border-0 rounded-4 d-flex justify-content-center align-items-center p-4"
@@ -6,12 +6,11 @@
             <p class=" mx-1 p-2 fs-1 mb-3 mt-3 text-light text-wrap" style="font-weight: bold; ">
                 Consolidated Report
             </p>
-            <p class="text-light text-wrap fs-5 p-1 m-1">Monitor and analyze Consolidated reports with ease.</p>
+            <p class="text-light text-wrap  p-1 m-1">Monitor and analyze Consolidated reports with ease.</p>
         </div>
 
         <!-- dropdown form form -->
-        <form #dropdownForm="ngForm" class="mt-4" >
-
+        <form #dropdownForm="ngForm" class="mt-4">
             <!-- dropdowns -->
             <div class="card border-0 rounded-4 p-4 filter-selection">
                 <!-- card row -->
@@ -21,11 +20,11 @@
                         <div class="d-flex justify-content-start align-items-center">
                             
                             <div class="mx-1 px-2">
-                                <label for="country" class="fw-medium fs-5 ">Select Country:</label>
+                                <label for="country" class="fw-medium">Select Country:</label>
                             </div>
                             <div class="card-body mx-2 p-3">
                                 <select name="country" id="country" (change)="onSelected()" [(ngModel)]="selectedCountry"
-                                    required class="form-select fs-5" aria-label="Default select example" #country>
+                                    required class="form-select" aria-label="Default select example" #country>
                                     <option value="" selected>Select Country</option>
                                     <option *ngFor="let esites of ecommarcebrands" [value]="esites.country">
                                         {{esites.country | uppercase}}
@@ -41,11 +40,11 @@
                         <div class="d-flex justify-content-start align-items-center">
                             
                             <div class="mx-1 px-2" >
-                                <label for="platform" class="fw-medium fs-5">Select Platform:</label>
+                                <label for="platform" class="fw-medium">Select Platform:</label>
                             </div>
 
                             <div class="card-body mx-2 p-3" >
-                                <select name="platform" (change)="onChange()" [(ngModel)]="selectedPlatform" required class="form-select fs-5"
+                                <select name="platform" (change)="onChange()" [(ngModel)]="selectedPlatform" required class="form-select "
                                     aria-label="Default select example" #platform>
                                     <option value="" selected>Select Platform</option>
                                     <option *ngFor="let platform of filteredSites" [value]="platform.name">
@@ -61,14 +60,14 @@
             </div>
         </form>
 
-        <div class="card border-0 rounded-3 mt-3" [ngClass]="searchResponse? 'opacity-100':'opacity-50'">
+        <div class="card border-0 rounded-3 mt-3" [ngClass]="searchResponse?'opacity-100':'opacity-50'">
             <div class="row row-cols-md-3">
                 <div class="col p-4">
                     <div class="card border-0 shadow bg-white p-4">
                         <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
                             <p class="fs-3">Product Search</p>
                             <p class="fs-3">{{searchResponse?.searchData?.productSearchCount||0}}</p>
-                            <button class="btn fs-5 text-light" style="background-color: #3498db;">View History</button>
+                            <button class="btn  text-light" style="background-color: #3498db;">View History</button>
                         </div>
                     </div>
                 </div>
@@ -77,7 +76,7 @@
                         <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
                             <p class="fs-3">Keyword Search</p>
                             <p class="fs-3">{{searchResponse?.searchData?.keywordQueryCount||0}}</p>
-                            <button class="btn fs-5 text-light" style="background-color: #3498db;">View History</button>
+                            <button class="btn  text-light" style="background-color: #3498db;">View History</button>
                         </div>
                     </div>
                 </div>
@@ -86,7 +85,7 @@
                         <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
                             <p class="fs-3">Market Search</p>
                             <p class="fs-3">{{searchResponse?.searchData?.marketSearchCount||0}}</p>
-                            <button class="btn fs-5 text-light" style="background-color: #3498db;">View History</button>
+                            <button class="btn  text-light" style="background-color: #3498db;">View History</button>
                         </div>
                     </div>
                 </div>
@@ -95,7 +94,7 @@
                         <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
                             <p class="fs-3">Distributor Search</p>
                             <p class="fs-3">{{searchResponse?.searchData?.distributorSearchCount||0}}</p>
-                            <button class="btn fs-5 text-light" style="background-color: #3498db;">View History</button>
+                            <button class="btn  text-light" style="background-color: #3498db;">View History</button>
                         </div>
                     </div>
                 </div>
@@ -104,7 +103,7 @@
                         <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
                             <p class="fs-3">Competitive Stratergy</p>
                             <p class="fs-3">{{searchResponse?.searchData?.competitiveStratergyCount|| 0}}</p>
-                            <button class="btn fs-5 text-light" style="background-color: #3498db;">View History</button>
+                            <button class="btn  text-light" style="background-color: #3498db;">View History</button>
                         </div>
                     </div>
                 </div>
@@ -113,7 +112,7 @@
                         <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
                             <p class="fs-3">Competitior Analysis</p>
                             <p class="fs-3">{{searchResponse?.searchData?.competitiorsAnalysisCount || 0}}</p>
-                            <button class="btn fs-5 text-light" style="background-color: #3498db;">View History</button>
+                            <button class="btn  text-light" style="background-color: #3498db;">View History</button>
                         </div>
                     </div>
                 </div>
@@ -126,7 +125,7 @@
               <div class="text-center">
                 <p class="bottom-a"> © 2024 MarketScopePro </p>
                 <p class="bottom-a"> Powered by DataXplode </p>
-               </div>
+              </div>
         </div>
 
     </div>

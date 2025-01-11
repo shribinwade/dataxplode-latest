@@ -42,7 +42,7 @@ export class CacheInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     // Check if the request is cacheable
-    debugger
+    
     if (!this.isRequestCachable(request)) {
       return next.handle(request);
     } else {
@@ -59,9 +59,11 @@ export class CacheInterceptor implements HttpInterceptor {
         // Check database endpoint
         return this.checkDatabaseEndpoint(request).pipe(
           switchMap(dbData => {
+            debugger
             if (dbData) {
-              console.log('Serving from database endpoint:', cacheKey);
+            
               const dbResponse = new HttpResponse({ body: dbData, status: 200 });
+              console.log('Serving from database endpoint:', );
               this.cacheMap.set(cacheKey, dbResponse);
               return of(dbResponse);
             } else {

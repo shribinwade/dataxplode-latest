@@ -35,10 +35,22 @@ import { AboutUsComponent } from './pages/about-us/about-us/about-us.component';
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {
+          console.log(localStorage.getItem('token'));
           return localStorage.getItem('token') || sessionStorage.getItem('token');
+         
+          
         },
-        allowedDomains: ['localhost:8081'], // Your backend domain
-        disallowedRoutes: ['localhost:8081/user/forgotPassword', 'localhost:8081/user/resetPassword','localhost:8081/user/login']
+        allowedDomains: [ 
+          "dataxplode.com",
+                         "www.dataxplode.com",
+                         "localhost:8081",
+                         "localhost:9091"],
+        // Your backend domain
+        disallowedRoutes: [
+          'localhost:8081/user/forgotPassword', 
+          'localhost:8081/user/resetPassword',
+          'localhost:8081/user/login'
+        ]
       }
     }),
     BrowserAnimationsModule, 

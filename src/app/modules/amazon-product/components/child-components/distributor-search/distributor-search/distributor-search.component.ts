@@ -54,7 +54,7 @@ export class DistributorSearchComponent implements OnChanges, OnInit, AfterViewI
               private globalSnackbar: CustomSnackbarService,
               private UploadDistributorDataService:SaveServiceDataService,
               private authService:AuthService,
-            ) { }
+            ){}
 
 
   ngOnInit(): void {
@@ -68,6 +68,7 @@ export class DistributorSearchComponent implements OnChanges, OnInit, AfterViewI
 
 
   loadData() {
+    debugger
     if (this.data && Array.isArray(this.data.Search_result)) {
       //showing pop up after result
       // Flatten Supplier_list arrays from all pages

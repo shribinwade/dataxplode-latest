@@ -16,7 +16,7 @@ export class HTTPService {
   
   // Single method implementation                       
   post(endpoint: string, data: any): Observable<any> {  
-    debugger                  //in query2 paramater added ? to make optional parameter 
+                  //in query2 paramater added ? to make optional parameter 
     const formData = new FormData();
 
   
@@ -77,7 +77,7 @@ export class HTTPService {
 
     //swot-analysis
     const swotAnalysisFormdata = new FormData();
-     debugger
+    
     if(data.product_owned){
       swotAnalysisFormdata.append('query1',data.product_owned);
       swotAnalysisFormdata.append('query2',data.competitor_product);

@@ -15,7 +15,7 @@
           </div>
 
           <div class="col">
-            <div class="d-flex justify-content-end flex-wrap ">
+            <div class="d-flex justify-content-end flex-wrap">
               <span class="m-2">
                 <select (change)="changeSortOrder($event)" class="form-select" 
                 aria-label="Default select example">
@@ -33,7 +33,7 @@
 
               <button type="submit" (click)="saveSearchData()"  [ngClass]="{'button--loading': isLoading}" [disabled]="isLoading" class="btn btn-primary  button--loading d-flex justify-content-center align-items-center px-2 py-0 m-2">
                 <span class="button--text"><mat-icon style="font-size: 15px;" class="d-flex justify-content-center align-items-center" fontIcon="upload"></mat-icon></span>
-                <span class="button--text" style="text-align: center;">Upload</span>
+                <span class="button--text" style="text-align: center;">Save</span>
               </button>
             </div>
 
@@ -45,31 +45,35 @@
         <div style=" margin-top: 3px" class="mx-0 px-0">
           <form [formGroup]="searchProductForm" (ngSubmit)="productSearch()">
             <div class="row m-0">
-              <div class="col-lg-9 m-0 p-0">
+
+              <div class="col-lg-10 col-md-10 m-0 p-0">
                 <input class="form-control w-100 m-0 px-0" formControlName="search" type="text"
                    placeholder="Search" aria-label="Search" />
               </div>
 
-              <div class="col-lg-3">
-                <button class="btn btn-primary px-2  " style=" width: 100%" type="submit">
+              <div class="col-lg-2 col-md-3">
+                <button class="btn btn-primary " style=" width: 100%" type="submit">
                   Search Product
                 </button>
               </div>
+
             </div>
           </form>
         </div>
 
-        <div class="filters">
+        <div class="filters mt-2">
+       
+          <div class="text-start mx-2">
+            <i class="fas fa-filter" style="font-size: 1rem"></i>Filters
+          </div>
+       
+       
           <div class="row">
-            <div class="text-start m-2">
-              <i class="fas fa-filter" style="font-size: 1rem p-10"></i>Filters
-            </div>
-
-            <div class="col-lg-3">
+            <div class="col-lg-3 justify-content-start">
               <div class="d-flex">
                 <select (change)="applyFilter($event)" class="form-select m-2" style="width: 100%"
                   aria-label="Default select example">
-                  <option selected>by rating</option>
+                  <option selected>By rating</option>
                   <option *ngFor="let rating of ratings" [value]="rating">
                     <p *ngIf="rating == 4; else elseBlock">{{ rating }} & Up</p>
                     <ng-template #elseBlock>
@@ -79,10 +83,10 @@
                 </select>
               </div>
             </div>
-
-            <div class="col-lg-9"></div>
           </div>
+          
         </div>
+
       </div>
     </div>
 

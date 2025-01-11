@@ -1,6 +1,6 @@
 import { HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from '../../../../environments/environment.development';
+import { environment } from '../../../../environments/environment';
 import { AuthService } from '../auth-service/auth.service';
 
 @Injectable({
@@ -11,6 +11,9 @@ export class RetriveDBDataURLService {
   constructor(private authService:AuthService) { }
 
   apiurl: string = environment.apiUrl;
+  authurl :string = environment.authUrl;
+
+
 
  private storeUrls = [
   
@@ -48,32 +51,32 @@ export class RetriveDBDataURLService {
 
     for (let i = 0; i < this.storeUrls.length; i++) {
       if (request.url.includes(this.storeUrls[2])) {
-        return `http://localhost:8081/keywordSearch/getKeywordData?UserID=${userID}&country=${country}&keyword=${searchServiceQuery}`;
+        return `${this.authurl}/keywordSearch/getKeywordData?UserID=${userID}&country=${country}&keyword=${searchServiceQuery}`;
       }
       //Distributor
       else if(request.url.includes(this.storeUrls[7])){
-        return `http://localhost:8081/distributorSearch/getDistributorData?UserID=${userID}&country=${country}&Distributor=${searchServiceQuery}`;
+        return `${this.authurl}/distributorSearch/getDistributorData?UserID=${userID}&country=${country}&Distributor=${searchServiceQuery}`;
       }
       //competitive stratergy
       else if(request.url.includes(this.storeUrls[9])){
-        return `http://localhost:8081/competitiveSearch/getCompetitiveSearch?UserID=${userID}&country=${country}&competitive=${searchServiceQuery}`;
+        return `${this.authurl}/competitiveSearch/getCompetitiveSearch?UserID=${userID}&country=${country}&competitive=${searchServiceQuery}`;
       }
       //competitor Analysis
       else if(request.url.includes(this.storeUrls[0])){
         const countryQuery = formData.get('query4') as string;
-        return `http://localhost:8081/competititorAnalysisSearch/getCompetitorAnalysisSearch?UserID=${userID}&country=${countryQuery}&competitor=${searchServiceQuery}`;
+        return `${this.authurl}/competititorAnalysisSearch/getCompetitorAnalysisSearch?UserID=${userID}&country=${countryQuery}&competitor=${searchServiceQuery}`;
       }
       //Market Search
       else if(request.url.includes(this.storeUrls[3])){
-        return `http://localhost:8081/marketSearch/getMarketData?UserID=${userID}&country=${countryQuery}&market=${searchServiceQuery}`;
+        return `${this.authurl}/marketSearch/getMarketData?UserID=${userID}&country=${countryQuery}&market=${searchServiceQuery}`;
       }
       //Product Search
       else if(request.url.includes(this.storeUrls[6])){
-        return `http://localhost:8081/productSearch/getProductData?UserID=${userID}&country=${countryQuery}&product=${searchServiceQuery}`;
+        return `${this.authurl}/productSearch/getProductData?UserID=${userID}&country=${countryQuery}&product=${searchServiceQuery}`;
       }
       //
       else if(request.url.includes(this.storeUrls[1])){
-        return `http://localhost:8081/productSearch/getProductReview?UserID=${userID}&country=${countryQuery}&product=${searchServiceQuery}`
+        return `${this.authurl}/productSearch/getProductReview?UserID=${userID}&country=${countryQuery}&product=${searchServiceQuery}`
       }
     };
     return ""

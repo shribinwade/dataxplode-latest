@@ -5,129 +5,145 @@
         Market Intelligence
     </div>
 
-     <div class="m-3">
-        <div class="row m-0">
-            <div class="col-md-3 col-sm-12 text-center market-search-card"  [@expandCollapse]="isExpanded ? 'expanded' : 'collapsed'"   >
-                <div class="card" *ngIf="isExpanded? true: false" style="overflow: hidden; box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;">
-                    
-                    <div   class="card-header" >Select the options below:</div>
-                   
-                    <div  class="card-body ">
 
-                        <!-- [disabled]="esites.country !== 'India'"
-                        [title]="esites.country !== 'India' ? 'Currently unavailable' : ''" -->
-
-                        <div class="text-start">
-                            <label class="card-text" for="country">Select a Country:</label>
-                            <select class="form-select form-select-sm" name="country" [(ngModel)]="selectedCountry"
-                                (change)="onSelected()" #country>
-                                <option selected value="">--Selected Country--</option>
-                                <option *ngFor="let esites of ecommarcebrands" [value]="esites.country">
-                                     {{esites.country | uppercase}}
-                                </option>
-                            </select>
-                        </div>
-
-                        <div class="text-start mt-3">
-                            <label for="platform" class="card-text text-start">Select Site:</label>
-                            <select class="form-select form-select-sm" id="platform" name="platform"
-                                (change)="onSelectedSites()" [(ngModel)]="selectedSites" [disabled]="!selectedCountry" #sites>
-                                <option selected value="">--Select Platform--</option>
-                                <option  *ngFor="let site of filteredSites" [value]="site.name"
-                                    [disabled]="site.name !== 'Amazon'"
-                                    [title]="site.name !== 'Amazon' ? 'Currently unavailable' : ''">{{site.name}}
-                                </option>
-                            </select>
-                        </div>
-
-                        <div class="text-start mt-3" *ngIf="selectedSites">
-                            <label for="service" class="card-text">Select Service:</label>
-                            <select name="service" class="form-select form-select-sm" [(ngModel)]="selectedService"
-                                (change)="onSelectedService(selectedService)">
-                                <option value="">--Select Service--</option>
-                                <option value="ProductSearch">Product Search</option>
-                                <option value="KeywordSearch">Keyword Search</option>
-                                <option value="MarketSearch">Market Search</option>
-                                <option value="DistributorSearch">Distributor Search</option>
-                                <option value="CompetitiveStratergySearch">Competitive Stratergy Search</option>
-                                <option value="CompetitorAnalysisSearch" > Competitor Analysis </option>
-                                
-                            </select>
-                        </div>
-
-                        <!-- Add a search field based on the selected service -->
-                        <div class="text-start mt-3" *ngIf="selectedService && selectedSites" [hidden]="hiddenCompetitiveAnalysisSearch" >
-                            <label class="card-text">{{selectedService}}</label>
-                            
-                            <!-- productSearch -->
-                            <input [hidden]="hiddenproductSearch" type="text"  class="form-control form-control-sm "
-                                [(ngModel)]="productSearchQuery" placeholder="Asin Search" />
-
-                            <!-- keywordSearch -->
-                            <input [hidden]="hiddenKeywordSearch" type="text"  class="form-control form-control-sm "
-                                [(ngModel)]="keywordSearchQuery" placeholder="Keyword Search" />    
-
-                            <!-- marketSearch -->   
-                            <input [hidden]="hiddenMarketSearch" type="text"  class="form-control form-control-sm "
-                                [(ngModel)]="marketSearchQuery" placeholder="Market Search" />    
-
-                            <!-- DistributorSearch -->   
-                            <input [disabled]="disabledDistributor" [hidden]="hiddenDistributorSearch" type="text"  class="form-control form-control-sm "
-                                [(ngModel)]="distributorSearchQuery" placeholder="Distributor Search" />     
-                           
-                            <!-- Competitor-stratergy Search -->   
-                            <input  [hidden]="hiddenCompetitiveStratergySearch" type="text"  class="form-control form-control-sm "
-                                [(ngModel)]="CompetitiveStratergySearchQuery" placeholder="Competitive Stratergy Search" />  
-                                
-                            <input  [hidden]="hiddenproductSearch" *ngIf="selectedCities.length <= 0" type="text" id="pincodeInput" class="form-control form-control-sm mt-2 mb-2"
-                                [(ngModel)]="pincodeQuery" placeholder="pincode/zipcode" />
-
-                            <div class="text-start" [hidden]="hiddenproductSearch" *ngIf="selectedCities.length > 0">
-                                    <label class="card-text" for="city">Select a City:</label>
-                                    <select class="form-select form-select-sm" name="city" [(ngModel)]="pincodeQuery">
-                                     <!-- <option selected value="">--Selected Country--</option> -->
-                                     <option value="">--Select City--</option>
-                                       <option *ngFor="let city of selectedCities" [value]="city">
-                                         {{ city }}
-                                       </option>
-                                    </select>
-                            </div>    
-                            
-                            <button type="submit" (click)="onSearch()" [ngClass]="{'button--loading': isLoading}" [disabled]="isLoading" class="btn btn-primary button--loading w-100 mt-2">
-                                <span class="button--text">Search</span>
-                            </button>
-                        </div>
-                    </div>
+    <!-- dropdowns -->
+    <div class="card border-0 rounded-4 p-3 mx-2 filter-selection shadow">
+        <!-- card row -->
+        <div class="row g-4">
+            <!--country card -->
+            <div class="col-md-3 col-sm-12">
                
+                <div class="card border-0 rounded-3 p-3">
+
+                    <div>
+                        <label class="card-text" for="country">Select a Country:</label>
+                    </div>
+
+                    <div class="mx-1">
+                        <select class="form-select form-select-sm" name="country" [(ngModel)]="selectedCountry"
+                            (change)="onSelected()" #country>
+                            <option selected value="">--Selected Country--</option>
+                            <option *ngFor="let esites of ecommarcebrands" [value]="esites.country">
+                                {{esites.country | uppercase}}
+                            </option>
+                        </select>
+                    </div>
+
                 </div>
-
-                <mat-icon
-                class="toggle"
-                appToolTip
-                [tooltip]="isExpanded ? 'Collapse search' : 'Expand search'"
-                placement="right"
-                [delay]="500"
-                (click)="toggleSearchCard()"
-                [@rotateIcon]="isExpanded ? 'expanded' : 'collapsed'">
-                {{ chevron }}
-               </mat-icon>
-                
-            </div>
-
-            <div class="col-md-9 col-sm-12"  [@expandCollapseContent]="isExpanded ? 'expanded' : 'collapsed'" >
-
-                <!-- Placeholder for dynamically loaded components -->
-                 <div class="market-content-card h-100">
-                    <div class="card-body">
-                        <ng-template  #dynamicComponentContainer></ng-template>
-                    </div>
-                 </div>
+               
                
             </div>
 
+            <!-- platform card -->
+            <div class="col-md-3 col-sm-12 ">
+                <div class="card border-0 rounded-3 dropdown-card p-3">
+                    <div>
+                        <label for="platform" class="card-text text-start ">Select Site:</label>
+                    </div>
+                    <div class="mx-1">
+                        <select class="form-select form-select-sm" id="platform" name="platform"
+                            (change)="onSelectedSites()" [(ngModel)]="selectedSites" [disabled]="!selectedCountry"
+                            #sites>
+                            <option selected value="">--Select Platform--</option>
+                            <option *ngFor="let site of filteredSites" [value]="site.name"
+                                [disabled]="site.name !== 'Amazon'"
+                                [title]="site.name !== 'Amazon' ? 'Currently unavailable' : ''">{{site.name}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- select service -->
+            <div class="col-md-3 col-sm-12" *ngIf="selectedSites">
+                <div class="card border-0 rounded-3 dropdown-card p-3">
+                    <div>
+                        <label for="service" class="card-text">Select Service:</label>
+                    </div>
+                    <div class="mx-1">
+                        <select name="service" class="form-select form-select-sm" [(ngModel)]="selectedService"
+                            (change)="onSelectedService(selectedService)">
+                            <option value="">--Select Service--</option>
+                            <option value="ProductSearch">Product Search</option>
+                            <option value="KeywordSearch">Keyword Search</option>
+                            <option value="MarketSearch">Market Search</option>
+                            <option value="DistributorSearch">Distributor Search</option>
+                            <option value="CompetitiveStratergySearch">Competitive Stratergy Search</option>
+                            <option value="CompetitorAnalysisSearch"> Competitor Analysis </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- seach input -->
+            <!-- Add a search field based on the selected service -->
+
+            <div class="col-md-3 col-sm-12" *ngIf="selectedService && selectedSites">
+
+                <div class="card border-0 rounded-3 dropdown-card p-3">
+
+                    <div class="mx-1">
+                        <label class="card-text">{{selectedService}}:</label>
+                    </div>
+
+                    <div>
+                        <!-- productSearch -->
+                        <input class="" [hidden]="hiddenproductSearch" type="text" class="form-control form-control-sm "
+                            [(ngModel)]="productSearchQuery" placeholder="Asin Search" />
+
+                        <!-- keywordSearch -->
+                        <input [hidden]="hiddenKeywordSearch" type="text" class="form-control form-control-sm "
+                            [(ngModel)]="keywordSearchQuery" placeholder="Keyword Search" />
+
+                        <!-- marketSearch -->
+                        <input [hidden]="hiddenMarketSearch" type="text" class="form-control form-control-sm "
+                            [(ngModel)]="marketSearchQuery" placeholder="Market Search" />
+
+                        <!-- DistributorSearch -->
+                        <input [disabled]="disabledDistributor" [hidden]="hiddenDistributorSearch" type="text"
+                            class="form-control form-control-sm " [(ngModel)]="distributorSearchQuery"
+                            placeholder="Distributor Search" />
+
+                        <!-- Competitor-stratergy Search -->
+                        <input [hidden]="hiddenCompetitiveStratergySearch" type="text"
+                            class="form-control form-control-sm " [(ngModel)]="CompetitiveStratergySearchQuery"
+                            placeholder="Competitive Stratergy Search" />
+
+                        <input [hidden]="hiddenproductSearch" *ngIf="selectedCities.length <= 0" type="text"
+                            id="pincodeInput" class="form-control form-control-sm mt-2 mb-2" [(ngModel)]="pincodeQuery"
+                            placeholder="pincode/zipcode" />
+
+                        <div class="text-start" [hidden]="hiddenproductSearch" *ngIf="selectedCities.length > 0">
+                            <label class="card-text" for="city">Select a City:</label>
+                            <select class="form-select form-select-sm" name="city" [(ngModel)]="pincodeQuery">
+                                <!-- <option selected value="">--Selected Country--</option> -->
+                                <option value="">--Select City--</option>
+                                <option *ngFor="let city of selectedCities" [value]="city">
+                                    {{ city }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <button type="submit" (click)="onSearch()" [ngClass]="{'button--loading': isLoading}"
+                        [disabled]="isLoading" class="btn btn-primary button--loading mt-2">
+                        <span class="button--text">Search</span>
+                    </button>
+
+                </div>
+            </div>
         </div>
 
-     </div>
-        
+    </div>
 
-</div>
+    <div class="col-md-12 col-sm-12 mt-2" [@expandCollapseContent]="isExpanded ? 'expanded' : 'collapsed'">
+        <!-- Placeholder for dynamically loaded components -->
+        <div class="market-content-card h-100">
+            <div class="card-body mx-2">
+                <ng-template #dynamicComponentContainer></ng-template>
+            </div>
+        </div>
+    </div>
+ </div>   
