@@ -52,6 +52,8 @@ export class RetriveDBDataURLService {
     for (let i = 0; i < this.storeUrls.length; i++) {
       if (request.url.includes(this.storeUrls[2])) {
         return `${this.authurl}/keywordSearch/getKeywordData?UserID=${userID}&country=${country}&keyword=${searchServiceQuery}`;
+
+        // return `${this.authurl}/keywordSearch/getKeywordData?UserID=${userID}&country=${country}&keyword=${searchServiceQuery}`;
       }
       //Distributor
       else if(request.url.includes(this.storeUrls[7])){

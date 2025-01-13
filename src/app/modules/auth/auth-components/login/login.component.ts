@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
        //SignupFromGroup
        this.signinFormGroup=this.formBuilder.group({
         email: ["shribinwade.100@gmail.com",[Validators.required,Validators.pattern(GlobalConstants.emailRegex)]],
-        password: ["9103",[Validators.required]],
+        password: ["Admin@123",[Validators.required]],
         rememberMe: [false] // Default to unchecked
       })
   }

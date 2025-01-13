@@ -15,6 +15,11 @@ export class AuthService {
 
   userStatus: Subject<String> = new Subject();
 
+
+  
+
+  
+
   constructor(
     private httpClient: HttpClient,
     private router: Router,

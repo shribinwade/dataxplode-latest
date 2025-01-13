@@ -19,6 +19,7 @@ export class DistributorSearchComponent implements OnChanges, OnInit, AfterViewI
   @Input('data') data: any;
   @Input() formdata!:any;
 
+  
 
   searchFormControl: any = FormGroup;
   searchLocationFormControl: any = FormGroup;
@@ -129,6 +130,7 @@ export class DistributorSearchComponent implements OnChanges, OnInit, AfterViewI
   ngOnChanges(changes: SimpleChanges): void {
     console.log(this.data);
   }
+  
 
   exportToExcel(){
       this.exportToExcelService.exportTableAsExcel(this.suppliers,"Distributors List")

@@ -16,7 +16,7 @@
                 <div class="card border-0 rounded-3 p-3">
 
                     <div>
-                        <label class="card-text" for="country">Select a Country:</label>
+                        <label class="card-text fw-medium" for="country">Select a Country:</label>
                     </div>
 
                     <div class="mx-1">
@@ -38,7 +38,7 @@
             <div class="col-md-3 col-sm-12 ">
                 <div class="card border-0 rounded-3 dropdown-card p-3">
                     <div>
-                        <label for="platform" class="card-text text-start ">Select Site:</label>
+                        <label for="platform" class="card-text text-start fw-medium">Select Site:</label>
                     </div>
                     <div class="mx-1">
                         <select class="form-select form-select-sm" id="platform" name="platform"
@@ -59,7 +59,7 @@
             <div class="col-md-3 col-sm-12" *ngIf="selectedSites">
                 <div class="card border-0 rounded-3 dropdown-card p-3">
                     <div>
-                        <label for="service" class="card-text">Select Service:</label>
+                        <label for="service " class="card-text fw-medium">Select Service:</label>
                     </div>
                     <div class="mx-1">
                         <select name="service" class="form-select form-select-sm" [(ngModel)]="selectedService"
@@ -84,7 +84,7 @@
                 <div class="card border-0 rounded-3 dropdown-card p-3">
 
                     <div class="mx-1">
-                        <label class="card-text">{{selectedService}}:</label>
+                        <label class="card-text fw-medium">{{selectedService}}:</label>
                     </div>
 
                     <div>

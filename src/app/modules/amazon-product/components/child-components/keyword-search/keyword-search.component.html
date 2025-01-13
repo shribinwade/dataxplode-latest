@@ -1,220 +1,222 @@
 <div *ngIf="productData && productData.length > 0" class="card shadow">
 
-  <div class="card-body">
-    <div class="search_content">
+  <div class="card-body p-0 m-0">
+    <div class="search_content p-0 m-0">
       <!-- class="example-container mat-elevation-z8" -->
-      <div *ngIf="productData && productData.length > 0">
+      <div class="p-0 m-0" *ngIf="productData && productData.length > 0">
 
-        <div class="row m-0" style="border: 1px solid rgb(228, 228, 228); box-shadow: 20px">
-          <div class="col justify-content-start">
-            <p class="search_title">
-              1-50 of over {{ productData.length }} results for "{{
-              productData[0].keyword
-              }}"
-            </p>
+        <div class="row g-2 justify-content-center align-items-center p-0 m-0">
+          <div class="col col-md-6 col-xs-12 ">
+            <div class="justify-content-start align-items-center">
+              <p class="search_title">
+                1-3 of over {{ productData.length }} results for "{{
+                productData[0].keyword
+                }}"
+              </p>
+            </div>
+       
           </div>
 
-          <div class="col">
-            <div class="d-flex justify-content-end flex-wrap">
+          <div class="col col-md-6 col-xs-12">
+            <div class="d-flex justify-content-end  flex-wrap">
               <span class="m-2">
-                <select (change)="changeSortOrder($event)" class="form-select" 
-                aria-label="Default select example">
-                <option selected>Sort Order</option>
-                <option value="ratingLowToHigh">Rating: Low to High</option>
-                <option value="ratingHighToLow">Rating: High to Low</option>
-                <option value="priceLowToHigh">Price: Low to High</option>
-                <option value="priceHighToLow">Price: High to Low</option>
-              </select>
+                <select (change)="changeSortOrder($event)" class="form-select" aria-label="Default select example">
+                  <option selected>Sort Order</option>
+                  <option value="ratingLowToHigh">Rating: Low to High</option>
+                  <option value="ratingHighToLow">Rating: High to Low</option>
+                  <option value="priceLowToHigh">Price: Low to High</option>
+                  <option value="priceHighToLow">Price: High to Low</option>
+                </select>
               </span>
-          
+
 
               <button class="btn btn-success m-2" (click)="exportToExcel()">Export Excel</button>
               <!-- <button class="btn btn-primary m-2 button--loading" (click)="saveSearchData()" > <mat-icon fontIcon="upload"></mat-icon> Save </button> -->
 
-              <button type="submit" (click)="saveSearchData()"  [ngClass]="{'button--loading': isLoading}" [disabled]="isLoading" class="btn btn-primary  button--loading d-flex justify-content-center align-items-center px-2 py-0 m-2">
-                <span class="button--text"><mat-icon style="font-size: 15px;" class="d-flex justify-content-center align-items-center" fontIcon="upload"></mat-icon></span>
+              <button type="submit" (click)="saveSearchData()" [ngClass]="{'button--loading': isLoading}"
+                [disabled]="isLoading"
+                class="btn btn-primary  button--loading d-flex justify-content-center align-items-center px-2 py-0 m-2">
+                <span class="button--text"><mat-icon style="font-size: 15px;"
+                    class="d-flex justify-content-center align-items-center" fontIcon="upload"></mat-icon></span>
                 <span class="button--text" style="text-align: center;">Save</span>
               </button>
             </div>
-
-            
-            
           </div>
         </div>
 
-        <div style=" margin-top: 3px" class="mx-0 px-0">
-          <form [formGroup]="searchProductForm" (ngSubmit)="productSearch()">
-            <div class="row m-0">
-
-              <div class="col-lg-10 col-md-10 m-0 p-0">
-                <input class="form-control w-100 m-0 px-0" formControlName="search" type="text"
-                   placeholder="Search" aria-label="Search" />
-              </div>
-
-              <div class="col-lg-2 col-md-3">
-                <button class="btn btn-primary " style=" width: 100%" type="submit">
-                  Search Product
-                </button>
-              </div>
-
-            </div>
-          </form>
-        </div>
-
-        <div class="filters mt-2">
-       
-          <div class="text-start mx-2">
-            <i class="fas fa-filter" style="font-size: 1rem"></i>Filters
-          </div>
-       
-       
-          <div class="row">
-            <div class="col-lg-3 justify-content-start">
-              <div class="d-flex">
-                <select (change)="applyFilter($event)" class="form-select m-2" style="width: 100%"
-                  aria-label="Default select example">
-                  <option selected>By rating</option>
-                  <option *ngFor="let rating of ratings" [value]="rating">
-                    <p *ngIf="rating == 4; else elseBlock">{{ rating }} & Up</p>
-                    <ng-template #elseBlock>
-                      {{ rating }}
-                    </ng-template>
-                  </option>
-                </select>
-              </div>
-            </div>
-          </div>
-          
-        </div>
-
+        
       </div>
     </div>
 
   </div>
-</div>  
+</div>
 
-  <div *ngIf="productData && productData.length > 0" class="card mt-2 shadow">
+<div *ngIf="productData && productData.length > 0" class="card mt-2 shadow">
 
-    <div class="card-body overflow-scroll p-3">
+  <div class="filters mt-2 p-2">
 
-      <!-- (matSortChange)="announceSortChange($event)" -->
-      <table mat-table [dataSource]="dataSource" matSort>
-        <!-- Review Title Column -->
-        <ng-container matColumnDef="index">
-          <th mat-header-cell *matHeaderCellDef>#</th>
-          <td mat-cell *matCellDef="let review; let i = index">
-            {{ i + 1 }}
-          </td>
-        </ng-container>
+    <div class="text-start mx-2">
+      <i class="fas fa-filter" style="font-size: 1rem"></i>Filters
+    </div>
 
-        <!-- Review Detail Column -->
-        <ng-container matColumnDef="pdp_title_value">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>
-            Product Name
-          </th>
-          <td mat-cell *matCellDef="let review">
-            {{ review.pdp_title_value }}
-          </td>
-        </ng-container>
+    <div class="row g-4 justify-content-between">
+      <div class="col col-lg-3 col-md-3 col-sm-12 ">
+        <div class="d-flex justify-content-start">
+          <select (change)="applyFilter($event)" class="form-select m-2" style="width: 100%"
+            aria-label="Default select example">
+            <option selected>By rating</option>
+            <option *ngFor="let rating of ratings" [value]="rating">
+              <p *ngIf="rating == 4; else elseBlock">{{ rating }} & Up</p>
+              <ng-template #elseBlock>
+                {{ rating }}
+              </ng-template>
+            </option>
+          </select>
+        </div>
+      </div>
 
-        <!-- Review Detail Column -->
-        <ng-container matColumnDef="position">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Rank</th>
-          <td mat-cell *matCellDef="let data">
-            {{ data.position }}
-          </td>
-        </ng-container>
+      <div class="col col-lg-6 col-md-6">
+      
+          <form [formGroup]="searchProductForm" (ngSubmit)="productSearch()">
+            <div class="d-flex justify-content-end align-items-center m-0 p-0">
+              <div class="mx-2">
+                <input class="form-control" formControlName="search" type="text" placeholder="Search" aria-label="Search" />
+              </div>
+              <div class="mx-2">
+                <button class="btn btn-primary "  type="submit">
+                  Search Product
+                </button>
+              </div>
+            </div>
+      
+        </form>
 
-        <!-- Review Detail Column -->
-        <ng-container matColumnDef="keyword">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Keyword</th>
-          <td mat-cell *matCellDef="let data">
-            {{ data.keyword }}
-          </td>
-        </ng-container>
+       
+      </div>
+    </div>
 
-        <!-- Review Detail Column -->
-        <ng-container matColumnDef="listingtype">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>
-            Listing Type
-          </th>
-          <td mat-cell *matCellDef="let data">
-            {{ data.Listing_Type }}
-          </td>
-        </ng-container>
+  </div>
 
-        <ng-container matColumnDef="pdp_image_url">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Images</th>
-          <td mat-cell *matCellDef="let review">
-            <img width="35px" height="35px" [src]="review.pdp_image_url" alt="" />
-          </td>
-        </ng-container>
+  <div class="card-body overflow-scroll p-3 shadow">
 
-        <ng-container matColumnDef="brand">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Brand</th>
-          <td mat-cell *matCellDef="let review">
-            {{ review.brand_crawl }}
-          </td>
-        </ng-container>
+    <!-- (matSortChange)="announceSortChange($event)" -->
+    <table mat-table [dataSource]="dataSource" matSort>
+      <!-- Review Title Column -->
+      <ng-container matColumnDef="index">
+        <th mat-header-cell *matHeaderCellDef>#</th>
+        <td mat-cell *matCellDef="let element; let i = index">
+          {{ (getPageIndex() * getPageSize()) + i + 1 }}
+        </td>
+      </ng-container>
 
-        <!-- Review Detail Column -->
-        <ng-container matColumnDef="bestSeller">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>
-            Best Seller
-          </th>
-          <td mat-cell *matCellDef="let data">
-            {{ data.best_seller }}
-          </td>
-        </ng-container>
+      <!-- Review Detail Column -->
+      <ng-container matColumnDef="pdp_title_value">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Product Name
+        </th>
+        <td mat-cell *matCellDef="let review">
+          {{ review.pdp_title_value }}
+        </td>
+      </ng-container>
 
-        <!-- Rating Column -->
-        <!-- <ng-container matColumnDef="web_pid">
+      <!-- Review Detail Column -->
+      <ng-container matColumnDef="position">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Rank</th>
+        <td mat-cell *matCellDef="let data">
+          {{ data.position }}
+        </td>
+      </ng-container>
+
+      <!-- Review Detail Column -->
+      <ng-container matColumnDef="keyword">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Keyword</th>
+        <td mat-cell *matCellDef="let data">
+          {{ data.keyword }}
+        </td>
+      </ng-container>
+
+      <!-- Review Detail Column -->
+      <ng-container matColumnDef="listingtype">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Listing Type
+        </th>
+        <td mat-cell *matCellDef="let data">
+          {{ data.Listing_Type }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="pdp_image_url">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Images</th>
+        <td mat-cell *matCellDef="let review">
+          <img width="35px" height="35px" [src]="review.pdp_image_url" alt="" />
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="brand">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Brand</th>
+        <td mat-cell *matCellDef="let review">
+          {{ review.brand_crawl }}
+        </td>
+      </ng-container>
+
+      <!-- Review Detail Column -->
+      <ng-container matColumnDef="bestSeller">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Best Seller
+        </th>
+        <td mat-cell *matCellDef="let data">
+          {{ data.best_seller }}
+        </td>
+      </ng-container>
+
+      <!-- Rating Column -->
+      <!-- <ng-container matColumnDef="web_pid">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header> ASIN  </th>
                   <td mat-cell *matCellDef="let review">{{review.web_pid}}  </td>
                 </ng-container> -->
 
-        <!-- Reviewed By Column -->
-        <ng-container matColumnDef="price_sp">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>
-            Selling Price
-          </th>
-          <td mat-cell *matCellDef="let review">{{ review.price_sp }}</td>
-        </ng-container>
+      <!-- Reviewed By Column -->
+      <ng-container matColumnDef="price_sp">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Selling Price
+        </th>
+        <td mat-cell *matCellDef="let review">{{ review.price_sp }}</td>
+      </ng-container>
 
-        <!-- Reviewed Date Column -->
-        <ng-container matColumnDef="price_rp">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>MRP</th>
-          <td mat-cell *matCellDef="let review">{{ review.price_rp }}</td>
-        </ng-container>
+      <!-- Reviewed Date Column -->
+      <ng-container matColumnDef="price_rp">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>MRP</th>
+        <td mat-cell *matCellDef="let review">{{ review.price_rp }}</td>
+      </ng-container>
 
-        <!-- Verified Purchase Column -->
-        <ng-container matColumnDef="pdp_discount_value">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>
-            Discounted Price
-          </th>
-          <td mat-cell *matCellDef="let review">
-            {{ review.pdp_discount_value }}
-          </td>
-        </ng-container>
+      <!-- Verified Purchase Column -->
+      <ng-container matColumnDef="pdp_discount_value">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Discounted Price
+        </th>
+        <td mat-cell *matCellDef="let review">
+          {{ review.pdp_discount_value }}
+        </td>
+      </ng-container>
 
-        <ng-container matColumnDef="pdp_rating_value">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Ratings</th>
-          <td mat-cell *matCellDef="let review">
-            {{ review.pdp_rating_value
-            }}<app-star-rating style="display: inline-block" [stars]="review.pdp_rating_value"></app-star-rating>
-          </td>
-        </ng-container>
+      <ng-container matColumnDef="pdp_rating_value">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Ratings</th>
+        <td mat-cell *matCellDef="let review">
+          {{ review.pdp_rating_value
+          }}<app-star-rating style="display: inline-block" [stars]="review.pdp_rating_value"></app-star-rating>
+        </td>
+      </ng-container>
 
-        <ng-container matColumnDef="pdp_rating_count">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>
-            Rating Count
-          </th>
-          <td mat-cell *matCellDef="let review">
-            {{ review.pdp_rating_count }}
-          </td>
-        </ng-container>
+      <ng-container matColumnDef="pdp_rating_count">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Rating Count
+        </th>
+        <td mat-cell *matCellDef="let review">
+          {{ review.pdp_rating_count }}
+        </td>
+      </ng-container>
 
-        <!-- <ng-container matColumnDef="pdp_page_url">
+      <!-- <ng-container matColumnDef="pdp_page_url">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header> URL </th>
                   <td mat-cell *matCellDef="let review"><a [href]="review.pdp_page_url" target="_blank"> 
                     <ng-container matColumnDef="web_pid">
@@ -223,45 +225,48 @@
                   </ng-container></a> </td>
                 </ng-container> -->
 
-        <ng-container matColumnDef="web_pid">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>ASIN</th>
-          <td mat-cell *matCellDef="let review">
-            <a [href]="review.pdp_page_url" target="_blank">{{
-              review.web_pid
-              }}</a>
-          </td>
-        </ng-container>
+      <ng-container matColumnDef="web_pid">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>ASIN</th>
+        <td mat-cell *matCellDef="let review">
+          <a [href]="review.pdp_page_url" target="_blank">{{
+            review.web_pid
+            }}</a>
+        </td>
+      </ng-container>
 
-        <ng-container matColumnDef="bought">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Bought</th>
-          <td mat-cell *matCellDef="let review">{{ review.bought }}</td>
-        </ng-container>
+      <ng-container matColumnDef="bought">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Bought</th>
+        <td mat-cell *matCellDef="let review">{{ review.bought }}</td>
+      </ng-container>
 
-        <ng-container matColumnDef="moreInfo">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>
-            More Info
-          </th>
-          <td mat-cell *matCellDef="let review">
-            <button class="btn btn-info dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-              More info
-            </button>
-            <ul class="dropdown-menu">
-              <li>
-                <a class="dropdown-item" (click)="openReviewDialog(review.web_pid)">View Reviews</a>
-              </li>
-              <!-- <li><a class="dropdown-item" (click)="openReviewAnalysisDialog()">Reviews analysis</a></li>  -->
-            </ul>
-          </td>
-        </ng-container>
+      <ng-container matColumnDef="moreInfo">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          More Info
+        </th>
+        <td mat-cell *matCellDef="let review">
+          <button class="btn btn-info dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            More info
+          </button>
+          <ul class="dropdown-menu">
+            <li>
+              <a class="dropdown-item" (click)="openReviewDialog(review.web_pid)">View Reviews</a>
+            </li>
+            <!-- <li><a class="dropdown-item" (click)="openReviewAnalysisDialog()">Reviews analysis</a></li>  -->
+          </ul>
+        </td>
+      </ng-container>
 
-        <!-- Header and Row Definitions -->
-        <!-- added sticky for table header-->
-        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-      </table>
+      <!-- Header and Row Definitions -->
+      <!-- added sticky for table header-->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
 
-    </div>
-    <mat-paginator class="card-footer" [length]="this.productData.length" [pageSize]="50"
-      [pageSizeOptions]="[50, 100, 1000]" (page)="onPageChange($event)" aria-label="Select page of users">
-    </mat-paginator>
   </div>
+  <mat-paginator class="card-footer" 
+  [length]="this.productData.length" 
+  [pageSize]="3"
+  [pageSizeOptions]="[3,10,50, 100, this.productData.length]" 
+  (page)="onPageChange($event)" aria-label="Select page of users">
+  </mat-paginator>
+</div>

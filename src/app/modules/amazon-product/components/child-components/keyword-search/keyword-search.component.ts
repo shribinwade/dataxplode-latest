@@ -48,6 +48,12 @@ export class KeywordSearchComponent implements OnInit,AfterViewInit, OnChanges  
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+
+  //pagination variables
+  pageSize = 10;
+  pageIndex = 0;
+  pageSizeOptions = [5, 10, 25];
+
   searchProductForm: any = FormGroup;
 
   isLoading:boolean = false;
@@ -73,7 +79,7 @@ export class KeywordSearchComponent implements OnInit,AfterViewInit, OnChanges  
     'moreInfo'
    ];
 
-   public pageSlice = this.productData.slice(0, 50);
+   public pageSlice = this.productData;
    dataSource = new MatTableDataSource<keywordDetails>(this.pageSlice);
 
 
@@ -109,7 +115,7 @@ export class KeywordSearchComponent implements OnInit,AfterViewInit, OnChanges  
   }
    
   private updatePageSlice(): void {
-    this.pageSlice = this.productData.slice(0, 50);
+    this.pageSlice = this.productData;
     this.dataSource.data = this.pageSlice;
   }
 
@@ -232,10 +238,13 @@ export class KeywordSearchComponent implements OnInit,AfterViewInit, OnChanges  
 }
 
   onPageChange(event: PageEvent):void{
+    this.pageSize = event.pageSize;
+    this.pageIndex = event.pageIndex;
+
     const startIndex = event.pageIndex * event.pageSize;
     const endIndex = Math.min(startIndex + event.pageSize, this.productData.length);
     this.pageSlice = this.productData.slice(startIndex, endIndex);
-    this.dataSource.data = this.pageSlice;
+    // this.dataSource.data = this.pageSlice;
   }
 
   ngAfterViewInit() {
@@ -246,6 +255,7 @@ export class KeywordSearchComponent implements OnInit,AfterViewInit, OnChanges  
   exportToExcel(){
     this.exportToExcelService.exportTableAsExcel(this.productData,"Products List")
   }
+
 
   saveSearchData(){
 
@@ -308,6 +318,13 @@ export class KeywordSearchComponent implements OnInit,AfterViewInit, OnChanges  
     // }, 3000);
   }
 
+  getPageIndex(): number {
+    return this.paginator ? this.paginator.pageIndex : 0;
+  }
+
+  getPageSize(): number {
+    return this.paginator ? this.paginator.pageSize : 10;
+  }
 
   ngOnDestroy(): void {
     // Notify all subscriptions to complete
