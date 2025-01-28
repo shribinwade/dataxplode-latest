@@ -1,4 +1,4 @@
-<div *ngIf="productData && productData.length > 0" class="card shadow">
+<div *ngIf="productData && productData.length > 0; else noData" class="card shadow">
 
   <div class="card-body p-0 m-0">
     <div class="search_content p-0 m-0">
@@ -270,3 +270,9 @@
   (page)="onPageChange($event)" aria-label="Select page of users">
   </mat-paginator>
 </div>
+
+<ng-template #noData>
+  <div class="d-flex justify-content-center align-items-center">
+    <p>No Data Available</p>
+  </div>
+</ng-template>

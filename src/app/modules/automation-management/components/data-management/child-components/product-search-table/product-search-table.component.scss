@@ -25,11 +25,13 @@
     background-color: #f1f1f1;
   }
 
-//   .mat-mdc-header-row {
-//     text-align: center;
-//     background-color: #00575b;
-//     color: white;
-//     font-weight: bold;
-//     word-spacing: 2px;
-//     // font-size: 100em;
-//   }
+  .mat-mdc-header-row {
+    text-align: center;
+    color: white;
+    font-size: 1em;
+   
+  }
+
+  .mat-mdc-row{
+    font-size: 0.95em !important;
+  }

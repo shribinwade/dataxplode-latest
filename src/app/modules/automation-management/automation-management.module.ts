@@ -16,9 +16,8 @@ import { ReviewSearchTableComponent } from './components/data-management/child-c
     DataManagementComponent,
     ProductSearchTableComponent,
     KeywordSearchTableComponent,
-
     LocationComponent,
-      ReviewSearchTableComponent,
+    ReviewSearchTableComponent,
   ],
   imports: [
     FormsModule,

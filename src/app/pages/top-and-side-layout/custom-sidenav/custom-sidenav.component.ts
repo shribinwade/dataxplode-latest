@@ -121,6 +121,12 @@ export class CustomSidenavComponent implements OnInit, OnChanges{
            icon: 'data_exploration',
            label: 'automation-management',
            route: 'user/automation-management'
+         },
+         { 
+           icon: 'diamond',
+           label: 'Valuation',
+           route: 'user/valuation'
+
          }
         ]
       },

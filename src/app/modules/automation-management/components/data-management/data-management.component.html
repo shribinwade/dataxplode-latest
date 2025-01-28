@@ -6,16 +6,16 @@
     <!-- dropdown form form -->
     <form #dropdownForm="ngForm" (ngSubmit)="onSubmit(dropdownForm)">
       <!-- dropdowns -->
-      <div class="card border-0 rounded-4 shadow p-4 filter-selection">
+      <div  class="card border-0 rounded-4 shadow p-4 filter-selection">
         <!-- card row -->
         <div class="d-flex align-items-center justify-content-around card-container mx-1 p-2">
           <!-- //country card -->
-          <div class="card border-0 rounded-3 dropdown-card">
+          <div  class="card border-0 rounded-3 dropdown-card">
             <div class="mx-2 px-2">
               <label for="country" class="fw-medium mb-0 mt-3">Select Country</label>
             </div>
             <div class="card-body mx-2 p-2">
-              <select name="country" id="country" (change)="onSelected()" [(ngModel)]="selectedCountry" required
+              <select  name="country" id="country" (change)="onSelected()" [(ngModel)]="selectedCountry" required
                 class="form-select" aria-label="Default select example" #country>
                 <option value="" selected>Select Country</option>
                 <option *ngFor="let esites of ecommarcebrands" [value]="esites.country">
@@ -25,12 +25,12 @@
             </div>
           </div>
           <!-- //platform card -->
-          <div class="card border-0 rounded-3 dropdown-card">
+          <div  class="card border-0 rounded-3 dropdown-card">
             <div class="mx-2 px-2">
               <label for="platform" class="fw-medium mb-0 mt-3">Select Platform</label>
             </div>
             <div class="card-body mx-2 p-2">
-              <select name="platform" [(ngModel)]="selectedPlatform" required class="form-select"
+              <select [disabled]="!selectedCountry" name="platform" [(ngModel)]="selectedPlatform" required class="form-select"
                 aria-label="Default select example" #platform>
                 <option value="" selected>Select Platform</option>
                 <option *ngFor="let platform of filteredSites" [value]="platform.name">
@@ -46,7 +46,7 @@
               <label for="product" class="fw-medium mb-0 mt-3">Product Type</label>
             </div>
             <div class="card-body mx-2 p-2">
-              <select name="product" [(ngModel)]="selectedProductType" required class="form-select"
+              <select [disabled]="!selectedPlatform" name="product" [(ngModel)]="selectedProductType" required class="form-select"
                 aria-label="Default select example">
                 <option value="" selected>Select Product</option>
                 <option value="Owned">Owned</option>
@@ -61,7 +61,7 @@
               <label for="service" class="fw-medium mb-0 mt-3">Select Service</label>
             </div>
             <div class="card-body mx-2 p-2">
-              <select name="service" [(ngModel)]="selectedService" required class="form-select"
+              <select [disabled]="!selectedPlatform" name="service" [(ngModel)]="selectedService" required class="form-select"
                 aria-label="Default select example">
                 <option value="" selected>Select Service</option>
                 <option value="Product Search">Product Search</option>
@@ -71,11 +71,11 @@
             </div>
           </div>
         </div>
-        <span class="mx-1 p-2">
+        <!-- <span class="mx-1 p-2">
           <button class="btn btn-primary" type="submit" [disabled]="!dropdownForm.valid">
             Submit
           </button>
-        </span>
+        </span> -->
       </div>
     </form>
 
@@ -97,8 +97,8 @@
         </div>
       </div> -->
 
-      <div class="mt-4" *ngIf="selectedService.includes('Product Search'); else keywordCheck">
-        <p class="fw-medium fs-5 mt-4">Product</p>
+      <div class="" *ngIf="selectedService.includes('Product Search'); else keywordCheck">
+        <p class="fw-medium fs-5 ">Product</p>
         <app-product-search-table [country]="selectedCountry" [platform]="selectedPlatform"></app-product-search-table>
 
         <p class="fw-medium fs-5 mt-4">Location Table</p>

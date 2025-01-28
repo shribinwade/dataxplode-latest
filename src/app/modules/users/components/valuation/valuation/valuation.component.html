@@ -1,0 +1,408 @@
+<section class="container-fluid">
+  <div class="card p-3 mt-2 d-flex justify-content-center align-items-start">
+    <div>
+      <p class="fw-medium fs-4 m-0">Valuation Report</p>
+    </div>
+    <div>
+      <button class="btn btn-primary" (click)="generatePdf()">Download PDF</button>
+    </div>
+  </div>
+
+  <!-- //Header -->
+  <div
+    class="card d-flex justify-content-center align-items-start border-0 mt-3 mb-3 rounded-4 shadow bg-white p-3"
+  >
+    <form
+      [formGroup]="ValuationFormGroup"
+      (ngSubmit)="valuationFormSubmit()"
+      class="row g-3"
+    >
+      <div class="col-md-3">
+        <div class="input-field">
+          <div
+            class="form-floating"
+            [ngClass]="{
+              'is-invalid':
+                ValuationFormGroup.controls.startupName.touched &&
+                ValuationFormGroup.controls.startupName.invalid
+            }"
+          >
+            <input
+              [ngClass]="{
+                'invalid-border':
+                  ValuationFormGroup.controls.startupName.touched &&
+                  ValuationFormGroup.controls.startupName.invalid
+              }"
+              formControlName="startupName"
+              type="text"
+              class="form-control"
+              id="startupName"
+              placeholder="Startup Name"
+              required
+            />
+            <label for="email">Startup Name</label>
+          </div>
+          <div
+            class="invalid-feedback"
+            *ngIf="
+              ValuationFormGroup.controls.startupName.touched &&
+              ValuationFormGroup.controls.startupName.invalid
+            "
+          >
+            <span
+              *ngIf="ValuationFormGroup.controls.startupName.errors.required"
+              >Startup Name is mandatory.</span
+            >
+            <span *ngIf="ValuationFormGroup.controls.startupName.errors.pattern"
+              >Invalid Name</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="input-field">
+          <div
+            class="form-floating"
+            [ngClass]="{
+              'is-invalid':
+                ValuationFormGroup.controls.founderName.touched &&
+                ValuationFormGroup.controls.founderName.invalid
+            }"
+          >
+            <input
+              [ngClass]="{
+                'invalid-border':
+                  ValuationFormGroup.controls.founderName.touched &&
+                  ValuationFormGroup.controls.founderName.invalid
+              }"
+              formControlName="founderName"
+              type="text"
+              class="form-control"
+              id="startupName"
+              placeholder="Startup Name"
+              required
+            />
+            <label for="email">Founder Name</label>
+          </div>
+          <div
+            class="invalid-feedback"
+            *ngIf="
+              ValuationFormGroup.controls.founderName.touched &&
+              ValuationFormGroup.controls.founderName.invalid
+            "
+          >
+            <span
+              *ngIf="ValuationFormGroup.controls.founderName.errors.required"
+              >Founder Name is mandatory.</span
+            >
+            <span *ngIf="ValuationFormGroup.controls.founderName.errors.pattern"
+              >Invalid Name</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="input-field">
+          <div
+            class="form-floating"
+            [ngClass]="{
+              'is-invalid':
+                ValuationFormGroup.controls.email.touched &&
+                ValuationFormGroup.controls.email.invalid
+            }"
+          >
+            <input
+              [ngClass]="{
+                'invalid-border':
+                  ValuationFormGroup.controls.email.touched &&
+                  ValuationFormGroup.controls.email.invalid
+              }"
+              formControlName="email"
+              type="email"
+              class="form-control"
+              id="emailaddress"
+              placeholder="Email"
+              required
+            />
+            <label for="email">Email address</label>
+          </div>
+          <div
+            class="invalid-feedback"
+            *ngIf="
+              ValuationFormGroup.controls.email.touched &&
+              ValuationFormGroup.controls.email.invalid
+            "
+          >
+            <span *ngIf="ValuationFormGroup.controls.email.errors.required"
+              >Email is mandatory.</span
+            >
+            <span *ngIf="ValuationFormGroup.controls.email.errors.pattern"
+              >Invalid Email</span
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div
+          class="form-floating"
+          [ngClass]="{
+            'is-invalid':
+              ValuationFormGroup.controls.phone.touched &&
+              ValuationFormGroup.controls.phone.invalid
+          }"
+        >
+          <input
+            [ngClass]="{
+              'invalid-border':
+                ValuationFormGroup.controls.phone.touched &&
+                ValuationFormGroup.controls.phone.invalid
+            }"
+            formControlName="phone"
+            type="text"
+            class="form-control"
+            id="startupName"
+            placeholder="Startup Name"
+            required
+          />
+          <label for="email">Phone</label>
+        </div>
+        <div
+          class="invalid-feedback"
+          *ngIf="
+            ValuationFormGroup.controls.phone.touched &&
+            ValuationFormGroup.controls.phone.invalid
+          "
+        >
+          <span *ngIf="ValuationFormGroup.controls.phone.errors.required"
+            >Phone is mandatory.</span
+          >
+          <span *ngIf="ValuationFormGroup.controls.phone.errors.pattern"
+            >Invalid Phone Numeric Only <br />Phone number should not be more
+            than 10 digits</span
+          >
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div
+          class="form-floating"
+          [ngClass]="{
+            'is-invalid':
+              ValuationFormGroup.controls.website.touched &&
+              ValuationFormGroup.controls.website.invalid
+          }"
+        >
+          <input
+            [ngClass]="{
+              'invalid-border':
+                ValuationFormGroup.controls.website.touched &&
+                ValuationFormGroup.controls.website.invalid
+            }"
+            formControlName="website"
+            type="text"
+            class="form-control"
+            id="startupName"
+            placeholder="Startup Name"
+            required
+          />
+          <label for="email">Website URL</label>
+        </div>
+        <div
+          class="invalid-feedback"
+          *ngIf="
+            ValuationFormGroup.controls.website.touched &&
+            ValuationFormGroup.controls.website.invalid
+          "
+        >
+          <span *ngIf="ValuationFormGroup.controls.website.errors.required"
+            >Website is mandatory.</span
+          >
+          <span *ngIf="ValuationFormGroup.controls.website.errors.pattern"
+            >Invalid URL</span
+          >
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div
+          class="form-floating"
+          [ngClass]="{
+            'is-invalid':
+              ValuationFormGroup.controls.address.touched &&
+              ValuationFormGroup.controls.address.invalid
+          }"
+        >
+          <textarea
+            [ngClass]="{
+              'invalid-border':
+                ValuationFormGroup.controls.address.touched &&
+                ValuationFormGroup.controls.address.invalid
+            }"
+            formControlName="address"
+            type="text"
+            class="form-control"
+            id="startupName"
+            placeholder="Startup Name"
+            required
+          ></textarea>
+          <label for="email">Address</label>
+        </div>
+        <div
+          class="invalid-feedback"
+          *ngIf="
+            ValuationFormGroup.controls.address.touched &&
+            ValuationFormGroup.controls.address.invalid
+          "
+        >
+          <span *ngIf="ValuationFormGroup.controls.address.errors.required"
+            >Address is mandatory.</span
+          >
+          <span *ngIf="ValuationFormGroup.controls.address.errors.pattern"
+            >Invalid URL</span
+          >
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div
+          class="form-floating"
+          [ngClass]="{
+            'is-invalid':
+              ValuationFormGroup.controls.decription.touched &&
+              ValuationFormGroup.controls.decription.invalid
+          }"
+        >
+          <textarea
+            [ngClass]="{
+              'invalid-border':
+                ValuationFormGroup.controls.decription.touched &&
+                ValuationFormGroup.controls.decription.invalid
+            }"
+            formControlName="decription"
+            type="text"
+            class="form-control"
+            id="startupName"
+            placeholder="decription"
+            required
+          ></textarea>
+          <label for="email">Description</label>
+        </div>
+        <div
+          class="invalid-feedback"
+          *ngIf="
+            ValuationFormGroup.controls.decription.touched &&
+            ValuationFormGroup.controls.decription.invalid
+          "
+        >
+          <span *ngIf="ValuationFormGroup.controls.decription.errors.required"
+            >Description is mandatory.</span
+          >
+          <span *ngIf="ValuationFormGroup.controls.decription.errors.pattern"
+            >Invalid URL</span
+          >
+        </div>
+      </div>
+
+      <div class="col-12">
+        <button
+          type="submit"
+          [ngClass]="{ 'button--loading': isLoading }"
+          [disabled]="isLoading"
+          class="btn btn-primary button--loading d-flex justify-content-center align-items-center"
+        >
+          <span class="button--text" style="text-align: center"
+            >Submit form</span
+          >
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- //body -->
+  <div class="card border-0 mt-3 mb-3 rounded-4 shadow bg-white p-3">
+    <ul class="nav nav-tabs">
+
+      <li class="nav-item">
+            <a class="nav-link" [ngClass]="selectedTabs == tabNames.StartupsMethod ? 'active' : ''" (click)="createComponent(tabNames.StartupsMethod)">Competitive Startups</a>
+      </li>
+
+
+      <li class="nav-item">
+        <a
+        class="nav-link"
+        [ngClass]="selectedTabs == tabNames.PaynescoreMethod ? 'active' : ''"
+        (click)="createComponent(tabNames.PaynescoreMethod)"
+        >Paynescore Method</a
+      >
+      </li>
+      <li class="nav-item">
+        <a
+        class="nav-link"
+        [ngClass]="selectedTabs == tabNames.BerkusMethod ? 'active' : ''"
+        aria-current="page"
+        (click)="createComponent(tabNames.BerkusMethod)"
+        >Berkus method</a
+      >
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          [ngClass]="
+            selectedTabs == tabNames.RiskSummationFactor ? 'active' : ''
+          "
+          (click)="createComponent(tabNames.RiskSummationFactor)"
+          aria-disabled="false"
+          >Risk Summation Method</a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          [ngClass]="
+            selectedTabs == tabNames.DiscountedCashFlow ? 'active' : ''
+          "
+          (click)="createComponent(tabNames.DiscountedCashFlow)"
+          >Discounted cash flow</a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          [ngClass]="
+            selectedTabs == tabNames.VentureCapitalMethod ? 'active' : ''
+          "
+          (click)="createComponent(tabNames.VentureCapitalMethod)"
+          >Venture capital method</a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          [ngClass]="
+            selectedTabs == tabNames.EarningMultiplierMethod ? 'active' : ''
+          "
+          (click)="createComponent(tabNames.EarningMultiplierMethod)"
+          aria-disabled="false"
+          >Earning multiplier method</a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          [ngClass]="
+            selectedTabs == tabNames.SummarizedValuation ? 'active' : ''
+          "
+          (click)="createComponent(tabNames.SummarizedValuation)"
+          aria-disabled="false"
+          >Summarized Valuation</a
+        >
+      </li>
+    </ul>
+
+    <!-- Display -->
+    <div class="card display shadow mt-3">
+      <ng-container #container></ng-container>
+    </div>
+  </div>
+</section>

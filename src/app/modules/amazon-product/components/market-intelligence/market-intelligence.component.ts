@@ -286,9 +286,7 @@ export class MarketIntelligenceComponent implements AfterViewInit, OnDestroy {
       this.isLoading = true;
       // Subscribe to the service and handle the response
       apiCall$.pipe(takeUntil(this.unsubscribe$)).subscribe((responseData: any) => {
-       
-        console.log(responseData);
-        
+           
         if (this.dynamicComponentContainer) {
           this.dynamicComponentContainer.clear();  // Clear the container
           const componentType = this.getComponentType(this.selectedService);

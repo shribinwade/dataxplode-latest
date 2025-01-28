@@ -1,0 +1,23 @@
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.style td, .style th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+    
+  /* Default hover effect for table rows */
+.table-hover tbody tr:hover td {
+    background-color: #f5f5f5; /* Replace with your hover color */
+}
+
+
+  

@@ -73,10 +73,7 @@
 
             <!-- //Username -->
             <div class="col-md-6">
-              <div
-                class="input-field"
-                [ngClass]="{
-                  'invalid-border':
+              <div class="input-field" [ngClass]="{'invalid-border':
                     signupFormGroup.controls.name.touched &&
                     signupFormGroup.controls.name.invalid
                 }"

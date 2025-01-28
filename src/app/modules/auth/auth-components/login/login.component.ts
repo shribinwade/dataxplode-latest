@@ -22,8 +22,6 @@ export class LoginComponent implements OnInit {
   password = true;
   responseMessage:any;
 
-
-
   constructor(
     private formBuilder: FormBuilder,
     private globalSnackbar: CustomSnackbarService,

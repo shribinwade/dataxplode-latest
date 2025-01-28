@@ -1,0 +1,42 @@
+<div class="card border-0 m-3 shadow  p-3">
+  <div class="card-header">
+    <p class="fs-5 fw-medium m-0">Instructions</p>
+  </div>
+  <div class="card-body">
+    <p>Step 1: Get EBITDA from the income statement</p>
+    <p>Step 2: Find regional/industry average multiple</p>
+  </div>
+</div>
+
+<div class="card border-0 shadow m-3 p-3">
+
+    <table class="table table-fixed table-striped table-bordered table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Assumption</th>
+            <th scope="col">MS</th>
+          </tr>
+        </thead>
+        <tbody class="table-group-divider">
+          <tr *ngFor="let row of rows; let i = index">
+            <th scope="row">{{ row.parameter }}</th>
+            <td>
+              <input
+                type="number"
+                [(ngModel)]="row.ms"
+                placeholder="Enter value"
+              />
+            </td>
+        
+          </tr>
+        </tbody>
+        <tfoot>
+            <th colspan="0">
+                Value of the Startup
+            </th>
+            <td>{{ calculateResult() | number: '1.2-2' }}</td>
+        </tfoot>
+      </table>
+</div>
+
+

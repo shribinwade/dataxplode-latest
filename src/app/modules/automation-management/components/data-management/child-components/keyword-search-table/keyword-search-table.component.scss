@@ -1,15 +1,16 @@
 .table-container {
-  
     overflow: auto;
 }
   
 table {
     width: 100%;
 }
-  
-th.mat-header-cell, td.mat-cell {
-    text-align: left;
-    padding: 8px;
+
+
+
+
+.mat-header-cell, .mat-cell {
+    padding: 2px !important;
 }
 
 .mat-mdc-row:nth-child(even) {
@@ -25,3 +26,14 @@ th.mat-header-cell, td.mat-cell {
 .mat-mdc-row:hover .mat-mdc-cell {
     background-color: #f1f1f1;
 }
+
+.mat-mdc-header-row {
+    text-align: center;
+    color: white;
+    font-size: 1em;
+   
+  }
+
+  .mat-mdc-row{
+    font-size: 0.95em !important;
+  }

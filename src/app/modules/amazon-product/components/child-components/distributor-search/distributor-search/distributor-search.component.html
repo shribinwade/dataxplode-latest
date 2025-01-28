@@ -1,12 +1,14 @@
-<div class="card shadow">
-  <div class="card-header">
-    <div class="header p-2 m-2">
-      <h3 class="m-2">Distributors</h3>
+<div *ngIf="data; else noData">
+
+  <div class="card shadow">
+    <div class="card-header">
+      <div class="header p-2 m-2">
+        <h3 class="m-2">Distributors</h3>
+      </div>
     </div>
   </div>
-</div>
 
-<!-- <div class="card shadow mt-3">
+  <!-- <div class="card shadow mt-3">
   <div class="card-body">
     <div class="d-flex justify-content-end " >
       <button [disabled]="data!=null?false:true" class="btn btn-success" (click)="exportToExcel()">Export Excel</button>
@@ -14,149 +16,134 @@
   </div>
 </div> -->
 
-<div class="card shadow mt-2">
+  <div class="card shadow mt-2 ">
     <div class="card-body">
 
       <div class="row g-2 justify-content-around justify-content-s-center">
 
         <div class="col col-md-6 col-lg-6 col-xs-12 col-s-12">
           <div class="d-flex justify-content-start align-items-center flex-wrap">
-            <button [disabled]="data!=null?false:true" class="btn btn-success" (click)="exportToExcel()">Export Excel</button>
-        
-            <button type="submit" (click)="saveSearchData()"  [ngClass]="{'button--loading': isLoading}" [disabled]="isLoading" class="btn btn-primary  button--loading d-flex justify-content-center align-items-center px-2 py-0 mx-1">
-              <span class="button--text"><mat-icon style="font-size: 15px;" class="d-flex justify-content-center align-items-center" fontIcon="upload"></mat-icon></span>
+            <button [disabled]="data!=null?false:true" class="btn btn-success" (click)="exportToExcel()">Export
+              Excel</button>
+
+            <button type="submit" (click)="saveSearchData()" [ngClass]="{'button--loading': isLoading}"
+              [disabled]="isLoading"
+              class="btn btn-primary  button--loading d-flex justify-content-center align-items-center px-2 py-0 mx-1">
+              <span class="button--text"><mat-icon style="font-size: 15px;"
+                  class="d-flex justify-content-center align-items-center" fontIcon="upload"></mat-icon></span>
               <span class="button--text" style="text-align: center;">Save</span>
             </button>
           </div>
- 
+
         </div>
 
         <div class="col col-md-6 col-lg-6 col-xs-12 col-s-12">
-          <form [formGroup]="searchLocationFormControl" (ngSubmit)="locationSearch()" >
+          <form [formGroup]="searchLocationFormControl" (ngSubmit)="locationSearch()">
             <div class="d-flex justify-content-end align-items-center ">
               <div>
-                <input class="form-control me-2" formControlName="searchLocation" type="text" placeholder="Search Location" aria-label="Search"/>
+                <input class="form-control me-2" formControlName="searchLocation" type="text"
+                  placeholder="Search Location" aria-label="Search" />
               </div>
               <div>
                 <button class="btn btn-primary mx-1" type="submit">
                   Search Location
-                 </button>
+                </button>
               </div>
               <div>
-                <button class="btn btn-secondary mx-1"  (click)="clearSearchLocation()">Clear</button>
+                <button class="btn btn-secondary mx-1" (click)="clearSearchLocation()">Clear</button>
               </div>
             </div>
-         </form>
+          </form>
         </div>
 
       </div>
- 
-
-     
 
     </div>
-</div>
+  </div>
 
 
-<div class="card mt-2 shadow">
+  <div class="card mt-2 shadow" *ngIf="data; else noData">
 
 
-  <div class="card-body"> 
-    <div class="TableContent" >
-      <div *ngIf="suppliers && suppliers.length>0">
-  
-        <div>
+    <div class="card-body">
+      <div class="TableContent">
+        <div *ngIf="suppliers && suppliers.length>0">
 
-         <table matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+          <div>
+            <table matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-           <ng-container matColumnDef="index">
-             <th mat-sort-header mat-header-cell *matHeaderCellDef>#</th>
-             <td mat-cell *matCellDef="let element; let i = index">
-               {{ (getPageIndex() * getPageSize()) + i + 1 }}
-             </td>
-           </ng-container>
+              <ng-container matColumnDef="index">
+                <th mat-sort-header mat-header-cell *matHeaderCellDef>#</th>
+                <td mat-cell *matCellDef="let element; let i = index">
+                  {{ (getPageIndex() * getPageSize()) + i + 1 }}
+                </td>
+              </ng-container>
 
-           <!-- Company Name Column -->
-           <ng-container matColumnDef="co_name">
-             <th mat-sort-header  mat-header-cell *matHeaderCellDef> Company Name </th>
-             <td mat-cell *matCellDef="let element"> {{ element.co_name }} </td>
-           </ng-container>
-       
-           <!-- Address Column -->
-           <ng-container matColumnDef="Address">
-             <th mat-sort-header mat-header-cell *matHeaderCellDef> Address </th>
-             <td mat-cell *matCellDef="let element"> {{ element.Address }} </td>
-           </ng-container>
-       
-           <!-- Member Since Column -->
-           <!-- <ng-container matColumnDef="MemberSince">
+              <!-- Company Name Column -->
+              <ng-container matColumnDef="co_name">
+                <th mat-sort-header mat-header-cell *matHeaderCellDef> Company Name </th>
+                <td mat-cell *matCellDef="let element"> {{ element.co_name }} </td>
+              </ng-container>
+
+              <!-- Address Column -->
+              <ng-container matColumnDef="Address">
+                <th mat-sort-header mat-header-cell *matHeaderCellDef> Address </th>
+                <td mat-cell *matCellDef="let element"> {{ element.Address }} </td>
+              </ng-container>
+
+              <!-- Member Since Column -->
+              <!-- <ng-container matColumnDef="MemberSince">
              <th mat-header-cell *matHeaderCellDef> Member Since </th>
              <td mat-cell *matCellDef="let element"> {{ element['Member Since'] }} years </td>
            </ng-container> -->
-       
-           <!-- Mobile Column -->
-           <ng-container matColumnDef="default_mobile">
-             <th mat-sort-header mat-header-cell *matHeaderCellDef> Mobile </th>
-             <td mat-cell *matCellDef="let element"> {{ element.default_mobile }} </td>
-           </ng-container>
 
-                <!-- Mobile Column -->
-           <ng-container matColumnDef="default_email">
-              <th mat-sort-header mat-header-cell *matHeaderCellDef> Email </th>
-              <td mat-cell *matCellDef="let element"> {{ element.default_email }} </td>
-           </ng-container>
-       
-           <!-- Business Type Column -->
-           <ng-container matColumnDef="business_type">
-             <th mat-sort-header mat-header-cell *matHeaderCellDef> Business Type </th>
-             <td mat-cell *matCellDef="let element"> {{ element.business_type }} </td>
-           </ng-container>
-       
-           <!-- Catalog URL Column -->
-           <ng-container matColumnDef="catalog_url">
-             <th mat-sort-header mat-header-cell *matHeaderCellDef> Company Website </th>
-             <td mat-cell *matCellDef="let element"> 
-               <a *ngIf="element.catalog_url !== 'URL not available'" href="{{ element.catalog_url }}" target="_blank">View</a>
-               <span *ngIf="element.catalog_url === 'URL not available'">Not Available</span>
-             </td>
-           </ng-container>
-       
-           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-         </table>
-          
-       <mat-paginator
-         class="card-footer"
-         [length]="suppliers.length"
-     
-         [pageSizeOptions]="[4,10 ,50, 100, suppliers.length]"
-         (page)="onPageChange($event)"
-         aria-label="Select page of users"
-       >
-       </mat-paginator>
-  
+              <!-- Mobile Column -->
+              <ng-container matColumnDef="default_mobile">
+                <th mat-sort-header mat-header-cell *matHeaderCellDef> Mobile </th>
+                <td mat-cell *matCellDef="let element"> {{ element.default_mobile }} </td>
+              </ng-container>
+
+              <!-- Mobile Column -->
+              <ng-container matColumnDef="default_email">
+                <th mat-sort-header mat-header-cell *matHeaderCellDef> Email </th>
+                <td mat-cell *matCellDef="let element"> {{ element.default_email }} </td>
+              </ng-container>
+
+              <!-- Business Type Column -->
+              <ng-container matColumnDef="business_type">
+                <th mat-sort-header mat-header-cell *matHeaderCellDef> Business Type </th>
+                <td mat-cell *matCellDef="let element"> {{ element.business_type }} </td>
+              </ng-container>
+
+              <!-- Catalog URL Column -->
+              <ng-container matColumnDef="catalog_url">
+                <th mat-sort-header mat-header-cell *matHeaderCellDef> Company Website </th>
+                <td mat-cell *matCellDef="let element">
+                  <a *ngIf="element.catalog_url !== 'URL not available'" href="{{ element.catalog_url }}"
+                    target="_blank">View</a>
+                  <span *ngIf="element.catalog_url === 'URL not available'">Not Available</span>
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+
+            <mat-paginator class="card-footer" [length]="suppliers.length"
+              [pageSizeOptions]="[4,10 ,50, 100, suppliers.length]" (page)="onPageChange($event)"
+              aria-label="Select page of users">
+            </mat-paginator>
+
+          </div>
         </div>
-     </div>
- </div>
+      </div>
+    </div>
   </div>
 </div>
+<ng-template #noData>
 
+  <div class="d-flex justify-content-center align-items-center">
+    <p>No Data Available</p>
+  </div>
 
-
-
-
-
-<div class="supplierBox" >
-
-     
-  
-      
-       
-</div>
-
-     
-     
-     
-     
-  
-   
+</ng-template>

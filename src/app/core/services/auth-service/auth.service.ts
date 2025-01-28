@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from '../../../../environments/environment';
-import { catchError, Observable, of, Subject, tap } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, of, Subject, tap } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { User } from '../../model/user';
 
@@ -15,7 +15,8 @@ export class AuthService {
 
   userStatus: Subject<String> = new Subject();
 
-
+  private dataSubject = new BehaviorSubject<any>(null);
+  data$ = this.dataSubject.asObservable();
   
 
   
@@ -34,9 +35,9 @@ export class AuthService {
     const country = data.country as string;
     const platform = data.platform as string;
     //use the URL and form data parameter as the cache key
-    return this.httpClient.get(
-      `${this.subscriptionURL}/getUserSearchData?UserID=${UserID}&country=${country}&platform=${platform}`
-    );
+    this.httpClient.get(`${this.subscriptionURL}/getUserSearchData?UserID=${UserID}&country=${country}&platform=${platform}`).subscribe((response)=> {
+      this.dataSubject.next(response);
+    });
   }
 
   signup(data: any) {

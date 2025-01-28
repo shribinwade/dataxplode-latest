@@ -1,0 +1,38 @@
+
+.table-container {
+    overflow: auto;
+  }
+  
+  table {
+    width: 100%;
+  }
+  
+  th.mat-header-cell, td.mat-cell {
+    text-align: left;
+    padding: 8px;
+  }
+
+  .mat-mdc-row:nth-child(even) {
+    background-color: #f1f1f1;
+    /* Set the background color for even rows */
+  }
+  
+  .mat-mdc-row:nth-child(odd) {
+    background-color: #ffffff;
+    /* Set the background color for odd rows */
+  }
+  
+  .mat-mdc-row:hover .mat-mdc-cell {
+    background-color: #f1f1f1;
+  }
+
+.mat-mdc-header-row {
+    text-align: center;
+    color: white;
+    font-size: 1em;
+   
+  }
+
+  .mat-mdc-row{
+    font-size: 0.95em !important;
+  }

@@ -1,0 +1,50 @@
+<div>
+    <table class="table table-fixed  table-striped table-bordered table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Parameters</th>
+            <th scope="col">Weight</th>
+            <th scope="col">Assumption Startup</th>
+            <th scope="col">Factor</th>
+          </tr>
+        </thead>
+        <tbody class="table-group-divider">
+          <tr *ngFor="let row of rows; let i = index">
+            <th scope="row">{{ row.parameter }}</th>
+            <td>
+              <input
+                type="number"
+                [(ngModel)]="row.value"
+                (input)="calculateResult(i)"
+
+                placeholder="Enter value"
+              />
+            </td>
+            <td>
+              <input
+                type="number"
+                [(ngModel)]="row.adjustment"
+                (input)="calculateResult(i)"
+                placeholder="Enter adjustment %"
+              />
+            </td>
+            <td>{{ row.result | number: '1.2-2' }}</td>
+          </tr>
+        </tbody>
+
+        <tfoot>
+            <tr>
+              <th colspan="1">Average</th>
+              <td >{{ calculateWeight() | number: '1.2-2' }}</td>
+              <td></td>
+              <td>{{ calculateAverage() | number: '1.2-2' }}</td>
+            </tr>
+            <tr>
+                <th colspan="1">Valuation</th>
+                <td>{{ calculateValuation()| number: '1.2-2' }}</td>
+                <td>M US$</td>
+                <td></td>
+            </tr>
+          </tfoot>
+      </table>
+</div>

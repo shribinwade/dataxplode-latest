@@ -16,10 +16,10 @@ import { Subject, takeUntil } from 'rxjs';
 })
 export class DistributorSearchComponent implements OnChanges, OnInit, AfterViewInit, AfterViewInit {
 
-  @Input('data') data: any;
+  @Input('data') data:any;
   @Input() formdata!:any;
 
-  
+  hidePage?:boolean;
 
   searchFormControl: any = FormGroup;
   searchLocationFormControl: any = FormGroup;
@@ -55,7 +55,19 @@ export class DistributorSearchComponent implements OnChanges, OnInit, AfterViewI
               private globalSnackbar: CustomSnackbarService,
               private UploadDistributorDataService:SaveServiceDataService,
               private authService:AuthService,
-            ){}
+            ){
+              this.isDataPresent();
+            }
+
+   isDataPresent(){
+    console.log(typeof(this.data));
+    
+       if(this.data > 0){
+          this.hidePage = false;
+       }else{
+          this.hidePage = true;
+       }
+   }         
 
 
   ngOnInit(): void {

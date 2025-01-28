@@ -82,14 +82,17 @@ export class UserReportComponent {
           platform: this.selectedPlatform
        }
 
-        this.authService.getUserSearchData(formdata).pipe(
+       this.authService.getUserSearchData(formdata);
+
+       this.authService.data$.pipe(
               takeUntil(this.unsubscribe$),
               finalize(() => {
                  this.isLoading = false
               })
             ).subscribe((res:any) => {
               this.isLoading = false
-              this.searchResponse = res[0];
+              
+              this.searchResponse = res[0]
               console.log(this.searchResponse);
             },
               error => {
@@ -97,6 +100,21 @@ export class UserReportComponent {
                 console.error('Error fetching search results:', error);
                 // Handle error here if needed
               })
+        // this.authService.getUserSearchData(formdata).pipe(
+        //       takeUntil(this.unsubscribe$),
+        //       finalize(() => {
+        //          this.isLoading = false
+        //       })
+        //     ).subscribe((res:any) => {
+        //       this.isLoading = false
+        //       this.searchResponse = res[0];
+        //       console.log(this.searchResponse);
+        //     },
+        //       error => {
+        //         this.isLoading = false
+        //         console.error('Error fetching search results:', error);
+        //         // Handle error here if needed
+        //       })
     
       }
 

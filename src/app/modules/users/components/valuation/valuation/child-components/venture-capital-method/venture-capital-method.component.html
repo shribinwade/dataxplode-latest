@@ -1,0 +1,36 @@
+<div>
+    <table class="table table-fixed  table-striped table-bordered table-hover">
+        <thead>
+          <tr>
+            <th scope="col"></th>
+            <th scope="col">MS</th>
+          </tr>
+        </thead>
+        <tbody class="table-group-divider">
+          <tr *ngFor="let row of rows; let i = index">
+            <th scope="row">{{ row.parameter }}</th>
+            <td>
+              <input
+                type="number"
+                [(ngModel)]="row.ms"
+                (input)="changedValue(i)"
+                placeholder="Enter value"
+              />
+            </td>
+        
+          </tr>
+        </tbody>
+        <tfoot >
+          <tr>
+            <th colspan="1">Pre-Money Valuation before adjusting</th>
+            <td>{{PreMoneyBefore()}}</td>
+          </tr>
+          <tr>
+            <th colspan="1">Pre-Money Valuation After adjusting</th>
+            <td>{{PreMoneyAfter()}}</td>
+          </tr>
+
+        </tfoot>
+      </table>
+</div>
+

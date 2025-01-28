@@ -1,33 +1,40 @@
-
-<div class="mt-1 card shadow">
-    <div class="d-flex justify-content-end align-items-center">
-        <!-- (click)="saveSearchData()"  [ngClass]="{'button--loading': isLoading}" [disabled]="isLoading" -->
-        <button type="submit" (click)="saveSearchData()"  [ngClass]="{'button--loading': isLoading}" [disabled]="isLoading"   class="btn btn-primary  button--loading d-flex justify-content-center align-items-center px-2 py-0 m-1">
-            <span class="button--text"><mat-icon style="font-size: 15px;" class="d-flex justify-content-center align-items-center" fontIcon="upload"></mat-icon></span>
-            <span class="button--text" style="text-align: center;">Save</span>
-        </button>
+<div *ngIf="data; else noData">
+    <div class="mt-1 card shadow">
+        <div class="d-flex justify-content-end align-items-center">
+            <!-- (click)="saveSearchData()"  [ngClass]="{'button--loading': isLoading}" [disabled]="isLoading" -->
+            <button type="submit" (click)="saveSearchData()" [ngClass]="{'button--loading': isLoading}"
+                [disabled]="isLoading"
+                class="btn btn-primary  button--loading d-flex justify-content-center align-items-center px-2 py-0 m-1">
+                <span class="button--text"><mat-icon style="font-size: 15px;"
+                        class="d-flex justify-content-center align-items-center" fontIcon="upload"></mat-icon></span>
+                <span class="button--text" style="text-align: center;">Save</span>
+            </button>
+        </div>
     </div>
-</div>
 
-<div class="col-md-7 mt-1 card shadow " >
+    <div class="col-md-7 mt-1 card shadow ">
         <div class="row m-0 card-body ">
             <div class="col-md-5 col-sm-12 m-0 p-0" style="border: 1px solid #ddd;  ">
-                <a (click)="insertComponent('Market Trend And News')" >Market Trend & News</a>
+                <a (click)="insertComponent('Market Trend And News')">Market Trend & News</a>
             </div>
             <div class="col-md-4 col-sm-12 m-0 p-0" style="border: 1px solid #ddd; ">
-                <a (click)="insertComponent('Market Leader')" >Market Leader</a>
+                <a (click)="insertComponent('Market Leader')">Market Leader</a>
             </div>
             <div class="col-md-3 col-sm-12 m-0 p-0" style="border: 1px solid #ddd; ">
                 <a (click)="insertComponent('Innovation')">Innovation</a>
             </div>
         </div>
         <!-- (click)="saveSearchData()"  [ngClass]="{'button--loading': isLoading}" [disabled]="isLoading" -->
+    </div>
+
+    <main class="mt-2" style="width: 100%;">
+        <app-tab-control [data]="data"></app-tab-control>
+    </main>
+
 </div>
 
-<main class="mt-2" style="width: 100%;">
-    <app-tab-control [data]="data"></app-tab-control>
-</main>
-    
-
-
-
+<ng-template #noData>
+    <div class="d-flex justify-content-center align-items-center">
+        <p>No Data Available</p>
+    </div>
+</ng-template>
