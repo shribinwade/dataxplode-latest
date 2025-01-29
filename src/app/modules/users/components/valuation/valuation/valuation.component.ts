@@ -180,6 +180,7 @@ export class ValuationComponent implements OnInit {
   }
 
   generatePdf(){
-    this.valuationPdf.generatePdf(this.tabData)
+    this.valuationPdf.generatePdf(this.tabData,this.ValuationFormGroup.value);
   }
+
 }
