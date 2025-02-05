@@ -22,7 +22,6 @@ export class MarketTreadComponent implements ItabComponent, OnInit, OnDestroy  {
   MarketNewsSearchForm:any = FormGroup;
   marketCAGRKey: any;
   marketCAGRValues:any;
-
   dataSource = new MatTableDataSource<marketSearch>();
   displayedColumns: string[] = [ 'index','title','descr'];
   activeTab:string = "SearchResult";
@@ -31,11 +30,12 @@ export class MarketTreadComponent implements ItabComponent, OnInit, OnDestroy  {
   marketSearchData!: marketSearch;
   
   unsubscribe$ = new Subject<void>();
+
   constructor(private cdRef: ChangeDetectorRef,
               private tabService: TabService, 
               private formBuilder:FormBuilder,
               private amazonProductService: AmazonProductService,
-              private  exportToExcelService:ExportTableAsExcelService
+              private exportToExcelService:ExportTableAsExcelService
   ) {}
 
 
@@ -53,22 +53,26 @@ export class MarketTreadComponent implements ItabComponent, OnInit, OnDestroy  {
     this.dataSource.data = this.marketSearchData.market_trend_list;  
   }
 
-  // ngOnChanges(changes: SimpleChanges): void {
-  //   // console.log("inside changes");
-  //   // this.marketSearchData = this.data;
-  //   // this.dataSource.data = this.marketSearchData.market_trend_list;
-  //   // this.loadData();
-  // }
+  ngOnChanges(changes: SimpleChanges): void {
+    // console.log("inside changes");
+    // this.marketSearchData = this.data;
+    // this.dataSource.data = this.marketSearchData.market_trend_list;
+    // this.loadData();
+  }
 
   loadData() {
     // Load your data
-    // this.marketSearchData = this.data;
+    this.marketSearchData = this.data;
 
-    const marketCAGRData = this.marketSearchData.market_cagr[0];
+    console.log(this.marketSearchData);
+    
+    const marketCAGRData = this.marketSearchData.market_cagr[1];
+    console.log(marketCAGRData);
+    
 
     // Extract keys from marketCAGRData
     const marketCagrKeys = Object.keys(marketCAGRData);
-    this.marketCAGRValues= Object.values(marketCAGRData)
+    this.marketCAGRValues= Object.values(marketCAGRData);
 
     // Function to format the keys (remove underscores and make camelCase)
      const formatKey = (key: string) => {

@@ -14,6 +14,9 @@ import { CacheInterceptor } from './core/interceptors/cache-interceptors/cache.i
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PricingComponent } from './pages/pricing/pricing/pricing.component';
 import { AboutUsComponent } from './pages/about-us/about-us/about-us.component';
+import { provideRouter, withDebugTracing,RouteReuseStrategy} from '@angular/router';
+import {routes} from './app-routing.module'; 
+import { ReuseRouter } from './core/services/reuse-router.service.ts/reuse-router.service';
 
 
 
@@ -57,6 +60,17 @@ import { AboutUsComponent } from './pages/about-us/about-us/about-us.component';
   ],
   providers: [
     provideAnimationsAsync(),
+    provideRouter(
+      routes,
+      // withDebugTracing(),
+    ),
+
+    {
+        provide: RouteReuseStrategy,
+        useClass: ReuseRouter
+
+    },
+
     AuthService,
     {
       provide: HTTP_INTERCEPTORS, 

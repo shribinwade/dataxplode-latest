@@ -6,16 +6,16 @@
     <!-- dropdown form form -->
     <form #dropdownForm="ngForm" (ngSubmit)="onSubmit(dropdownForm)">
       <!-- dropdowns -->
-      <div  class="card border-0 rounded-4 shadow p-4 filter-selection">
+      <div class="card border-0 rounded-4 shadow p-4 filter-selection">
         <!-- card row -->
         <div class="d-flex align-items-center justify-content-around card-container mx-1 p-2">
           <!-- //country card -->
-          <div  class="card border-0 rounded-3 dropdown-card">
+          <div class="card border-0 rounded-3 dropdown-card">
             <div class="mx-2 px-2">
               <label for="country" class="fw-medium mb-0 mt-3">Select Country</label>
             </div>
             <div class="card-body mx-2 p-2">
-              <select  name="country" id="country" (change)="onSelected()" [(ngModel)]="selectedCountry" required
+              <select name="country" id="country" (change)="onSelected()" [(ngModel)]="selectedCountry" required
                 class="form-select" aria-label="Default select example" #country>
                 <option value="" selected>Select Country</option>
                 <option *ngFor="let esites of ecommarcebrands" [value]="esites.country">
@@ -25,13 +25,13 @@
             </div>
           </div>
           <!-- //platform card -->
-          <div  class="card border-0 rounded-3 dropdown-card">
+          <div class="card border-0 rounded-3 dropdown-card">
             <div class="mx-2 px-2">
               <label for="platform" class="fw-medium mb-0 mt-3">Select Platform</label>
             </div>
             <div class="card-body mx-2 p-2">
-              <select [disabled]="!selectedCountry" name="platform" [(ngModel)]="selectedPlatform" required class="form-select"
-                aria-label="Default select example" #platform>
+              <select [disabled]="!selectedCountry" name="platform" [(ngModel)]="selectedPlatform" required
+                class="form-select" aria-label="Default select example" #platform>
                 <option value="" selected>Select Platform</option>
                 <option *ngFor="let platform of filteredSites" [value]="platform.name">
                   {{ platform.name }}
@@ -46,8 +46,8 @@
               <label for="product" class="fw-medium mb-0 mt-3">Product Type</label>
             </div>
             <div class="card-body mx-2 p-2">
-              <select [disabled]="!selectedPlatform" name="product" [(ngModel)]="selectedProductType" required class="form-select"
-                aria-label="Default select example">
+              <select [disabled]="!selectedPlatform" name="product" [(ngModel)]="selectedProductType" required
+                class="form-select" aria-label="Default select example">
                 <option value="" selected>Select Product</option>
                 <option value="Owned">Owned</option>
                 <option value="Competitor">Competitor</option>
@@ -61,8 +61,8 @@
               <label for="service" class="fw-medium mb-0 mt-3">Select Service</label>
             </div>
             <div class="card-body mx-2 p-2">
-              <select [disabled]="!selectedPlatform" name="service" [(ngModel)]="selectedService" required class="form-select"
-                aria-label="Default select example">
+              <select [disabled]="!selectedPlatform" name="service" [(ngModel)]="selectedService" required
+                class="form-select" aria-label="Default select example">
                 <option value="" selected>Select Service</option>
                 <option value="Product Search">Product Search</option>
                 <option value="Keyword Search">Keyword Search</option>
@@ -98,7 +98,7 @@
       </div> -->
 
       <div class="" *ngIf="selectedService.includes('Product Search'); else keywordCheck">
-        <p class="fw-medium fs-5 ">Product</p>
+        <p class="fw-medium fs-5">Product</p>
         <app-product-search-table [country]="selectedCountry" [platform]="selectedPlatform"></app-product-search-table>
 
         <p class="fw-medium fs-5 mt-4">Location Table</p>
@@ -126,47 +126,49 @@
         </div>
       </ng-template>
 
-      <!-- date picker -->
-
-      <div class="d-flex justify-content-around align-items-center mb-1 w-100 date">
-        <div class="d-flex justify-content-start align-items-center w-100">
-          <label for="startDate" style="min-width: 12%">Start Date:</label>
-          <input id="startDate" class="form-control m-2" type="date" />
-        </div>
-
-        <div class="d-flex justify-content-start align-items-center w-100">
-          <label for="startDate" style="min-width: 11%">End Date:</label>
-          <input id="startDate" class="form-control" type="date" />
-        </div>
-      </div>
-
       <div class="mt-2">
-        <!-- <div class="d-flex justify-content-start align-items-center">
-        <label style="min-width: 10%" class="px-0 mx-0" for="scheduleTime">Schedule Time:</label>
-        <div class="inputfield border rounded">
-          <mat-icon class="input-icon py-0" (click)="openFromIcon(picker)">schedule</mat-icon>
-          <input  name="scheduleTime"   [(ngModel)]="selectedtime" (change)="onChange()" class="form-control scheduleTime border-0"  [ngxTimepicker]="picker"/>
-          <ngx-material-timepicker #picker   [enableKeyboardInput]="true"></ngx-material-timepicker>
-         
-        </div>
-      </div> -->
+        <!-- Date Picker -->
+        <form [formGroup]="dateTimeForm" (ngSubmit)="ontest()">
+          <div class="d-flex justify-content-around align-items-center mb-1 w-100 date">
+            <div class="d-flex justify-content-start align-items-center w-100">
+              <label for="startDate" style="min-width: 12%">Start Date:</label>
+              <input id="startDate" class="form-control m-2" type="date" formControlName="startDate"/>
+            </div>
 
-        <div class="input-group d-flex align-items-center mb-3" style="width: 30%">
-          <label style="min-width: 10%" class="pe-2 mx-0" for="scheduleTime">Schedule Time:</label>
-          <span class="input-group-text" id="basic-addon1">
-            <i class="fa fa-clock-o" (click)="openFromIcon(picker)"
-              style="font-size: 15px; color: #757575; cursor: pointer"></i>
-            <!-- <mat-icon class="scheduleIcon" (click)="openFromIcon(picker)">schedule</mat-icon> -->
-          </span>
-          <input name="scheduleTime" [formControl]="formControlItem" (change)="onChange($event)" class="form-control"
-            [ngxTimepicker]="picker" />
-          <ngx-material-timepicker #picker [enableKeyboardInput]="true"></ngx-material-timepicker>
-          <span>
-            <button class="btn btn-primary" (click)="onChange($event)">
-              Set
-            </button>
-          </span>
-        </div>
+            <div class="d-flex justify-content-start align-items-center w-100">
+              <label for="endDate" style="min-width: 11%">End Date:</label>
+              <input id="endDate" class="form-control" type="date" formControlName="endDate"/>
+            </div>
+          </div>
+
+          <!-- Time Picker -->
+          <div class="input-group d-flex align-items-center mb-3" style="width: 30%">
+            <label style="min-width: 10%" class="pe-2 mx-0" for="scheduleTime">
+              Schedule Time:
+            </label>
+            <span class="input-group-text" id="basic-addon1">
+              <i class="fa fa-clock-o" (click)="openFromIcon(picker)"
+                style="font-size: 15px; color: #757575; cursor: pointer"></i>
+            </span>
+            <input name="scheduleTime" formControlName="scheduleTime" (change)="onChange($event)" class="form-control"
+              [ngxTimepicker]="picker" />
+            <ngx-material-timepicker #picker [enableKeyboardInput]="true"></ngx-material-timepicker>
+            <span>
+              <button class="btn btn-primary" (click)="onChange($event)">
+                Set
+              </button>
+            </span>
+          </div>
+
+          <div>
+            <p>Selected Time: {{ selectedTime }}</p>
+          </div>
+
+          <button type="submit" class="btn btn-success" [disabled]="dateTimeForm.invalid">
+            Submit
+          </button>
+        </form>
+
         <div>
           <p>Selected Time :{{ selectedtime }}</p>
         </div>
@@ -190,3 +192,6 @@
     </div>
   </div>
 </div>
+
+
+

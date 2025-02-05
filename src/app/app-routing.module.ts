@@ -12,7 +12,7 @@ import { PricingComponent } from './pages/pricing/pricing/pricing.component';
 import { AboutUsComponent } from './pages/about-us/about-us/about-us.component';
 import { AdminGuard } from './modules/auth/auth-admin-guard/auth-admin-guard.guard';
 
-const routes: Routes = [
+export const routes: Routes = [
   
   {
     path: '', 
@@ -28,11 +28,17 @@ const routes: Routes = [
       {
         path: 'admin',
         loadChildren: () => import('./modules/admin/admin.module').then(m => m.AdminModule),
+        data:{
+         reuse: true
+        },
         canActivate:[AdminGuard]
       },
       {
         path: 'user',
         loadChildren: () => import('./modules/users/users.module').then(m => m.UsersModule),
+        data:{
+          reuse: true
+         },
       },
       // {
       //   path: 'amazon-product',
@@ -48,7 +54,10 @@ const routes: Routes = [
  
   {
       path: 'pricing',
-      component: PricingComponent
+      component: PricingComponent,
+      data:{
+        reuse: true
+       },
   },
 
   {

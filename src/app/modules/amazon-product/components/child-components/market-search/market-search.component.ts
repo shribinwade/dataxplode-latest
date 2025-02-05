@@ -31,7 +31,7 @@ export class MarketSearchComponent implements OnInit {
 
   ngOnInit(): void {
     // console.log(this.data); 
-    // this.insertComponent('Market Trend And News');
+    this.insertComponent('Market Trend And News');
   }
 
 

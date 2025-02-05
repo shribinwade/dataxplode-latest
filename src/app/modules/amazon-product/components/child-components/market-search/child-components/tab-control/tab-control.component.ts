@@ -152,7 +152,6 @@ export class TabControlComponent implements OnDestroy,OnInit,OnChanges {
           }else{
               //Remove from tabs
               this.tabs.splice(index,1);
-              
           }
   }
     

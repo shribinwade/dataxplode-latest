@@ -1,18 +1,25 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ECommerceSitesService } from '../../../../core/services/e-commerce-sites/e-commerce-sites.service';
 import { CustomSnackbarService } from '../../../../core/services/snackbar-service/custom-snackbar.service';
 import { AuthService } from '../../../../core/services/auth-service/auth.service';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import * as XLSX from 'xlsx';
 import { ExcelToJsonService } from '../../../../core/services/excel-to-json-Utils/excel-to-json.service';
 import { ExcelTemplateService } from '../../../../core/services/Excel-download-template/excel-template.service';
+import { SchedulerService } from '../../../../core/services/schedulerService/scheduler.service';
+
+export interface scheduleTime{
+  startDate: Date;
+  endDate: Date;
+  time: Date;
+}
 
 @Component({
   selector: 'app-data-management',
   templateUrl: './data-management.component.html',
   styleUrl: './data-management.component.scss',
 })
-export class DataManagementComponent {
+export class DataManagementComponent implements OnInit {
   filteredSites: Array<{ id: number; name: string; src: string }> = [];
   selectedCountry = '';
   selectedPlatform = '';
@@ -23,13 +30,27 @@ export class DataManagementComponent {
   ecommarcebrands: any;
   countryPlatforms: any;
   selectedtime: any;
+  startDate!: Date;
+  endDate!:Date;
 
   constructor(
     private ecommarcesites: ECommerceSitesService,
     private globalSnackbar: CustomSnackbarService,
-    private excelTemplate: ExcelTemplateService
+    private excelTemplate: ExcelTemplateService,
+    private sechedulerService: SchedulerService
   ) {
     this.ecommarcebrands = ecommarcesites.eCommerceSites;
+  }
+  
+  dateTimeForm!: FormGroup;
+  selectedTime: string = '';
+
+  ngOnInit(): void {
+    this.dateTimeForm = new FormGroup({
+      startDate: new FormControl(''),
+      endDate: new FormControl(''),
+      scheduleTime: new FormControl('')
+    });
   }
 
   // ViewChild elements
@@ -68,6 +89,7 @@ export class DataManagementComponent {
     }
   }
 
+
   //Schedule Time
   formControlItem: FormControl = new FormControl('');
 
@@ -91,4 +113,15 @@ export class DataManagementComponent {
   downloadExcel(Service: string) {
       this.excelTemplate.downloadExcel(Service);
   }
+  
+  ontest() {
+    if (this.dateTimeForm.valid) {
+      console.log('Form Submitted:', this.dateTimeForm.value);
+    } else {
+      console.log('Form is invalid');
+    }
+  }
+
+  
+
 }
