@@ -22,9 +22,35 @@ import { AuthService } from '../../../../core/services/auth-service/auth.service
     ])
 ]
 })
-export class HomeComponent implements OnInit  {
+export class HomeComponent implements OnInit, AfterViewInit  {
   isOpen: boolean = false;
   isOffcanvasOpen = false;
+
+
+
+  @ViewChild('contactSection') contactSection!: ElementRef;
+
+  ngAfterViewInit() {
+    this.initializeSpinner();
+    this.initializeStickyNavbar();
+    this.initializeDropdownHover();
+    this.initializeBackToTopButton();
+    this.initializeTestimonialsCarousel();
+    this.initializePortfolioFilter();
+    // if (!this.contactSection) {
+    //   console.error("contactSection is not available in ngAfterViewInit.");
+    // } else {
+    //   console.log("contactSection initialized:", this.contactSection);
+    // }
+  }
+
+  topToBottom() {
+    if (this.contactSection) {
+      this.contactSection.nativeElement.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      console.error("contactSection is not yet initialized.");
+    }
+  }
 
   checkToken(){
     setTimeout(() => {
@@ -93,14 +119,7 @@ export class HomeComponent implements OnInit  {
   ];
 
 
-  ngAfterViewInit() {
-    this.initializeSpinner();
-    this.initializeStickyNavbar();
-    this.initializeDropdownHover();
-    this.initializeBackToTopButton();
-    this.initializeTestimonialsCarousel();
-    this.initializePortfolioFilter();
-  }
+
 
   private initializeSpinner(): void {
     setTimeout(() => {

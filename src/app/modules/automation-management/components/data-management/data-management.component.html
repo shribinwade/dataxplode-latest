@@ -100,9 +100,6 @@
       <div class="" *ngIf="selectedService.includes('Product Search'); else keywordCheck">
         <p class="fw-medium fs-5">Product</p>
         <app-product-search-table [country]="selectedCountry" [platform]="selectedPlatform"></app-product-search-table>
-
-        <p class="fw-medium fs-5 mt-4">Location Table</p>
-        <app-location [country]="selectedCountry" [platform]="selectedPlatform"></app-location>
       </div>
       <ng-template #keywordCheck>
         <div class="mt-4" *ngIf="selectedService.includes('Keyword Search'); else ReviewCheck">

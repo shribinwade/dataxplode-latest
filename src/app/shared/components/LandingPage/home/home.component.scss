@@ -267,6 +267,11 @@ h6,
     transition: .5s;
 }
 
+a{
+    cursor: pointer;
+    text-decoration:none;
+}
+
 .service-item:hover {
     background: #2124B1;
     color: white;

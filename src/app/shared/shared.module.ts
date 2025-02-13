@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from '../modules/material/material.module';
-import { RouterOutlet } from '@angular/router';
+import { RouterModule, RouterOutlet } from '@angular/router';
 import { CustomSnackBarComponent } from './components/custom-snack-bar/custom-snack-bar.component';
 import { MatButtonModule } from '@angular/material/button';
 import { StarRatingComponent } from './components/star-rating/star-rating.component';
@@ -20,6 +20,8 @@ import { NgChartsModule } from 'ng2-charts';
 import { ReviewBarChartComponent } from './components/review-analysis-bar-chart/review-bar-chart/review-bar-chart.component';
 import { FormsModule } from '@angular/forms';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
+import { routes } from '../app-routing.module';
+import { HomeComponent } from './components/LandingPage/home/home.component';
 
 
 @NgModule({
@@ -35,6 +37,7 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
     SwotAnalysisComponent,
     ReviewAnalysisChartComponent,
     ReviewBarChartComponent,
+    HomeComponent
  
   ],
   imports: [
@@ -43,7 +46,8 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
     RouterOutlet,
     NgChartsModule,
     FormsModule,
-    NgxMaterialTimepickerModule
+    NgxMaterialTimepickerModule,
+    RouterModule
 
   
   ],
@@ -57,7 +61,8 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
     ReviewComponent, 
     ReviewAnalysisChartComponent ,
     NgChartsModule,
-    NgxMaterialTimepickerModule
+    NgxMaterialTimepickerModule,
+    RouterModule
 
   ]
 })

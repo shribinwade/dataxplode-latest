@@ -6,11 +6,17 @@ const routes: Routes = [
   {
     path: '',
     redirectTo: 'market-intelligence',
-    pathMatch: 'full'
+    pathMatch: 'full',
+    data:{
+      reuse: true
+     },
   },
   {
     path:'market-intelligence',
-    component: MarketIntelligenceComponent
+    component: MarketIntelligenceComponent,
+    data:{
+      reuse: true
+     },
   }
 ];
 

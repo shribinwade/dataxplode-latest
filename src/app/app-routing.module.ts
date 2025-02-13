@@ -28,17 +28,13 @@ export const routes: Routes = [
       {
         path: 'admin',
         loadChildren: () => import('./modules/admin/admin.module').then(m => m.AdminModule),
-        data:{
-         reuse: true
-        },
+     
         canActivate:[AdminGuard]
       },
       {
         path: 'user',
         loadChildren: () => import('./modules/users/users.module').then(m => m.UsersModule),
-        data:{
-          reuse: true
-         },
+      
       },
       // {
       //   path: 'amazon-product',

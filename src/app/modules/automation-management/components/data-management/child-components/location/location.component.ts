@@ -10,7 +10,6 @@ export class LocationComponent {
     @Input() country!: string; // Country input property
     @Input() platform!: string;
 
-  
     displayedColumns: string[] = ['platform', 'platformId', 'country', 'locationName', 'locationId', 'pincode'];
     dataSource: any[] = [];
   

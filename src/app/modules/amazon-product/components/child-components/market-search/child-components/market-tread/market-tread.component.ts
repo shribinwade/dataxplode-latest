@@ -66,13 +66,14 @@ export class MarketTreadComponent implements ItabComponent, OnInit, OnDestroy  {
 
     console.log(this.marketSearchData);
     
-    const marketCAGRData = this.marketSearchData.market_cagr[1];
+    const marketCAGRData = this.marketSearchData.market_cagr;
     console.log(marketCAGRData);
+    this.marketCAGRValues = marketCAGRData;
     
 
     // Extract keys from marketCAGRData
-    const marketCagrKeys = Object.keys(marketCAGRData);
-    this.marketCAGRValues= Object.values(marketCAGRData);
+    // const marketCagrKeys = Object.keys(marketCAGRData);
+    // this.marketCAGRValues= Object.values(marketCAGRData);
 
     // Function to format the keys (remove underscores and make camelCase)
      const formatKey = (key: string) => {
@@ -82,10 +83,10 @@ export class MarketTreadComponent implements ItabComponent, OnInit, OnDestroy  {
     .replace(/\(([^)]+)\)/g, '') // Remove text inside parentheses
     .trim();
     };
-    const formattedKeys = marketCagrKeys.map(key => formatKey(key));
+    // const formattedKeys = marketCagrKeys.map(key => formatKey(key));
 
     // Assign the data to the new dynamic interface
-    this.marketCAGRKey = formattedKeys;
+    // this.marketCAGRKey = formattedKeys;
   }
 
   handleSubmit(){

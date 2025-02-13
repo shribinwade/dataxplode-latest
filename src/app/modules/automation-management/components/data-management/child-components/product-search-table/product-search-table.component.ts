@@ -76,26 +76,6 @@ export class ProductSearchTableComponent implements OnChanges {
   private updateDataSource(): void {
     if (this.platform && this.country) {
       this.dataSource = this.ExcelToJSON.Sheet1;
-      //[
-      //   {
-      //     platform: this.platform,
-      //     platformId: 'AMZ001',
-      //     keyword: 'Best Soap',
-      //     country: this.country,
-      //   },
-      //   {
-      //     platform: this.platform,
-      //     platformId: 'AMZ001',
-      //     keyword: 'Herbal Shampoo',
-      //     country: this.country,
-      //   },
-      //   {
-      //     platform: this.platform,
-      //     platformId: 'AMZ001',
-      //     keyword: 'Organic Toothpaste',
-      //     country: this.country,
-      //   },
-      // ];
     }
   }
 
@@ -132,6 +112,10 @@ export class ProductSearchTableComponent implements OnChanges {
 
   //Download template excel
   downloadExcel(Service: string) {
+    this.excelTemplate.downloadExcel(Service);
+  }
+
+  downloadLocationExcel(Service: string){
     this.excelTemplate.downloadExcel(Service);
   }
 }

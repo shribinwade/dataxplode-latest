@@ -9,6 +9,7 @@ export class ExcelTemplateService {
 
    KeywordData = [{ Platform: '', PlatformId: '', Keyword: '', Country: '' }]; // Example row
    ProductData = [{Platform:'',	PlatformId: '',	WebPID: '',	Brand: ''	,Product: '' ,Type: ''	,Country: ''}];
+   LocationData = [{Country:'',Platform:'', Location: '',Pincode:'' }]
   
    worksheet!: XLSX.WorkSheet;
 
@@ -31,6 +32,12 @@ export class ExcelTemplateService {
        this.fileName = "KeywordTemplate.xlsx";
        this.worksheet = XLSX.utils.json_to_sheet(this.KeywordData);
        break;
+      }
+
+      case "Location" :{
+        this.fileName = "LocationTemplate.xlsx";
+        this.worksheet = XLSX.utils.json_to_sheet(this.LocationData);
+        break;
       }
 
       default: { 

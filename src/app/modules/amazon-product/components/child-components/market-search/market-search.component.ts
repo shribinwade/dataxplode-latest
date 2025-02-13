@@ -27,14 +27,10 @@ export class MarketSearchComponent implements OnInit {
     private UploadMarketService:SaveServiceDataService
   ){}
 
-
-
   ngOnInit(): void {
     // console.log(this.data); 
     this.insertComponent('Market Trend And News');
   }
-
-
 
   insertComponent(code: string) {
    this.tabService.tabItemObservable.next(code);
@@ -55,7 +51,7 @@ export class MarketSearchComponent implements OnInit {
     //5.get searchData
     let searchData = JSON.stringify(this.data);
     
-    //6. get Searchquery
+    //6.get Searchquery
     let searchQuery = this.formdata.marketSearchQuery;
     
     const marketRequestData = {
