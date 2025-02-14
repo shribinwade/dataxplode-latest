@@ -130,7 +130,7 @@ export class CustomSidenavComponent implements OnInit, OnChanges{
          }
         ]
       },
-      { label: 'Profile', route: '/user/profile', icon: 'person' },
+      { label: 'Profile', route: 'user/profile', icon: 'person' },
     ];
   }
   

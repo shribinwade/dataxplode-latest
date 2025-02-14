@@ -2,25 +2,29 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from '../../../../environments/environment';
-import { BehaviorSubject, catchError, Observable, of, Subject, tap } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, of, Subject, tap, throwError } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { User } from '../../model/user';
+import { user } from '../../../modules/user-profile/component/profile/profile.component';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+
   url = environment.authUrl+'/user';
   subscriptionURL = environment.subscriptionUrl;
 
   userStatus: Subject<String> = new Subject();
 
   private dataSubject = new BehaviorSubject<any>(null);
+  public userDataSubject = new BehaviorSubject<user| null>(null);
+
   data$ = this.dataSubject.asObservable();
-  
+  userDetailsData$ = this.userDataSubject.asObservable();
+
 
   
-
   constructor(
     private httpClient: HttpClient,
     private router: Router,
@@ -28,9 +32,7 @@ export class AuthService {
   ) {}
 
   getUserSearchData(data: any) {
-    debugger;
     //extract form data parameter
-
     const UserID = data.UserID as number;
     const country = data.country as string;
     const platform = data.platform as string;
@@ -46,6 +48,14 @@ export class AuthService {
     });
   }
 
+  getUserDetails(data: { userId: string | undefined }) {
+    this.httpClient.post<user>(`${this.url}/getUserDetails`, data, {
+      headers: new HttpHeaders().set('Content-Type', 'application/json')
+    }).subscribe((response:user) => {
+      this.userDataSubject.next(response);
+    }, (error) => console.error(error));
+  }
+  
   forgotPassword(data: any) {
     return this.httpClient.post(this.url + '/forgotPassword', data, {
       headers: new HttpHeaders().set('content-Type', 'application/json'),
@@ -128,7 +138,6 @@ export class AuthService {
   }
 
   public getDBData(dbEndpointUrl: string): Observable<any | null> {
-    debugger
     return this.httpClient.get(dbEndpointUrl).pipe(
       tap((response) => {
         response;

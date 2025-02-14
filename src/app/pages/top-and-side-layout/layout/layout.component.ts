@@ -74,6 +74,7 @@ export class LayoutComponent {
   isExpanded: boolean = true;
   sideNavDefaultOpened = true;
   sideNavMode!: 'side' | 'over' | 'push';
+  isAdmin!: boolean;
 
   ngOnInit(): void {
     this.breakpointSub = this.observer.observe([Breakpoints.XSmall]).subscribe((state: BreakpointState) => {
@@ -97,6 +98,18 @@ export class LayoutComponent {
         this.sideNavMode = 'side';
       }
     })
+  }
+
+
+  profileRoute(){
+    this.isAdmin = this.authService.getUserInfo()?.role ==='admin';
+    const id = this.authService.getUserInfo()?.id;    
+    if(this.isAdmin){
+      this.route.navigate(['dashboard/admin/profiles']);
+    }else{
+      this.route.navigate(['dashboard/user/profiles/profile/'+ id]);
+    }
+    
   }
  
 
@@ -134,6 +147,7 @@ export class LayoutComponent {
   }
 
   logout(){
+    this.authService.userDataSubject.next(null);
     localStorage.removeItem('token');
     sessionStorage.removeItem('token');
     this.route.navigate(['/home']);

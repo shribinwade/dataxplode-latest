@@ -54,19 +54,25 @@ export class HomeComponent implements OnInit, AfterViewInit  {
 
   checkToken(){
     setTimeout(() => {
+      debugger
       const spinnerElement = document.getElementById('spinner');
       if (spinnerElement) {
         spinnerElement.classList.add('show');
+
         this.authservice.checkToken().subscribe(
           (response: any) => {
            spinnerElement.classList.remove('show');
            if(response){
             const role = this.authservice.getUserInfo()?.role;
-            if(role?.includes("User"))
-             this.router.navigate(['/dashboard/user/home']);
-            } else{
-             this.router.navigate(['/dashboard/admin/home']);
-            }    
+
+            (role?.includes("User"))? this.router.navigate(['dashboard/user/home']):this.router.navigate(['dashboard/admin/home']);
+
+            // if(role?.includes("User")){
+            //  this.router.navigate(['dashboard/user/home']);
+            // } else{
+            //  this.router.navigate(['dashboard/admin/home']);
+            // }
+          }    
           },
           (error: any) => {
             spinnerElement.classList.remove('show');
@@ -74,7 +80,7 @@ export class HomeComponent implements OnInit, AfterViewInit  {
           }
         );
       }
-    }, 1);
+    }, 10);
     
   }
 

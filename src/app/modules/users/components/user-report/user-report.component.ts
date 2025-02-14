@@ -75,7 +75,6 @@ export class UserReportComponent {
 
 
       onChange(){
-        debugger
        const formdata = {
           UserID: this.authService.getUserInfo()?.id,
           country: this.selectedCountry,

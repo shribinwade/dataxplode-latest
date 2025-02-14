@@ -71,11 +71,9 @@ export class LoginComponent implements OnInit {
           
            if(response){
            const role = this.authservice.getUserInfo()?.role;
-           if(role?.includes("User"))
-            this.router.navigate(['/dashboard/user/home']);
-           } else{
-            this.router.navigate(['/dashboard/admin/home']);
-           }    
+           (role?.includes("User"))? this.router.navigate(['dashboard/user/home']):this.router.navigate(['dashboard/admin/home']);
+
+          }   
       },(error)=>{
         this.hide=false;
         this.isLoading = false;

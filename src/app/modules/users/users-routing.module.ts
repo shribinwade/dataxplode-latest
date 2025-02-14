@@ -11,6 +11,10 @@ const routes: Routes = [
     component: UserReportComponent
   },
   {
+   path: 'profiles',
+   loadChildren:() => import('../../modules/user-profile/user-profile.module').then(m=> m.UserProfileModule),
+  },
+  {
     path: 'analysis-tool',
     loadChildren: () => import('../../modules/amazon-product/amazon-product.module').then(m => m.AmazonProductModule),
   },
@@ -21,7 +25,12 @@ const routes: Routes = [
   {
     path: 'valuation',
     component: ValuationComponent
+  },
+  {
+    path: '**',
+    component: UserReportComponent
   }
+
 ];
 
 @NgModule({
