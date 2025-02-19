@@ -107,7 +107,7 @@ export class CustomSidenavComponent implements OnInit, OnChanges{
 
   getUserMenuItems() {
     return [
-      { label: 'Dashboard', route: 'user/home', icon: 'dashboard' },
+      { label: 'Dashboard', route: 'user/Report', icon: 'dashboard' },
       { label: 'Analysis Tool', 
         // route: 'user/analysis-tool',
         icon: 'construction',

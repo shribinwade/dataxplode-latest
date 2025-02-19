@@ -65,7 +65,7 @@ export class HomeComponent implements OnInit, AfterViewInit  {
            if(response){
             const role = this.authservice.getUserInfo()?.role;
 
-            (role?.includes("User"))? this.router.navigate(['dashboard/user/home']):this.router.navigate(['dashboard/admin/home']);
+            (role?.includes("User"))? this.router.navigate(['dashboard/user/Report']):this.router.navigate(['dashboard/admin/Report']);
 
             // if(role?.includes("User")){
             //  this.router.navigate(['dashboard/user/home']);

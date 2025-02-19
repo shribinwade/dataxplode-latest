@@ -15,6 +15,7 @@ import { PaynescoreMethodComponent } from './components/valuation/valuation/chil
 import { RiskSummationFactorComponent } from './components/valuation/valuation/child-components/risk-summation-factor/risk-summation-factor.component';
 import { StartupsMethodComponent } from './components/valuation/valuation/child-components/startups-method/startups-method.component';
 import { SummarizedValuationComponent } from './components/valuation/valuation/child-components/summarized-valuation/summarized-valuation.component';
+import { UserSearchHistoryComponent } from './components/user-search-history/user-search-history.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { SummarizedValuationComponent } from './components/valuation/valuation/c
     PaynescoreMethodComponent,
     RiskSummationFactorComponent,
     StartupsMethodComponent,
-    SummarizedValuationComponent
+    SummarizedValuationComponent,
+    UserSearchHistoryComponent
   ],
   imports: [
     FormsModule,

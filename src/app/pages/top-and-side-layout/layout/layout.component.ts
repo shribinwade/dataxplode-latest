@@ -131,7 +131,6 @@ export class LayoutComponent {
     //   this.isExpanded = true;
     // }  
     if(!this.isMobile){
-      
       this.isExpanded = !this.isExpanded;
     }
     if (this.isMobile) {
@@ -150,7 +149,7 @@ export class LayoutComponent {
     this.authService.userDataSubject.next(null);
     localStorage.removeItem('token');
     sessionStorage.removeItem('token');
-    this.route.navigate(['/home']);
+    this.route.navigate(['home']);
   }
 
   ngOnDestroy(): void {

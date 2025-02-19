@@ -40,8 +40,6 @@ import { ReuseRouter } from './core/services/reuse-router.service.ts/reuse-route
         tokenGetter: () => {
           console.log(localStorage.getItem('token'));
           return localStorage.getItem('token') || sessionStorage.getItem('token');
-         
-          
         },
         allowedDomains: [ 
           "dataxplode.com",

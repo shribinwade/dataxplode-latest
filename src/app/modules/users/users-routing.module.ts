@@ -1,14 +1,24 @@
-import { NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { UserReportComponent } from './components/user-report/user-report.component';
 import { ValuationComponent } from './components/valuation/valuation/valuation.component';
+import { UserSearchHistoryComponent } from './components/user-search-history/user-search-history.component';
 
 const routes: Routes = [
 
   {
-    path: 'home',
-    component: UserReportComponent
+    path: 'Report',
+    component: UserReportComponent,
+    data:{
+      reuse: true
+    }
+  },
+  {
+    path: 'search-history', // Ensure this is defined under 'user' if needed
+    component: UserSearchHistoryComponent,
+    pathMatch: 'full',
+
   },
   {
    path: 'profiles',
@@ -26,10 +36,6 @@ const routes: Routes = [
     path: 'valuation',
     component: ValuationComponent
   },
-  {
-    path: '**',
-    component: UserReportComponent
-  }
 
 ];
 

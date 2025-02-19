@@ -2,10 +2,11 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from '../../../../environments/environment';
-import { BehaviorSubject, catchError, Observable, of, Subject, tap, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, finalize, Observable, of, ReplaySubject, Subject, tap, throwError } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { User } from '../../model/user';
 import { user } from '../../../modules/user-profile/component/profile/profile.component';
+import { userSearchHistory } from '../../../modules/users/components/user-search-history/user-search-history.component';
 
 @Injectable({
   providedIn: 'root',
@@ -16,14 +17,20 @@ export class AuthService {
   subscriptionURL = environment.subscriptionUrl;
 
   userStatus: Subject<String> = new Subject();
-
   private dataSubject = new BehaviorSubject<any>(null);
+
   public userDataSubject = new BehaviorSubject<user| null>(null);
+
+
+  public userfeaturehistorySubject = new ReplaySubject<userSearchHistory[]>();
+
+  public loadingSubject = new ReplaySubject<boolean>();
+  
+  loading$ = this.loadingSubject.asObservable();
 
   data$ = this.dataSubject.asObservable();
   userDetailsData$ = this.userDataSubject.asObservable();
-
-
+  userfeaturehistorySubject$ = this.userfeaturehistorySubject.asObservable();
   
   constructor(
     private httpClient: HttpClient,
@@ -39,6 +46,20 @@ export class AuthService {
     //use the URL and form data parameter as the cache key
     this.httpClient.get(`${this.subscriptionURL}/getUserSearchData?UserID=${UserID}&country=${country}&platform=${platform}`).subscribe((response)=> {
       this.dataSubject.next(response);
+    });
+  }
+
+  getuserfeaturehistorySubject(data: any) {
+    //extract form data parameter
+    const userID = data.userID as number;
+    const featureName = data.featureName as string;
+    //use the URL and form data parameter as the cache key
+    this.httpClient.get<userSearchHistory[]>(`${this.subscriptionURL}/getUserKeywordSearchData?userId=${userID}&featureName=${featureName}`).pipe(finalize(() => this.loadingSubject.next(true))).subscribe((response: userSearchHistory[])=> {
+      this.loadingSubject.next(false);
+       // ✅ Ensure response is always an array
+      const safeResponse = Array.isArray(response) ? response : [];
+      this.userfeaturehistorySubject.next(safeResponse);
+   
     });
   }
 

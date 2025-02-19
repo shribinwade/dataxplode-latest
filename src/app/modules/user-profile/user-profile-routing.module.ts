@@ -12,6 +12,9 @@ const routes: Routes = [
   {
     path:'profile/:id',
     component: ProfileComponent,
+    data:{
+      reuse: true
+     },
   }
 
 ];
