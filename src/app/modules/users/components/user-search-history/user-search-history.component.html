@@ -36,9 +36,12 @@
           </th>
           <td mat-cell *matCellDef="let data">
             {{
-              data.keywordQuery ||
+                data.keywordQuery ||
                 data.competitiveStratergyQuery ||
-                data.marketSearchQuery
+                data.marketSearchQuery ||
+                data.distributorQuery ||
+                data.competitorQuery||
+                data.productSearchQuery
             }}
           </td>
         </ng-container>

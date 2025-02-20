@@ -8,7 +8,10 @@ import { finalize, Subject, takeUntil } from 'rxjs';
 
 export interface userSearchHistory {
   id: String;
+  productSearchQuery: String,
   keywordQuery: String;
+  distributorQuery: String;
+  competitorQuery:String;
   competitiveStratergyQuery: String;
   marketSearchQuery: String;
   createdAt: String;
@@ -103,6 +106,8 @@ export class UserSearchHistoryComponent implements OnInit {
       )
       .subscribe(
         (res: userSearchHistory[]) => {
+          console.log(res);
+          
           this.isLoading = false;
           this.dataSource.data = res;
 
