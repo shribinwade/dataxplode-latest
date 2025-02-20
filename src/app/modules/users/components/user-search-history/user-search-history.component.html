@@ -1,18 +1,18 @@
 <div class="container">
   <div class="row mt-4">
     <div claass="d-flex justify-content-start align-items-start">
-      <p class="fs-2">Keyword History</p>
+      <p class="fs-2">{{featureTitle}}</p>
     </div>
   </div>
-  <div class="card-body overflow-scroll shadow">
+  <div class="card-body overflow shadow">
     <mat-progress-bar
       mode="indeterminate"
       [hidden]="loading$ | async"
     ></mat-progress-bar>
     <mat-paginator
     class="w-100 d-flex align-item-start justify-content-start bg-white border-0 shadow-0"
-    [pageSize]="1"
-    [pageSizeOptions]="[1, 5, 10, this.tableSize]"
+    [pageSize]="5"
+    [pageSizeOptions]="[5, 10, this.tableSize]"
     aria-label="Select page of users"
   >
   </mat-paginator>

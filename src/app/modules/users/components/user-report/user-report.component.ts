@@ -98,17 +98,17 @@ export class UserReportComponent {
   }
   distributorHistory() {
     this.router.navigate(['/dashboard/user/search-history'], {
-      queryParams: { userID: this.userID, featureName: 'Distributor Search' },
+      queryParams: { userID: this.userID, featureName: 'Distributor Search'},
     });
   }
   competitveHistory() {
     this.router.navigate(['/dashboard/user/search-history'], {
-      queryParams: { userID: this.userID, featureName: 'competitive stratergy query' },
+      queryParams: { userID: this.userID, featureName: 'competitive stratergy query'},
     });
   }
   CompetitiorHistory() {
     this.router.navigate(['/dashboard/user/search-history'], {
-      queryParams: { userID: this.userID, featureName: 'Competitor Analysis Search' },
+      queryParams: { userID: this.userID, featureName: 'Competitor Analysis Search'},
     });
   }
 

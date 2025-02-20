@@ -23,11 +23,7 @@ export interface userSearchHistory {
   styleUrl: './user-search-history.component.scss',
 })
 export class UserSearchHistoryComponent implements OnInit {
-
-
-
-  dataSource = new MatTableDataSource<userSearchHistory>;
-
+  dataSource = new MatTableDataSource<userSearchHistory>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -35,9 +31,8 @@ export class UserSearchHistoryComponent implements OnInit {
   loading$ = this.authService.loading$;
   private unsubscribe$ = new Subject<void>();
 
+  isLoading: boolean = false;
 
-  isLoading: boolean=false;
- 
   displayedColumns: string[] = [
     'index',
     'keywordQuery',
@@ -50,43 +45,68 @@ export class UserSearchHistoryComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private authService: AuthService
-  ) { }
+  ) {}
 
   userID?: String;
   featureName?: String;
-  tableSize:number= 0;
+  tableSize: number = 0;
+  featureTitle?: String;
 
   ngOnInit() {
-       
     this.route.queryParams.subscribe((params) => {
       this.userID = params['userID'];
       this.featureName = params['featureName'];
     });
 
-      this.ApiCall();
+    //Dynamic Heading Name using feature Name
+
+    switch (this.featureName) {
+      case 'Keyword Search':
+        this.featureTitle = 'Keyword History';
+        break;
+      case 'Product Search':
+        this.featureTitle = 'Product History';
+        break;
+      case 'Market Search':
+        this.featureTitle = 'Market History';
+        break;
+      case 'Distributor Search':
+        this.featureTitle = 'Distributor History';
+        break;
+      case 'competitive stratergy query':
+        this.featureTitle = 'Competitive Strategy History';
+        break;
+      case 'Competitor Analysis Search':
+        this.featureTitle = 'Competitor History';
+        break;
+      default:
+        this.featureTitle = 'Unknown Feature';
+    }
+
+    this.ApiCall();
   }
 
-  ApiCall(){
+  ApiCall() {
     const data = {
       userID: this.userID,
       featureName: this.featureName,
     };
 
     this.authService.getuserfeaturehistorySubject(data);
- 
-    this.authService.userfeaturehistorySubject$.pipe(
+
+    this.authService.userfeaturehistorySubject$
+      .pipe(
         takeUntil(this.unsubscribe$),
         finalize(() => {
-             this.authService.loadingSubject.next(false);
+          this.authService.loadingSubject.next(false);
         })
       )
       .subscribe(
         (res: userSearchHistory[]) => {
+          this.isLoading = false;
+          this.dataSource.data = res;
 
-          this.isLoading=false;
-          this.dataSource.data= res;
-          
-          if(res.length!=0 || null){
+          if (res.length != 0 || null) {
             this.tableSize = res.length;
           }
           // this.pageSlice = this.userSearchedData.slice(0, this.pageSize || 10); // Default page size to 10 if undefined
@@ -113,7 +133,7 @@ export class UserSearchHistoryComponent implements OnInit {
     return this.paginator ? this.paginator.pageSize : 10;
   }
 
-  ngOnDestroy(): void { 
+  ngOnDestroy(): void {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
   }
