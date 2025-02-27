@@ -15,7 +15,7 @@
               <label for="country" class="fw-medium mb-0 mt-3">Select Country</label>
             </div>
             <div class="card-body mx-2 p-2">
-              <select name="country" id="country" (change)="onSelected()" [(ngModel)]="selectedCountry" required
+              <select name="country" id="country" (change)="onCountrySelected()" [(ngModel)]="selectedCountry" required
                 class="form-select" aria-label="Default select example" #country>
                 <option value="" selected>Select Country</option>
                 <option *ngFor="let esites of ecommarcebrands" [value]="esites.country">
@@ -108,7 +108,7 @@
             [platform]="selectedPlatform"></app-keyword-search-table>
 
           <p class="fw-medium fs-5 mt-4">Location Table</p>
-          <app-location [country]="selectedCountry" [platform]="selectedPlatform"></app-location>
+          <!-- <app-location [country]="selectedCountry" [platform]="selectedPlatform"></app-location> -->
         </div>
       </ng-template>
 
@@ -117,15 +117,15 @@
           <p class="fw-medium fs-5 mt-4">Reviews Table</p>
           <app-review-search-table [country]="selectedCountry" [platform]="selectedPlatform"></app-review-search-table>
 
-          <p class="fw-medium fs-5 mt-4">Location Table</p>
-          <app-location [country]="selectedCountry" [platform]="selectedPlatform">
-          </app-location>
+          <!-- <p class="fw-medium fs-5 mt-4">Location Table</p> -->
+          <!-- <app-location [country]="selectedCountry" [platform]="selectedPlatform">
+          </app-location> -->
         </div>
       </ng-template>
 
       <div class="mt-2">
         <!-- Date Picker -->
-        <form [formGroup]="dateTimeForm" (ngSubmit)="ontest()">
+        <form [formGroup]="dateTimeForm" >
           <div class="d-flex justify-content-around align-items-center mb-1 w-100 date">
             <div class="d-flex justify-content-start align-items-center w-100">
               <label for="startDate" style="min-width: 12%">Start Date:</label>

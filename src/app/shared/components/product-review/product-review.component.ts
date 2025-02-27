@@ -58,7 +58,7 @@ export class ProductReviewComponent implements OnInit, AfterViewInit {
       ).subscribe((responseData: any) => {
        
       this.receviedData = responseData;
-      console.log(this.receviedData);
+      // console.log(this.receviedData);
     },(error:any) =>{
 
       this.isLoadingReviews=false;
@@ -72,13 +72,9 @@ export class ProductReviewComponent implements OnInit, AfterViewInit {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
   }
-
-
+  
   closepopup(): void {
     this.ref.close();
   }
-
-
-
 
 }

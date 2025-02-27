@@ -145,6 +145,17 @@ h6,
     }
 }
 
+@media (max-width: 576px ){
+    .navbar-light .navbar-brand img {
+        max-height: 25px;
+    }
+}
+@media (max-width: 257px ){
+    .navbar-light .navbar-brand img {
+        max-height: 15px;
+    }
+}
+
 @media (min-width: 992px) {
     .navbar-light {
         position: absolute;

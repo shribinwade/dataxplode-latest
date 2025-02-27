@@ -34,7 +34,7 @@
       <div class="m-1">
         <div class="mb-3">
           <label for="formFile" class="form-label">Upload location excel file</label>
-          <input class="form-control" type="file" id="formFile" (change)="handleFileChange($event)" />
+          <input class="form-control" type="file" id="formFile" (change)="handleFileLocationChange($event)" />
         </div>
       </div>
     </div>
@@ -93,5 +93,5 @@
   </table>
   <p class="fw-medium fs-5 mt-4">Location Table</p>
 
-  <app-location [country]="country" [platform]="platform" ></app-location>
+  <app-location [country]="country" [platform]="platform" [datasource]="locationDataSource" ></app-location>
 </div>

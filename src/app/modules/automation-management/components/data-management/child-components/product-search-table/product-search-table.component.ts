@@ -37,6 +37,7 @@ export class ProductSearchTableComponent implements OnChanges {
 
   displayedColumns: string[] = ['platform','platformId','webpid','brand','productType','country'];
   dataSource: ProductTableElements[] = [];
+  locationDataSource: any[]=[];
   ExcelToJSON!:Sheet;
 
   platformData: string = '';
@@ -71,6 +72,16 @@ export class ProductSearchTableComponent implements OnChanges {
         console.log('File processing complete.');
       },
     });
+  }
+
+  handleFileLocationChange(event: any){
+    this.excelToJsonService.onFileChange(event).subscribe({
+        next: (dataString) => {
+          let ExcelToJSONLocation = JSON.parse(dataString);
+          console.log('JSON Data:', ExcelToJSONLocation);
+          this.locationDataSource = ExcelToJSONLocation.Sheet1;
+        }
+    })
   }
 
   private updateDataSource(): void {

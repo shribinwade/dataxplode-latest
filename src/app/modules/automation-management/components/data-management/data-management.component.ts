@@ -20,6 +20,7 @@ export interface scheduleTime{
   styleUrl: './data-management.component.scss',
 })
 export class DataManagementComponent implements OnInit {
+  
   filteredSites: Array<{ id: number; name: string; src: string }> = [];
   selectedCountry = '';
   selectedPlatform = '';
@@ -50,6 +51,7 @@ export class DataManagementComponent implements OnInit {
       startDate: new FormControl(''),
       endDate: new FormControl(''),
       scheduleTime: new FormControl('')
+      
     });
   }
 
@@ -66,10 +68,12 @@ export class DataManagementComponent implements OnInit {
     );
   }
 
-  onSelected(): void {
+  onCountrySelected(): void {
     this.selectedCountry = this.country.nativeElement.value;
     this.filterSites();
   }
+
+
 
   // Filter sites based on selected country
   filterSites() {
@@ -78,9 +82,7 @@ export class DataManagementComponent implements OnInit {
       this.selectedCountrySites = this.ecommarcebrands.find(
         (site: any) => site.country === this.selectedCountry
       );
-      this.filteredSites = this.selectedCountrySites
-        ? this.selectedCountrySites.sites
-        : [];
+      this.filteredSites = this.selectedCountrySites? this.selectedCountrySites.sites: [];
 
       //for City
       // this.selectedCities = this.selectedCountrySites ? this.selectedCountrySites.cities : [];
@@ -89,13 +91,12 @@ export class DataManagementComponent implements OnInit {
     }
   }
 
-
   //Schedule Time
   formControlItem: FormControl = new FormControl('');
 
   onChange($event: Event): void {
-    const scheduleTimeValue = this.formControlItem.value;
-    this.selectedtime = scheduleTimeValue;
+    const scheduleTimeValue = this.dateTimeForm.value;
+    this.selectedtime = scheduleTimeValue.scheduleTime;
     console.log(scheduleTimeValue);
   }
 
@@ -114,13 +115,13 @@ export class DataManagementComponent implements OnInit {
       this.excelTemplate.downloadExcel(Service);
   }
   
-  ontest() {
-    if (this.dateTimeForm.valid) {
-      console.log('Form Submitted:', this.dateTimeForm.value);
-    } else {
-      console.log('Form is invalid');
-    }
-  }
+  // ontest() {
+  //   if (this.dateTimeForm.valid) {
+  //     console.log('Form Submitted:', this.dateTimeForm.value);
+  //   } else {
+  //     console.log('Form is invalid');
+  //   }
+  // }
 
   
 
