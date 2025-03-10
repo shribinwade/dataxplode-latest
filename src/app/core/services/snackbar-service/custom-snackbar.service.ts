@@ -9,11 +9,15 @@ export class CustomSnackbarService {
 
   constructor(private snackBar:MatSnackBar) { }
    
-  showSuccess(message: string, action: string, duration: number = 10000){
+  showSuccess(
+    message: string,
+    action: string, 
+    duration: number = 10000, 
+    position: 'start' | 'center' | 'end' | 'left' | 'right' = 'right'  ){
     return this.snackBar.openFromComponent(CustomSnackBarComponent,{
       data: { message , action},
       duration: duration,
-      horizontalPosition: 'right',
+      horizontalPosition: position,
       verticalPosition: 'top',
       panelClass:['green-snackbar'],
     })
@@ -26,11 +30,11 @@ export class CustomSnackbarService {
 
   }
 
-  showError(message: string,action: string, duration: number = 10000){
+  showError(message: string,action: string, duration: number = 10000, position: 'start' | 'center' | 'end' | 'left' | 'right' = 'right' ){
     return this.snackBar.openFromComponent(CustomSnackBarComponent,{
       data: { message , action},
       duration: duration,
-      horizontalPosition: 'right',
+      horizontalPosition: position,
       verticalPosition: 'top',
       panelClass:['red-snackbar'],
     });

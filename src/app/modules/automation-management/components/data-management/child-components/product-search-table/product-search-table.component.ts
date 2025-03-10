@@ -1,8 +1,10 @@
 import {
   Component,
+  EventEmitter,
   Input,
   OnChanges,
   OnInit,
+  Output,
   SimpleChanges,
 } from '@angular/core';
 import { ExcelTemplateService } from '../../../../../../core/services/Excel-download-template/excel-template.service';
@@ -23,16 +25,18 @@ export interface ProductTableElements {
   Country: any
 }
 
-
-
 @Component({
   selector: 'app-product-search-table',
   templateUrl: './product-search-table.component.html',
   styleUrl: './product-search-table.component.scss',
 })
 export class ProductSearchTableComponent implements OnChanges {
+
   @Input() country!: string; // Country input property
   @Input() platform!: string;
+
+  @Output() excelProductData = new EventEmitter<any>();
+  @Output() excelLoacationData =  new EventEmitter<any>();
 
 
   displayedColumns: string[] = ['platform','platformId','webpid','brand','productType','country'];
@@ -41,6 +45,8 @@ export class ProductSearchTableComponent implements OnChanges {
   ExcelToJSON!:Sheet;
 
   platformData: string = '';
+  isProductExcelUploaded: boolean = false;
+  isLocationExcelUploaded: boolean = false;
 
 
   constructor(
@@ -66,6 +72,7 @@ export class ProductSearchTableComponent implements OnChanges {
         // Do something with the dataString
       },
       error: (error) => {
+        this.isProductExcelUploaded = false;
         console.error('Error reading file:', error);
       },
       complete: () => {
@@ -77,18 +84,42 @@ export class ProductSearchTableComponent implements OnChanges {
   handleFileLocationChange(event: any){
     this.excelToJsonService.onFileChange(event).subscribe({
         next: (dataString) => {
+          this.isLocationExcelUploaded = !this.isLocationExcelUploaded;
           let ExcelToJSONLocation = JSON.parse(dataString);
           console.log('JSON Data:', ExcelToJSONLocation);
           this.locationDataSource = ExcelToJSONLocation.Sheet1;
-        }
+          this.excelLoacationData.emit(ExcelToJSONLocation.Sheet1);
+        },
+        error: (error) => {
+          this.isLocationExcelUploaded = false;
+          console.error('Error reading file:', error);
+        },
+        complete: () => {
+          console.log('File processing complete.');
+        },
     })
   }
 
   private updateDataSource(): void {
     if (this.platform && this.country) {
+      this.isProductExcelUploaded = !this.isProductExcelUploaded;
       this.dataSource = this.ExcelToJSON.Sheet1;
+      this.excelProductData.emit(this.ExcelToJSON.Sheet1);
     }
   }
+
+
+  //Download template excel
+  downloadExcel(Service: string) {
+    this.excelTemplate.downloadExcel(Service);
+  }
+
+  downloadLocationExcel(Service: string){
+    this.excelTemplate.downloadExcel(Service);
+  }
+}
+
+
 
   // private updateDataSource(): void {
   //   if (this.platform && this.country) {
@@ -120,13 +151,3 @@ export class ProductSearchTableComponent implements OnChanges {
   //     ];
   //   }
   // }
-
-  //Download template excel
-  downloadExcel(Service: string) {
-    this.excelTemplate.downloadExcel(Service);
-  }
-
-  downloadLocationExcel(Service: string){
-    this.excelTemplate.downloadExcel(Service);
-  }
-}

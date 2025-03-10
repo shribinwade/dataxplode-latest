@@ -5,7 +5,10 @@ import { DataManagementComponent } from './components/data-management/data-manag
 const routes: Routes = [
   {
     path: '',
-    component: DataManagementComponent
+    component: DataManagementComponent,
+    data:{
+      reuse: true
+    },
   },
 
 ];
