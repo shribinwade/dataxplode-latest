@@ -32,8 +32,8 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
        //SignupFromGroup
        this.signinFormGroup=this.formBuilder.group({
-        email: ["shribinwade.100@gmail.com",[Validators.required,Validators.pattern(GlobalConstants.emailRegex)]],
-        password: ["Admin@123",[Validators.required]],
+        email: ['',[Validators.required,Validators.pattern(GlobalConstants.emailRegex)]],
+        password: ['',[Validators.required]],
         rememberMe: [false] // Default to unchecked
       })
   }

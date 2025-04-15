@@ -1,16 +1,14 @@
-import {ChangeDetectorRef,Component,ElementRef,OnChanges,OnInit,SimpleChanges,ViewChild,} from '@angular/core';
+import {ChangeDetectorRef,Component,ElementRef,OnDestroy,OnInit,ViewChild,} from '@angular/core';
 import { ECommerceSitesService } from '../../../../core/services/e-commerce-sites/e-commerce-sites.service';
 import { CustomSnackbarService } from '../../../../core/services/snackbar-service/custom-snackbar.service';
-import { AuthService } from '../../../../core/services/auth-service/auth.service';
 import {AbstractControl,FormBuilder,FormControl,FormGroup,ValidatorFn,Validators,} from '@angular/forms';
-import * as XLSX from 'xlsx';
-import { ExcelToJsonService } from '../../../../core/services/excel-to-json-Utils/excel-to-json.service';
 import { ExcelTemplateService } from '../../../../core/services/Excel-download-template/excel-template.service';
 import { SchedulerService } from '../../../../core/services/schedulerService/scheduler.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { AmazonProductService } from '../../../../core/services/amazon-product/amazon-product.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { map } from 'rxjs';
+import { Subject, Subscription, takeUntil, timeout } from 'rxjs';
+
 
 export interface scheduleTime {
   startDate: Date;
@@ -21,19 +19,33 @@ export interface scheduleTime {
 export interface serviceBatch{
   id: number;
   service: string;
-  serviceBranch: BatchJob[];
+  serviceBranch: ProductBatchJob[] | KeywordBatchJob[];
   scheduledTime: Date;
-  status: 'Scheduled' | 'Processing' | 'Completed' | 'Failed';
+  status: 'Scheduled' | 'Processing' | 'Completed' | 'Failed' |'Stopped';
 }
 
-export interface BatchJob {
+export interface ProductBatchJob {
+  id: number;
+  platformID: string;
+  webPID: string;
+  service: string;
+  country: string;
+  brand: string;
+  location: string;
+  pincode: string;
+  scheduledTime: Date;
+  status: 'Scheduled' | 'Processing' | 'Completed' | 'Failed'| 'Stopped';
+}
+
+
+export interface KeywordBatchJob{
   id: number;
   service: string;
   country: string;
   brand: string;
   location: string;
   scheduledTime: Date;
-  status: 'Scheduled' | 'Processing' | 'Completed' | 'Failed';
+  status: 'Scheduled' | 'Processing' | 'Completed' | 'Failed' | 'Stopped';
 }
 
 @Component({
@@ -50,7 +62,7 @@ export interface BatchJob {
 })
 
 
-export class DataManagementComponent implements OnInit {
+export class DataManagementComponent implements OnInit ,OnDestroy {
   filteredSites: Array<{ id: number; name: string; src: string }> = [];
   selectedCountry = '';
   selectedPlatform = '';
@@ -64,6 +76,7 @@ export class DataManagementComponent implements OnInit {
   startDate!: Date;
   endDate!: Date;
   buttonDisabled: boolean = true;
+  scheduledTimeouts = new Map<number, number[]>(); // Stores timeouts for each serviceID
 
   constructor(
     private ecommarcesites: ECommerceSitesService,
@@ -73,28 +86,52 @@ export class DataManagementComponent implements OnInit {
     private formBuilder: FormBuilder,
     private cdr: ChangeDetectorRef,
     private amazonProductService: AmazonProductService,
+    
   ) {
     this.ecommarcebrands = ecommarcesites.eCommerceSites;
   }
 
   // dataSource = ELEMENT_DATA;
-  columnsToDisplay = ['id', 'service', 'scheduledTime', 'status'];
-  serviceToDisplay = ['id','service', 'brand', 'location', 'scheduledTime', 'status'];
+  columnsToDisplay = ['id', 'service', 'scheduledTime', 'status','action'];
+  childTableColumnsToDisplay: any[] = [];
   columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand'];
-  expandedElement?:BatchJob | null;
+  expandedElement?:ProductBatchJob|KeywordBatchJob | null;
   // expandedElement: PeriodicElement | null;
 
   dateTimeForm: any = FormGroup;
+  //Product Excel Data
   excelProductData: any[] = [];
   excelProductLocationData: any[] = [];
 
+  //Keyword Excel Data
+  excelKeywordData: any[]= [];
+  excelKeywordLocationData: any[] = [];
+
+  //cancelledService Data;
+  cancelServiceData: Set<number> = new Set<number>();
+
+  unsubscribe$ = new Subject<void>();
+  
+
+
   productExcelData(data: any) {
-    this.excelProductData = data;
     console.log(data);
+    
+    this.excelProductData = data;
+  }
+
+  keywordExcelData(data:any){
+      this.excelKeywordData = data;
   }
 
   locationExcelData(data: any) {
-    this.excelProductLocationData = data;
+    console.log(this.selectedService);
+    
+    if(this.selectedService ==="Product Search"){
+      this.excelProductLocationData = data;
+    }else if(this.selectedService === "Keyword Search"){
+      this.excelKeywordLocationData = data;
+    }
     console.log(data);
   }
 
@@ -206,14 +243,21 @@ export class DataManagementComponent implements OnInit {
   serviceBatch:serviceBatch[] = [];
   // batchJob: BatchJob[] = []; // Stores scheduled batches
   dataSource = new MatTableDataSource<serviceBatch>(this.serviceBatch);
-  batchJobTables = new Map<number,MatTableDataSource<BatchJob>>();
+  batchJobTables = new Map<number,MatTableDataSource<any>>();
 
   batchCounter = 0; // Unique ID counter
   serviceCounter = 0; //Unique ID counter
 
-  toggle(element:BatchJob){
+  toggle(element:any){
+    debugger
     this.expandedElement = (this.expandedElement === element) ? null : element;
-      this.loadSubtableData()
+     if(this.expandedElement?.service==='Product Search'){
+      this.childTableColumnsToDisplay = ['id', 'platformId','webPId', 'brand', 'location','pincode', 'scheduledTime', 'status' ];
+     }
+     if(this.expandedElement?.service==='Keyword Search'){
+      this.childTableColumnsToDisplay=['id', 'brand', 'location', 'scheduledTime', 'status'];
+     }
+     this.cdr.detectChanges(); // Force UI to update
   }
 
   loadSubtableData(){
@@ -221,16 +265,27 @@ export class DataManagementComponent implements OnInit {
   }
 
   searchBegins() {
-    debugger;
     //To-do
     // check date time form valid
     if (this.dateTimeForm.valid && this.selectedService) {
 
-      if (!this.excelProductData.length ||!this.excelProductLocationData.length) {
-        this.globalSnackbar.showError('Product or Location data is missing!','Close',5000,'center');
-        return;
+      if(this.selectedService === 'Product Search'){
+        if (!this.excelProductData.length ||!this.excelProductLocationData.length) {
+          this.globalSnackbar.showError('Product or Location data is missing!','Close',5000,'center');
+          return;
+        }
+        this.scheduleProcessing();
       }
-      this.scheduleProcessing();
+
+      if(this.selectedService === 'Keyword Search'){
+        if (!this.excelKeywordData.length || !this.excelKeywordLocationData.length) {
+          this.globalSnackbar.showError('Product or Location data is missing!','Close',5000,'center');
+          return;
+        }
+        this.scheduleProcessing();
+      }
+  
+      
     } else {
       this.dateTimeForm.invalid? this.globalSnackbar.showError('Please select date and time','Close',5000,'center'): 
       this.globalSnackbar.showError('Please select the service','Close',5000,'center');
@@ -249,7 +304,6 @@ export class DataManagementComponent implements OnInit {
   }
 
   scheduleProcessing() {
-    debugger
     const now = new Date();
     const selectedDate = new Date(this.dateTimeForm.value.startDate);
     const selectedTime = this.dateTimeForm.value.scheduleTime;
@@ -295,15 +349,57 @@ export class DataManagementComponent implements OnInit {
     this.serviceBatch.push(serviceBatch);
     this.dataSource.data = [...this.serviceBatch]
 
+    //
+    if(this.selectedService==="Product Search"){
+
     // Create a new batch job list for this service
-    const batchJobsForService: BatchJob[] = [];
- 
+    // this.childTableColumnsToDisplay=['id', 'platformId','webPId', 'brand', 'location','pincode', 'scheduledTime', 'status'];
+    const batchJobsForService: ProductBatchJob[] = [];
     // Schedule batch processing for each product-location combination
     this.excelProductData.forEach(product => {
       this.excelProductLocationData.forEach(location => {
         const batchId = ++this.batchCounter;
         
-        const batch: BatchJob = {
+        const batch: ProductBatchJob = {
+          id: batchId,
+          pincode: location.Pincode,
+          platformID: product.PlatformId,
+          webPID: product.WebPID,
+          country: location.Country,
+          service: this.selectedService,
+          brand: product.Brand,
+          location: location.Location,
+          scheduledTime: scheduledDateTime,
+          status: 'Scheduled'
+        };
+  
+        batchJobsForService.push(batch); 
+        // this.batchJob.push(batch);
+        // this.dataSource.data = [...this.batchJob];
+        
+      let timeoutId = setTimeout(() => {
+          this.processBatch(batchId,serviceID);
+        }, timeDifference) as unknown as number;
+
+        //Store timeout ID
+        this.scheduledTimeouts.get(serviceID)?.push(timeoutId);
+      });
+     });
+
+       // Store the batch list in the map for this serviceID
+       serviceBatch.serviceBranch = batchJobsForService;
+       this.batchJobTables.set(serviceID, new MatTableDataSource<any>(batchJobsForService));
+
+    }else if(this.selectedService === "Keyword Search"){
+      // this.childTableColumnsToDisplay=['id', 'brand', 'location', 'scheduledTime', 'status'];
+    // Create a new batch job list for this service
+    const batchJobsForService: KeywordBatchJob[] = [];
+
+    // Schedule batch processing for each product-location combination
+    this.excelKeywordData.forEach(product => {
+      this.excelKeywordLocationData.forEach(location => {
+        const batchId = ++this.batchCounter;
+        const batch: KeywordBatchJob = {
           id: batchId,
           country: location.Country,
           service: this.selectedService,
@@ -317,21 +413,30 @@ export class DataManagementComponent implements OnInit {
         // this.batchJob.push(batch);
         // this.dataSource.data = [...this.batchJob];
         
-        setTimeout(() => {
+       let timeoutId= setTimeout(() => {
           this.processBatch(batchId,serviceID);
-        }, timeDifference);
+       }, timeDifference)as unknown as number;
+          
+       // Store timeout ID
+       if (!this.scheduledTimeouts.has(serviceID)) {
+          this.scheduledTimeouts.set(serviceID, []);
+       }
+       //Store timeout ID
+       this.scheduledTimeouts.get(serviceID)?.push(timeoutId);
       });
+
     });
 
-        // Store the batch list in the map for this serviceID
-        serviceBatch.serviceBranch = batchJobsForService;
-       this.batchJobTables.set(serviceID, new MatTableDataSource<BatchJob>(batchJobsForService));
-
+      // Store the batch list in the map for this serviceID
+      serviceBatch.serviceBranch = batchJobsForService;
+      this.batchJobTables.set(serviceID, new MatTableDataSource<any>(batchJobsForService));
+    }
 
   }
-
+  private activeSubscriptions: Map<number, Subscription> = new Map();
 
   processBatch(batchId: number,serviceID:number) {
+    debugger
     const batchList = this.batchJobTables.get(serviceID);
     if (!batchList) return;
     let batch = batchList.data.find(b=> b.id ===batchId);
@@ -339,37 +444,76 @@ export class DataManagementComponent implements OnInit {
     let service = this.serviceBatch.find(s => s.id === serviceID);
     if (!service || !batch) return;
 
-    batch.service = this.selectedService;
+    batch.service = service.service;
     batch.status = 'Processing';
     service.status = "Processing";
     console.log(`🚀 Processing batch ${batchId}: ${batch.brand} at ${batch.location}`);
-    
-    // Process each product with each location
+
+    if(batch.service === "Keyword Search"){
+
+      if (this.cancelServiceData.has(serviceID)) {
+        console.log(`Service ${serviceID} is canceled. Stopping request.`);
+        batch.status='Stopped';
+        service.status = 'Stopped'
+        return;
+      }
+       // Process each product with each location
       // Call API
-      this.amazonProductService.amazon_product_keyword_search({country: batch.country,keywordSearchQuery: batch.brand}).subscribe((response) => {
+     const subscription =  this.amazonProductService.amazon_product_keyword_search({country: batch.country,keywordSearchQuery: batch.brand}).pipe(takeUntil(this.unsubscribe$)).subscribe((response) => {
+        batch.status = 'Completed';
+        console.log(batch.status);
 
-          batch.status = 'Completed';
-          console.log(batch.status);
-
-          if (this.isAllBatchesCompleted(serviceID)) {
-            service.status = "Completed"
-            console.log('🎉 All batches are completed!');
-          }
-          // this.dataSource.data = [...this.batchJobs]; // ✅ Update UI
-        },
-         (error) => {
-          if (this.isALLBatchesFailed(serviceID)) {
-            service.status = "Failed";
-          }
-          batch.status = 'Failed';
-          console.error('Error:', error);
-          // this.dataSource.data = [...this.batchJobs]; // ✅ Update UI
+        if (this.isAllBatchesCompleted(serviceID)) {
+          service.status = "Completed"
+          console.log('🎉 All batches are completed!');
         }
-      );
+        // this.dataSource.data = [...this.batchJobs]; // ✅ Update UI
+      },
+       (error) => {
+        if (this.isALLBatchesFailed(serviceID)) {
+          service.status = "Failed";
+        }
+        batch.status = 'Failed';
+        console.error('Error:', error);
+        // this.dataSource.data = [...this.batchJobs]; // ✅ Update UI
+      }
+     );
+       // Store subscription for later cancellation
+      this.activeSubscriptions.set(batch.id, subscription);
+    }else if(batch.service === "Product Search"){
+
+      if (this.cancelServiceData.has(serviceID)) {
+        batch.status='Stopped'
+        service.status = 'Stopped'
+        console.log(`Service ${serviceID} is canceled. Stopping request.`);
+        return;
+      }
+      // Call API
+      const subscription = this.amazonProductService.amazon_product_asin_search({country: batch.country,productSearchQuery: batch.webPID, pincode: batch.pincode}).pipe(takeUntil(this.unsubscribe$)).subscribe((response) => {
+        batch.status = 'Completed';
+        console.log(batch.status);
+
+        if (this.isAllBatchesCompleted(serviceID)) {
+          service.status = "Completed"
+          console.log('🎉 All batches are completed!');
+        }
+        // this.dataSource.data = [...this.batchJobs]; // ✅ Update UI
+      },
+       (error) => {
+        batch.status = 'Failed';
+        if (this.isALLBatchesFailed(serviceID)) {
+          service.status = "Failed";
+        }
+      }
+     );
+     this.activeSubscriptions.set(batch.id, subscription);
+    }
+    
+   
   }
 
-  getBatchDataSource(serviceId: number): MatTableDataSource<BatchJob> {
-    return this.batchJobTables.get(serviceId) ?? new MatTableDataSource<BatchJob>([]);
+  getBatchDataSource(serviceId: number): MatTableDataSource<any> {
+    return this.batchJobTables.get(serviceId) ?? new MatTableDataSource<any>([]);
   }
 
   isAllBatchesCompleted(serviceID: number): boolean {
@@ -381,5 +525,55 @@ export class DataManagementComponent implements OnInit {
     return batchList? batchList.data.every(batch => batch.status === 'Failed'): false;
   }
 
+  endProcess(serviceID: number) {
+    
+    // Clear all scheduled timeouts for this serviceID
+    if (this.scheduledTimeouts.has(serviceID)) {
+        this.scheduledTimeouts.get(serviceID)?.forEach(timeoutId => clearTimeout(timeoutId));
+        this.scheduledTimeouts.delete(serviceID); // Remove tracking
+    }
+
+    this.cancelServiceData.add(serviceID);
+
+
+
+    // Optionally, update UI to show the batch is stopped
+    const service = this.serviceBatch.find(s => s.id === serviceID);
+    const batch = service?.serviceBranch?.map(f => {
+      if(f.status ==='Completed'){
+        f.status = 'Completed';
+      }else if(f.status === 'Processing'){
+        this.stopProcessingBatch(f.id);
+        f.status = 'Stopped';
+      }
+     
+    }) ?? [];
+    console.log("+++++++++++++++++++++++++++"+batch);
+    
+    if (service) {
+        service.status = "Stopped";
+       
+    }
+
+    console.log(`⛔ Processing for Service ID ${serviceID} has been stopped.`);
+}
+
+// Stop processing an individual request
+stopProcessingBatch(batchId: number) {
+  
+  const subscription = this.activeSubscriptions.get(batchId);
+  if (subscription) {
+    subscription.unsubscribe();
+    this.activeSubscriptions.delete(batchId);
+    console.log(`Batch ${batchId} processing stopped.`);
+  }
+}
+
+
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+    // throw new Error('Method not implemented.');
+  }
     
 }

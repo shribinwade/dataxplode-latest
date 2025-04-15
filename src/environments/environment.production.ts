@@ -36,6 +36,6 @@ export const environment = {
     subscriptionUrl: `${bigrockBase}/subscription`,
   
     //Local endpoint 
-    apiUrl: 'https://www.dataxplode.com/dataxplode-api',
+    // apiUrl: 'https://www.dataxplode.com/dataxplode-api',
    
   };

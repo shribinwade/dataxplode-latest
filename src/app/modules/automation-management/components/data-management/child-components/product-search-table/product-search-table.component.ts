@@ -1,12 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnChanges,
-  OnInit,
-  Output,
-  SimpleChanges,
-} from '@angular/core';
+import {Component,EventEmitter,Input,OnChanges,OnInit,Output,SimpleChanges} from '@angular/core';
 import { ExcelTemplateService } from '../../../../../../core/services/Excel-download-template/excel-template.service';
 import { ExcelToJsonService } from '../../../../../../core/services/excel-to-json-Utils/excel-to-json.service';
 
@@ -17,7 +9,7 @@ export interface Sheet{
 
 export interface ProductTableElements {
   Platform:any,	
-  PlatformId: any,	
+  PlatformId: any,
   WebPID: any,	
   Brand: any,
   Product: any,

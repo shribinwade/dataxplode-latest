@@ -7,8 +7,8 @@ import { saveAs } from 'file-saver';
 })
 export class ExcelTemplateService {
 
-   KeywordData = [{ Platform: '', PlatformId: '', Keyword: '', Country: '' }]; // Example row
-   ProductData = [{Platform:'',	PlatformId: '',	WebPID: '',	Brand: ''	,Product: '' ,Type: ''	,Country: ''}];
+   KeywordData = [{ Platform: '', PlatformId: '', Brand: '', Country: '' }]; // Example row
+   ProductData = [{Platform:'',	PlatformId: '',	WebPID: '',	Brand: ''	,Product: '' ,Type: '',Country: ''}];
    LocationData = [{Country:'',Platform:'', Location: '',Pincode:'' }]
   
    worksheet!: XLSX.WorkSheet;

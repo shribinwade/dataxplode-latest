@@ -89,6 +89,8 @@ export class MarketIntelligenceComponent implements AfterViewInit, OnDestroy {
   //expand
   isExpanded = true;
 
+  
+
   // ViewChild elements
   @ViewChild('country') country!: ElementRef;
   @ViewChild('dynamicComponentContainer', { read: ViewContainerRef }) dynamicComponentContainer!: ViewContainerRef;
