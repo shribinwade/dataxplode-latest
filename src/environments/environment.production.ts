@@ -3,7 +3,7 @@ const bigrockBase = 'https://www.dataxplode.com/auth-api';
 
 export const environment = {
     // Services API
-    production: false,
+    production: true,
 
     // Base URL
     bigrockBaseUrl: bigrockBase,
@@ -36,6 +36,6 @@ export const environment = {
     subscriptionUrl: `${bigrockBase}/subscription`,
   
     //Local endpoint 
-    // apiUrl: 'https://www.dataxplode.com/dataxplode-api',
+    apiUrl: 'https://www.dataxplode.com/dataxplode-api',
    
   };
