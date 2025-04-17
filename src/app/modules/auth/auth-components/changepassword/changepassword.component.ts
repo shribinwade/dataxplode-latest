@@ -58,20 +58,23 @@ export class ChangepasswordComponent implements OnInit {
   }
 
   resetSubmit(){
-    this.isLoading = true;
+    
+     debugger
     if (this.ResetPasswordFormGroup.valid && this.token) {
+      this.isLoading = true;
       const data = {
         token: this.token,
         newPassword: this.ResetPasswordFormGroup.value.newPassword
       };
 
       this.authservice.resetPssword(data).subscribe((response:any)=>{
+        debugger
         this.isLoading = false;
         this.responseMessage = response?.message;
         this.globalSnackbar.showSuccess(this.responseMessage,"Close");
-        this.onReset();
+  
       },(error)=>{
-        this.onReset();
+        debugger
         this.isLoading = false;
         if(error.error?.message){
           this.responseMessage = error.error?.message;
